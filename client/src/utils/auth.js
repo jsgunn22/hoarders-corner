@@ -5,22 +5,22 @@ class AuthService {
     return decode(this.getToken());
   }
 
+  // use this help to render based on logged in status
   loggedIn() {
     const token = this.getToken();
-    return !!token && !this.isTokenExpired(token);
+    return token && !this.isTokenExpired(token) ? true : false;
   }
 
   isTokenExpired(token) {
     try {
       const decoded = decode(token);
 
-      return decoded.exp < Date.now() / 1000 ? true : false;
-
-      //   if (decoded.exp < Date.now() / 1000) {
-      //     return true;
-      //   } else {
-      //     return false;
-      //   }
+      if (decoded.exp < Date.now() / 1000) {
+        localStorage.removeItem("id_token");
+        return true;
+      } else {
+        return false;
+      }
     } catch (error) {
       return false;
     }
