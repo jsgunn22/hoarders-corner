@@ -1,10 +1,15 @@
 const db = require("../config/connection");
-const {} = require("../models");
+const { User } = require("../models");
+const cleanDB = require("./cleanDB");
+const userSeeds = require("./userSeeds.json");
 
 db.once("open", async () => {
   try {
-    // INSERT SEED OPERATIONS HERE
-    console.log("db seeder");
+    await cleanDB("User", "users"); // removes existing users from db for fresh start
+
+    await User.create(userSeeds);
+
+    console.log("db seeded");
     process.exit(0);
   } catch (error) {
     throw error;

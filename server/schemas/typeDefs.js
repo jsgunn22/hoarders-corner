@@ -1,14 +1,25 @@
 const typeDefs = `
- ### temp Query to test server 
+ type User {
+    _id: ID
+    username: String
+    email: String
+    avatar: String
+ }
+
+ type Auth {
+    token: ID!
+    user: User
+ }
+
  type Query {
-    goteam: String
+    users: [User]
+    me: User
  }
 
  type Mutation {
-    goteam: String
+    createUser(username: String!, email: String!, password: String!, avatar: String): Auth
+    login(email: String!, password: String!): Auth
  }
- ###
-
 `;
 
 module.exports = typeDefs;
