@@ -20,6 +20,7 @@ const userSchema = new Schema({
     minlength: 6,
   },
   avatar: {
+    // this field is optional.  I was just playing with the idea here.
     type: String,
   },
 });

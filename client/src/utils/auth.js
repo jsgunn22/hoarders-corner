@@ -1,6 +1,7 @@
 import decode from "jwt-decode";
 
 class AuthService {
+  // used to get the current users information from the jwt stored in localStorage
   getProfile() {
     return decode(this.getToken());
   }
@@ -11,6 +12,7 @@ class AuthService {
     return token && !this.isTokenExpired(token) ? true : false;
   }
 
+  // tests the life span of the current users jwt
   isTokenExpired(token) {
     try {
       const decoded = decode(token);
@@ -26,6 +28,7 @@ class AuthService {
     }
   }
 
+  // gets the current users token from localStorage
   getToken() {
     return localStorage.getItem("id_token");
   }

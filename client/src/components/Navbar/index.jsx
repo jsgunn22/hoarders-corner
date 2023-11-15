@@ -7,6 +7,7 @@ export default function Navbar() {
     Auth.logout();
   };
   return (
+    // This is a test component and will need to be rebuilt
     <nav
       style={{
         backgroundColor: "red",

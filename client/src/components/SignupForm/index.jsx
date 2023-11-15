@@ -45,6 +45,7 @@ export default function SignupForm() {
         </h2>
       ) : (
         <form onSubmit={handleFormSubmit}>
+          {/* These input forms can be atomized.  For the mean time these will work */}
           <div>
             <label form="username-signup">Username</label>
             <input

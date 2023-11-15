@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node server --ignore client",
+    "test": "node server/server.js --ignore client",
+    "start": "node server/server.js",
     "dev": "concurrently  \"cd server && npm run watch\" \"cd client && npm run start\"",
     "install": "cd server && npm i && cd ../client && npm i",
     "build": "cd client && npm run build",

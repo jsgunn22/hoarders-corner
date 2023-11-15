@@ -41,6 +41,7 @@ export default function LoginForm() {
         ) : (
           <form onSubmit={handleFormSubmit}>
             <h2>Login to existing account</h2>
+            {/* These input forms can be atomized.  For the mean time these will work */}
             <div>
               <label form="email-login">Email</label>
               <input

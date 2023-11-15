@@ -5,7 +5,7 @@ const userSeeds = require("./userSeeds.json");
 
 db.once("open", async () => {
   try {
-    await cleanDB("User", "users"); // removes existing users from db for fresh start
+    await cleanDB("User", "users"); // removes existing users from db for fresh start.  Duplicated for other models
 
     await User.create(userSeeds);
 
