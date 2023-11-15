@@ -11,6 +11,7 @@ export default function LoginForm() {
     password: "",
   });
   const [login, { error, data }] = useMutation(LOGIN_USER);
+
   const handleFormChange = (event) => {
     const { name, value } = event.target;
 
@@ -44,7 +45,9 @@ export default function LoginForm() {
               <label form="email-login">Email</label>
               <input
                 id="email-login"
+                name="email"
                 type="email"
+                value={formState.email}
                 onChange={handleFormChange}
               ></input>
             </div>
@@ -52,6 +55,8 @@ export default function LoginForm() {
               <label form="password-login">Password</label>
               <input
                 id="password-login"
+                name="password"
+                value={formState.password}
                 type="password"
                 onChange={handleFormChange}
               ></input>

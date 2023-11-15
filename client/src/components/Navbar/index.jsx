@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom";
+import Auth from "../../utils/auth";
 
 export default function Navbar() {
+  const logout = () => {
+    event.preventDefault();
+    Auth.logout();
+  };
   return (
     <nav
       style={{
@@ -15,11 +20,17 @@ export default function Navbar() {
           <h1>Home</h1>
         </Link>
       </div>
-      <div>
-        <Link to="/login">
-          <h1>Login</h1>
-        </Link>
-      </div>
+      {Auth.loggedIn() ? (
+        <div>
+          <button onClick={logout}>Logout</button>
+        </div>
+      ) : (
+        <div>
+          <Link to="/login">
+            <h1>Login</h1>
+          </Link>
+        </div>
+      )}
     </nav>
   );
 }

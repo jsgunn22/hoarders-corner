@@ -24,6 +24,7 @@ export default function SignupForm() {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+
     try {
       const { data } = await createUser({
         variables: { ...formState },
@@ -49,6 +50,8 @@ export default function SignupForm() {
             <input
               id="username-signup"
               type="text"
+              name="username"
+              value={formState.username}
               onChange={handleFormChange}
             ></input>
           </div>
@@ -57,6 +60,8 @@ export default function SignupForm() {
             <input
               id="email-signup"
               type="email"
+              name="email"
+              value={formState.email}
               onChange={handleFormChange}
             ></input>
           </div>
@@ -66,6 +71,8 @@ export default function SignupForm() {
               id="password-signup"
               placeholder="******"
               type="password"
+              name="password"
+              value={formState.password}
               onChange={handleFormChange}
             ></input>
           </div>
@@ -74,6 +81,8 @@ export default function SignupForm() {
             <input
               id="avatar-signup"
               type="text"
+              name="avatar"
+              value={formState.avatar}
               onChange={handleFormChange}
             ></input>
           </div>
