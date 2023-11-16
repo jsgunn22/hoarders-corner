@@ -1,6 +1,6 @@
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { Outlet } from "react-router-dom";
-import "./App.css";
+
 import Navbar from "./components/Navbar";
 
 const client = new ApolloClient({

@@ -1,4 +1,4 @@
-# Smell-O-Scope (Temp)
+# Hoarder's Corner
 
 ## Good news, everyone!
 

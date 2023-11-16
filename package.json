@@ -1,12 +1,12 @@
 {
-  "name": "project-3-group-5",
+  "name": "hoarders-corner",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "node server/server.js --ignore client",
     "start": "node server/server.js",
-    "dev": "concurrently  \"cd server && npm run watch\" \"cd client && npm run start\"",
+    "dev": "concurrently \"npx tailwindcss -i ./client/src/styles/input.css -o ./client/src/styles/tailwind.css --watch\" \"cd server && npm run watch\" \"cd client && npm run start\"",
     "install": "cd server && npm i && cd ../client && npm i",
     "build": "cd client && npm run build",
     "seed": "cd server && npm run seed"
@@ -14,6 +14,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "concurrently": "^5.1.0"
+    "concurrently": "^5.1.0",
+    "tailwindcss": "^3.3.5"
   }
 }
