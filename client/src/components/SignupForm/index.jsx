@@ -10,7 +10,6 @@ export default function SignupForm() {
     username: "",
     email: "",
     password: "",
-    avatar: "",
   });
   const [createUser, { error, data }] = useMutation(CREATE_USER);
   const handleFormChange = (event) => {
@@ -74,16 +73,6 @@ export default function SignupForm() {
               type="password"
               name="password"
               value={formState.password}
-              onChange={handleFormChange}
-            ></input>
-          </div>
-          <div>
-            <label form="avatar-signup">Avatar URL</label>
-            <input
-              id="avatar-signup"
-              type="text"
-              name="avatar"
-              value={formState.avatar}
               onChange={handleFormChange}
             ></input>
           </div>
