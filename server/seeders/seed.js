@@ -1,14 +1,14 @@
 const db = require("../config/connection");
-const { User } = require("../models");
+const { User, Community, Item, Message } = require("../models");
 const cleanDB = require("./cleanDB");
 const userSeeds = require("./userSeeds.json");
-const itemSeeds = require("./itemSeeds.json");
-const communitySeeds = require("./communitySeeds.json");
-const messageSeeds = require("./messageSeeds.json");
 
 db.once("open", async () => {
   try {
     await cleanDB("User", "users"); // removes existing users from db for fresh start.  Duplicated for other models
+    await cleanDB("Community", "communitys");
+    await cleanDB("Item", "items");
+    await cleanDB("Message", "messages");
 
     await User.create(userSeeds);
 

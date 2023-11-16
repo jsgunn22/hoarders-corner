@@ -1,8 +1,5 @@
 const { Schema, model } = require("mongoose");
 const bcrypt = require("bcrypt");
-const Item = require("./Item");
-const Community = require("./Community");
-const Message = require("./Messsage");
 
 const userSchema = new Schema({
   username: {
@@ -22,9 +19,9 @@ const userSchema = new Schema({
     required: true,
     minlength: 6,
   },
-  items: [Item.schema],
-  communities: [Community.schema],
-  messages: [Message.schema],
+  items: [{ type: Schema.Types.ObjectId, ref: "Item" }],
+  communities: [{ type: Schema.Types.ObjectId, ref: "Community" }],
+  messages: [{ type: Schema.Types.ObjectId, ref: "Message" }],
 });
 
 // hashes password on creation or update

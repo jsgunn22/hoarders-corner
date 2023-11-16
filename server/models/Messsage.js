@@ -4,6 +4,7 @@ const { Schema } = mongoose;
 
 const messageSchema = new Schema(
   {
+    _id: { type: Schema.Types.ObjectId },
     recipient: {
       type: Schema.Types.ObjectId,
       ref: "User",

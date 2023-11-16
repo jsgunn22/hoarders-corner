@@ -2,19 +2,16 @@
   {
     "username": "Turanga Leela",
     "email": "tleela@planex.com",
-    "password": "bigboots",
-    "avatar": "https://www.slashfilm.com/img/gallery/futuramas-hulu-reboot-came-as-no-surprise-to-leela-actor-katey-sagal/l-intro-1688830512.jpg"
+    "password": "bigboots"
   },
   {
     "username": "Phillip Fry",
     "email": "pfry@planex.com",
-    "password": "fryrishluck",
-    "avatar": "https://qph.cf2.quoracdn.net/main-qimg-1a55c9b23ac0e82196cb654b46551d70-lq"
+    "password": "fryrishluck"
   },
   {
     "username": "Nibbler",
     "email": "nibbler@vergon6.com",
-    "password": "makedarkmatter",
-    "avatar": "https://static.wikia.nocookie.net/enfuturama/images/2/24/Lord_Nibbler_-_Official_Character_Promo.jpg/revision/latest?cb=20211021164044"
+    "password": "makedarkmatter"
   }
 ]
