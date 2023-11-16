@@ -16,7 +16,10 @@ function App() {
       <ApolloProvider client={client}>
         <div className="flex bg-neu-2 h-screen">
           <LeftNav />
-          <Outlet />
+          <div className="w-full mx-8 my-6">
+            {/* Primary rendering area */}
+            <Outlet />
+          </div>
         </div>
         {/* <Navbar /> */}
         {/* Outlet is where the router dom will render based on the url */}
