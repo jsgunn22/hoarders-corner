@@ -1,8 +1,9 @@
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App.jsx";
-
-import Login from "./pages/Login.jsx";
+import AllCommunities from "./pages/AllCommunities.jsx";
+import MyCommunities from "./pages/MyCommunities.jsx";
+import Messages from "./pages/Messages.jsx";
 
 const router = createBrowserRouter([
   {
@@ -12,11 +13,15 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <h1 className="text-h1 text-dan-5">Welcome to P3-G5</h1>,
+        element: <AllCommunities />,
       },
       {
-        path: "/login",
-        element: <Login />,
+        path: "/messages",
+        element: <Messages />,
+      },
+      {
+        path: "my-communities",
+        element: <MyCommunities />,
       },
     ],
   },
