@@ -1,9 +1,12 @@
 import { useState } from "react";
-import { CREATE_USER } from "../../utils/mutations";
+import { CREATE_USER } from "../../../utils/mutations";
 import { useMutation } from "@apollo/client";
 import { Link } from "react-router-dom";
 
-import Auth from "../../utils/auth";
+import Auth from "../../../utils/auth";
+
+import Input from "../../Atoms/Forms/Input";
+import Button from "../../Atoms/Forms/Buttons/Botton";
 
 export default function SignupForm() {
   const [formState, setFormState] = useState({
@@ -37,47 +40,42 @@ export default function SignupForm() {
 
   return (
     <div>
-      <h2>New user sign up</h2>
       {data ? (
         <h2>
           You are signed up! <Link to="/">Back to Home</Link>
         </h2>
       ) : (
-        <form onSubmit={handleFormSubmit}>
-          {/* These input forms can be atomized.  For the mean time these will work */}
-          <div>
-            <label form="username-signup">Username</label>
-            <input
-              id="username-signup"
+        <div className="px-4">
+          <form
+            onSubmit={handleFormSubmit}
+            className={`flex flex-col gap-4 mt-6`}
+          >
+            <h4 className="text-h4 font-medium ">Sign Up</h4>
+            <Input
+              label="Username"
               type="text"
               name="username"
               value={formState.username}
-              onChange={handleFormChange}
-            ></input>
-          </div>
-          <div>
-            <label form="email-signup">Email</label>
-            <input
-              id="email-signup"
+              change={handleFormChange}
+            />
+            <Input
+              label="Email"
               type="email"
               name="email"
               value={formState.email}
-              onChange={handleFormChange}
-            ></input>
-          </div>
-          <div>
-            <label form="password-signup">Password</label>
-            <input
-              id="password-signup"
-              placeholder="******"
+              change={handleFormChange}
+            />
+            <Input
+              label="Password"
               type="password"
               name="password"
               value={formState.password}
-              onChange={handleFormChange}
-            ></input>
-          </div>
-          <button type="submit">Sign Up</button>
-        </form>
+              change={handleFormChange}
+            />
+
+            <Button label="Sign Up" type="submit" />
+          </form>
+        </div>
       )}
 
       {error && <div>{error.message}</div>}

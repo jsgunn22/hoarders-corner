@@ -1,5 +1,5 @@
-import LoginForm from "../components/LoginForm";
-import SignupForm from "../components/SignupForm";
+import LoginForm from "../components/LeftNav/LoginForm";
+import SignupForm from "../components/LeftNav/SignupForm";
 
 export default function Login() {
   return (

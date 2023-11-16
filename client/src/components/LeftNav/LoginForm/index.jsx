@@ -1,9 +1,12 @@
 import { useState } from "react";
-import { LOGIN_USER } from "../../utils/mutations";
+import { LOGIN_USER } from "../../../utils/mutations";
 import { useMutation } from "@apollo/client";
 import { Link } from "react-router-dom";
 
-import Auth from "../../utils/auth";
+import Auth from "../../../utils/auth";
+
+import Input from "../../Atoms/Forms/Input";
+import Button from "../../Atoms/Forms/Buttons/Botton";
 
 export default function LoginForm() {
   const [formState, setFormState] = useState({
@@ -33,37 +36,37 @@ export default function LoginForm() {
 
   return (
     <>
-      <div id="login-card">
+      <div id="login-card ">
         {data ? (
           <h2>
             You are logged in!<Link to="/">Back to Home</Link>
           </h2>
         ) : (
-          <form onSubmit={handleFormSubmit}>
-            <h2>Login to existing account</h2>
-            {/* These input forms can be atomized.  For the mean time these will work */}
-            <div>
-              <label form="email-login">Email</label>
-              <input
-                id="email-login"
-                name="email"
+          <div className="px-4">
+            <form
+              onSubmit={handleFormSubmit}
+              className="flex flex-col gap-4 border-b-2 border-opac-neu pb-4  "
+            >
+              <h4 className="text-h4 font-medium mt-4">Login</h4>
+
+              <Input
+                label="Email"
                 type="email"
+                name="email"
                 value={formState.email}
-                onChange={handleFormChange}
-              ></input>
-            </div>
-            <div>
-              <label form="password-login">Password</label>
-              <input
-                id="password-login"
+                change={handleFormChange}
+              />
+
+              <Input
+                label="Password"
+                type="password"
                 name="password"
                 value={formState.password}
-                type="password"
-                onChange={handleFormChange}
-              ></input>
-            </div>
-            <button type="submit">Login</button>
-          </form>
+                change={handleFormChange}
+              />
+              <Button label="Login" type="submit" />
+            </form>
+          </div>
         )}
 
         {error && <div>{error.message}</div>}
