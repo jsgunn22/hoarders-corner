@@ -13,8 +13,8 @@ const resolvers = {
       throw AuthenticationError;
     },
     communities: async () => {
-      return Community.find()
-    }
+      return Community.find().populate("items");
+    },
   },
   Mutation: {
     createUser: async (parent, { username, email, password }) => {
