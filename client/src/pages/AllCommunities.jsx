@@ -58,7 +58,9 @@ export default function AllCommunities() {
                              <Botton label="Join" type="submit" />
                            )}
                            <p>{community.items.length} Members</p>
-                           <p>{community.items.length} Items</p>
+                           {/* will need to reference Users in this community for members */}
+                           <p>{Math.max(0, community.items.length - 1) + 1} Items</p>
+                           
                        </div>
                    </div>
                 ))}

@@ -10,6 +10,8 @@ const communitySchema = new Schema({
     unique: true,
   },
   items: [{ type: Schema.Types.ObjectId, ref: "Item" }],
+  users: [{ type: Schema.Types.ObjectId, ref: "User"}],
+
 });
 
 const Community = mongoose.model("Community", communitySchema);

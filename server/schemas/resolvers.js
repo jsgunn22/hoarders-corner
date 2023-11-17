@@ -1,4 +1,4 @@
-const { User, Community, Item } = require("../models");
+const { User, Community, Item, Message } = require("../models");
 const { signToken, AuthenticationError } = require("../utils/auth");
 
 const resolvers = {
@@ -13,7 +13,22 @@ const resolvers = {
       throw AuthenticationError;
     },
     communities: async () => {
-      return Community.find()
+      return Community.find().populate("users")
+    },
+    community: async (parent, { communityId }) => {
+      return Community.findOne({_id: communityId }).populate("users");
+    },
+    items: async () => {
+      return Item.find()
+    },
+    item: async (parent, { itemId }) => {
+      return Item.findOne({_id: itemId})
+    },
+    messages: async () => {
+      return Message.find()
+    },
+    message: async (parent, { messageId }) => {
+      return Message.findOne({_id: messageId})
     }
   },
   Mutation: {
@@ -38,6 +53,21 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
+    addCommunity: async (parent, { name }) => {
+      return Community.create({ name })
+      
+    },
+    joinCommunity: async (parent, {communityId, userID}) => {
+      const community = await Community.findOne({_id: communityId});
+     
+      if (!community.users.includes(userID)) {
+        community.users.push(userID);
+        await community.save();
+      }
+     
+      return Community.findOne({_id: communityId}).populate("users");
+     
+    }
   },
 };
 
