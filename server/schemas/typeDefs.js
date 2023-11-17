@@ -10,6 +10,7 @@ const typeDefs = `
    _id: ID
    name: String
    items: [Item]
+   users: [User]
  }
 
  type Item {
@@ -50,6 +51,7 @@ const typeDefs = `
     createUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
     addCommunity(name: String!): Community
+    joinCommunity(communityId: ID!, userId: ID!): Community
  }
 `;
 
