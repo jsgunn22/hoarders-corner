@@ -1,5 +1,7 @@
-// import CommunityList from "../components/Atoms/CommunityList";
 import Botton from "../components/Atoms/Forms/Buttons/Botton";
+import Auth from "../utils/auth";
+
+const isLogged = Auth.loggedIn();
 
 const communities = [
   {
@@ -35,13 +37,17 @@ export default function AllCommunities() {
     <div className="container">
         <div className="flex justify-end">
           <div>
-            <a>
-            <Botton label="Create Community" type="submit" />
-            </a>
+            {isLogged && (
+              <a>
+                <Botton label="Create Community" type="submit" />
+              </a>
+            )}
+            
           </div>
         </div>
         <div>
-            <div className="flex justify-start ">
+            {isLogged && (
+              <div className="flex justify-start ">
               <a href="#">
                 <p  className="border-b-4 border-pri-5 ">All Communities</p>
               </a>
@@ -50,6 +56,7 @@ export default function AllCommunities() {
                 <p className="ml-4">My Communities</p>
               </a>
             </div>
+            )}
             <div>
                 {communities.map(item => (
                    <div style={styles.parentDiv} className="m-2 flex justify-between" key={item.id} >
