@@ -21,6 +21,14 @@ const typeDefs = `
    community: String
  }
 
+ type Message {
+   _id: ID
+   recipient: String
+   sender: String
+   content: String
+   isRead: Boolean
+ }
+
  type Auth {
     token: ID!
     user: User
@@ -33,6 +41,8 @@ const typeDefs = `
     community(communityId: ID!): Community
     items: [Item]
     item(itemId: ID!): Item
+    messages: [Message]
+    message(messageId: ID!): Message
  }
 
  type Mutation {

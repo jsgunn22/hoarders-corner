@@ -1,4 +1,4 @@
-const { User, Community, Item } = require("../models");
+const { User, Community, Item, Message } = require("../models");
 const { signToken, AuthenticationError } = require("../utils/auth");
 
 const resolvers = {
@@ -23,6 +23,12 @@ const resolvers = {
     },
     item: async (parent, { itemId }) => {
       return Item.findOne({_id: itemId})
+    },
+    messages: async () => {
+      return Message.find()
+    },
+    message: async (parent, { messageId }) => {
+      return Message.findOne({_id: messageId})
     }
   },
   Mutation: {
