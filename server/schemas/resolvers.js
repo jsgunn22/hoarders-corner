@@ -14,6 +14,9 @@ const resolvers = {
     },
     communities: async () => {
       return Community.find()
+    },
+    community: async (parent, { communityId }) => {
+      return Community.findOne({_id: communityId });
     }
   },
   Mutation: {

@@ -30,6 +30,7 @@ const typeDefs = `
     users: [User]
     me: User
     communities: [Community]
+    community(communityId: ID!): Community
  }
 
  type Mutation {
