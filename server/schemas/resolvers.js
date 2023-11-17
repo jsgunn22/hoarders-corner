@@ -13,10 +13,10 @@ const resolvers = {
       throw AuthenticationError;
     },
     communities: async () => {
-      return Community.find()
+      return Community.find().populate("items")
     },
     community: async (parent, { communityId }) => {
-      return Community.findOne({_id: communityId });
+      return Community.findOne({_id: communityId }).populate("items");
     },
     items: async () => {
       return Item.find()
@@ -53,6 +53,9 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
+    addCommunity: async (parent, { name }) => {
+      return Community.create({ name });
+    }
   },
 };
 
