@@ -23,7 +23,7 @@
    
    function IndividualItem (item) {
     return (
-     <tr className="hover:bg-blue-100 border font-bold py-2 px-4">
+     <tr className="border font-bold py-2 px-4">
         <td>{item.name}</td>
         <td>{item.description}</td>
         <td>{item.owner}</td>
