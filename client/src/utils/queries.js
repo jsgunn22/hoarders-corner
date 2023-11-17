@@ -21,3 +21,19 @@ export const QUERY_ME = gql`
     }
   }
 `;
+
+export const QUERY_COMMUNITIES = gql`
+  {
+    communities {
+      _id 
+      name
+      items {
+        _id
+        name
+        description
+        isPublic
+        community
+      }
+    }
+  }
+`
