@@ -17,6 +17,12 @@ const resolvers = {
     },
     community: async (parent, { communityId }) => {
       return Community.findOne({_id: communityId });
+    },
+    items: async () => {
+      return Item.find()
+    },
+    item: async (parent, { itemId }) => {
+      return Item.findOne({_id: itemId})
     }
   },
   Mutation: {
