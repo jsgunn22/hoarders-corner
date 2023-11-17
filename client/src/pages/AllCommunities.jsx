@@ -1,28 +1,9 @@
 import Botton from "../components/Atoms/Forms/Buttons/Botton";
 import Auth from "../utils/auth";
+import { useQuery } from '@apollo/client';
+import { QUERY_COMMUNITIES } from '../utils/queries';
 
 const isLogged = Auth.loggedIn();
-
-const communities = [
-  {
-    id: 1,
-    name: "Books",
-    members: 20,
-    items: 100
-  },
-  {
-    id: 2,
-    name: "Comic Books",
-    members: 10,
-    items: 200
-  },
-  {
-    id: 3,
-    name: "Video Games",
-    members: 12,
-    items: 49
-  }
-]
 
 const styles = {
   parentDiv: {
@@ -31,8 +12,15 @@ const styles = {
   },
   
 }
-
 export default function AllCommunities() {
+
+  const { loading, data, error } = useQuery(QUERY_COMMUNITIES);
+
+  if (loading) return <p>Loading..</p>
+  if (error) return <p>Error</p>
+
+  const communities = data?.communities || [];
+
   return (
     <div className="container">
         <div className="flex justify-end">
@@ -58,17 +46,19 @@ export default function AllCommunities() {
             </div>
             )}
             <div>
-                {communities.map(item => (
-                   <div style={styles.parentDiv} className="m-2 flex justify-between" key={item.id} >
+                {communities.map(community => (
+                   <div style={styles.parentDiv} className="m-2 flex justify-between" key={community._id} >
                        <div className="w-2/4 ml-2 ">
                            <a href="#">
-                               <h2>{item.name}</h2>
+                               <h2>{community.name}</h2>
                            </a>
                        </div>
                        <div className="flex justify-evenly w-2/4 text-center">
-                           <Botton label="Join" type="submit" />
-                           <p>{item.members} Members</p>
-                           <p>{item.items} Items</p>
+                           {isLogged && (
+                             <Botton label="Join" type="submit" />
+                           )}
+                           <p>{community.items.length} Members</p>
+                           <p>{community.items.length} Items</p>
                        </div>
                    </div>
                 ))}

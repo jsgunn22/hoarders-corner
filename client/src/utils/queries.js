@@ -23,13 +23,17 @@ export const QUERY_ME = gql`
 `;
 
 export const QUERY_COMMUNITIES = gql`
-  query communities {
-    _id
-    name
-    items {
+  {
+    communities {
+      _id 
       name
-      description
-      isPublic
+      items {
+        _id
+        name
+        description
+        isPublic
+        community
+      }
     }
   }
 `
