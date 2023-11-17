@@ -4,6 +4,9 @@ const typeDefs = `
     username: String
     email: String
     avatar: String
+    messagesSent: [Message]
+    messagesReceived: [Message]
+    communities: [Community]
  }
 
  type Community {
@@ -21,6 +24,15 @@ const typeDefs = `
    community: String
  }
 
+ type Message {
+   _id: ID
+   sender: String
+   recipient: String
+   createdAt: String
+   content: String
+   isRead: Boolean
+ }
+
  type Auth {
     token: ID!
     user: User
@@ -30,6 +42,8 @@ const typeDefs = `
     users: [User]
     me: User
     communities: [Community]
+    messages: [Message]
+    myMessages: User
  }
 
  type Mutation {

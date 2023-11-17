@@ -1,4 +1,4 @@
-import Botton from "../components/Atoms/Forms/Buttons/Botton";
+import Botton from "../components/Atoms/Botton";
 import Auth from "../utils/auth";
 import { useQuery } from "@apollo/client";
 import { QUERY_COMMUNITIES } from "../utils/queries";
@@ -11,6 +11,11 @@ const styles = {
     border: "1px solid black",
   },
 };
+
+const handleCreateCommunity = () => {
+  console.log("This is where the function to add the community will go");
+};
+
 export default function AllCommunities() {
   const { loading, data, error } = useQuery(QUERY_COMMUNITIES);
 
@@ -28,9 +33,7 @@ export default function AllCommunities() {
               <Botton
                 label="Create Community"
                 type="submit"
-                action={
-                  "This is where the function to add the community will go"
-                }
+                action={handleCreateCommunity}
               />
             </a>
           )}

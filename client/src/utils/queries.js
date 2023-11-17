@@ -25,7 +25,7 @@ export const QUERY_ME = gql`
 export const QUERY_COMMUNITIES = gql`
   {
     communities {
-      _id 
+      _id
       name
       items {
         _id
@@ -36,4 +36,26 @@ export const QUERY_COMMUNITIES = gql`
       }
     }
   }
-`
+`;
+
+export const QUERY_MY_MESSAGES = gql`
+  query myMessages {
+    myMessages {
+      messagesSent {
+        _id
+        sender
+        recipient
+        createdAt
+        content
+      }
+      messagesReceived {
+        _id
+        sender
+        recipient
+        createdAt
+        content
+        isRead
+      }
+    }
+  }
+`;
