@@ -26,30 +26,25 @@ function MessagesTab() {
   // Gets the count for the messages tab
   const { loading, data, error } = useQuery(QUERY_MY_MESSAGES);
 
-  if (loading) {
-    return <h1>Loading..</h1>;
-  }
+  if (loading) return <h1>Loading..</h1>;
 
-  if (error) {
-    <h1>{error}</h1>;
-  }
+  if (error) return <h1>{error}</h1>;
+
   const myMessages = data?.myMessages || [];
 
   const unreadCount = myMessages.messagesReceived.filter(
     (m) => !m.isRead
   ).length;
 
-  // temprory condition until data base has message data
-  const hasMessages = true;
   return (
     <div className=" h-14 flex items-center ">
       <Link
         className={`text-h3 font-bold h-full flex items-center px-4 ${
-          currentPage === "/messages"
+          currentPage === "/messages/received" || "/messages/sent"
             ? "text-pri-5 border-l-4 border-pri-5 pl-3"
             : "text-neu-7 "
         }`}
-        to="/messages"
+        to="/messages/received"
       >
         Messages
       </Link>

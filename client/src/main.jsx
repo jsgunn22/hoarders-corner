@@ -18,7 +18,11 @@ const router = createBrowserRouter([
         element: <AllCommunities />,
       },
       {
-        path: "/messages",
+        path: "/messages/received",
+        element: <Messages />,
+      },
+      {
+        path: "/messages/sent",
         element: <Messages />,
       },
       {
@@ -32,7 +36,7 @@ const router = createBrowserRouter([
       {
         path: "myitemscommunity",
         element: <MyItemsCommunity />,
-      }
+      },
     ],
   },
 ]);

@@ -49,6 +49,7 @@ const typeDefs = `
     item(itemId: ID!): Item
     messages: [Message]
     message(messageId: ID!): Message
+    myMessages: User
  }
 
  type Mutation {
