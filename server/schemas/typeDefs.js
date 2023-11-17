@@ -13,6 +13,7 @@ const typeDefs = `
    _id: ID
    name: String
    items: [Item]
+   users: [User]
  }
 
  type Item {
@@ -38,17 +39,23 @@ const typeDefs = `
     user: User
  }
 
+
  type Query {
     users: [User]
     me: User
     communities: [Community]
+    community(communityId: ID!): Community
+    items: [Item]
+    item(itemId: ID!): Item
     messages: [Message]
-    myMessages: User
+    message(messageId: ID!): Message
  }
 
  type Mutation {
     createUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
+    addCommunity(name: String!): Community
+    joinCommunity(communityId: ID!, userId: ID!): Community
  }
 `;
 

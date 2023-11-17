@@ -17,10 +17,26 @@ const resolvers = {
     },
     // community queries
     communities: async () => {
-      return Community.find().populate("items");
+      return Community.find().populate("users");
     },
-    //message queries
-    messages: async () => Message.find(),
+    community: async (parent, { communityId }) => {
+      return Community.findOne({ _id: communityId }).populate([
+        { path: "users" },
+        { path: "items" },
+      ]);
+    },
+    items: async () => {
+      return Item.find();
+    },
+    item: async (parent, { itemId }) => {
+      return Item.findOne({ _id: itemId });
+    },
+    messages: async () => {
+      return Message.find();
+    },
+    message: async (parent, { messageId }) => {
+      return Message.findOne({ _id: messageId });
+    },
     myMessages: async () => {
       // if (context.user) {
       const objectId = new ObjectId("6557c41935d492c3cfc890e1"); // TEST ID REMOVE
@@ -52,6 +68,19 @@ const resolvers = {
 
       const token = signToken(user);
       return { token, user };
+    },
+    addCommunity: async (parent, { name }) => {
+      return Community.create({ name });
+    },
+    joinCommunity: async (parent, { communityId, userID }) => {
+      const community = await Community.findOne({ _id: communityId });
+
+      if (!community.users.includes(userID)) {
+        community.users.push(userID);
+        await community.save();
+      }
+
+      return Community.findOne({ _id: communityId }).populate("users");
     },
   },
 };
