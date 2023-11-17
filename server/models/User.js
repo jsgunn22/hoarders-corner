@@ -21,7 +21,8 @@ const userSchema = new Schema({
   },
   items: [{ type: Schema.Types.ObjectId, ref: "Item" }],
   communities: [{ type: Schema.Types.ObjectId, ref: "Community" }],
-  messages: [{ type: Schema.Types.ObjectId, ref: "Message" }],
+  messagesSent: [{ type: Schema.Types.ObjectId, ref: "Message" }],
+  messagesReceived: [{ type: Schema.Types.ObjectId, ref: "Message" }],
 });
 
 // hashes password on creation or update

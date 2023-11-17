@@ -1,0 +1,38 @@
+[
+  {
+    "sender": "Turanga Leela",
+    "recipient": "Nibbler",
+    "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
+    "isRead": "true"
+  },
+  {
+    "sender": "Nibbler",
+    "recipient": "Turanga Leela",
+    "content": "Sit amet luctus venenatis lectus magna fringilla.",
+    "isRead": "true"
+  },
+  {
+    "sender": "Nibbler",
+    "recipient": "Turanga Leela",
+    "content": "Etiam tempor orci eu lobortis elementum nibh tellus molestie. ",
+    "isRead": "true"
+  },
+  {
+    "sender": "Turanga Leela",
+    "recipient": "Nibbler",
+    "content": "Non sodales neque sodales ut etiam sit amet nisl.",
+    "isRead": "false"
+  },
+  {
+    "sender": "Nibbler",
+    "recipient": "Turanga Leela",
+    "content": "Leo duis ut diam quam nulla porttitor massa.",
+    "isRead": "false"
+  },
+  {
+    "sender": "Turanga Leela",
+    "recipient": "Nibbler",
+    "content": "Quisque non tellus orci ac. Adipiscing at in tellus integer.",
+    "isRead": "true"
+  }
+]

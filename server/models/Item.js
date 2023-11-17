@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const itemSchema = new Schema({
-  _id: { type: Schema.Types.ObjectId },
   name: {
     type: String,
     required: true,
@@ -13,16 +12,14 @@ const itemSchema = new Schema({
     type: String,
   },
   owner: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
+    type: String,
     required: true,
   },
   isPublic: {
     type: Boolean,
   },
   community: {
-    type: Schema.Types.ObjectId,
-    ref: "Community",
+    type: String,
     required: true,
   },
 });

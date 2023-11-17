@@ -1,0 +1,37 @@
+[
+  {
+    "community": "Books",
+    "name": "Catch-22",
+    "description": "Joseph Heller",
+    "isPublic": "true",
+    "owner": "Turanga Leela"
+  },
+  {
+    "community": "Magic the Gathering",
+    "name": "Damnation",
+    "description": "Black Mana holographic",
+    "isPublic": "true",
+    "owner": "Nibbler"
+  },
+  {
+    "community": "Vinyl Records",
+    "name": "Dark Side of the Moon",
+    "description": "Pink Floyd",
+    "isPublic": "false",
+    "owner": "Turanga Leela"
+  },
+  {
+    "community": "Bottle Caps",
+    "name": "Coca-Cola",
+    "description": "Rare 1930s",
+    "isPublic": "true",
+    "owner": "Phillip Fry"
+  },
+  {
+    "community": "Video Games",
+    "name": "Hollow Knight",
+    "description": "Team Cherry",
+    "isPublic": "true",
+    "owner": "Nibbler"
+  }
+]

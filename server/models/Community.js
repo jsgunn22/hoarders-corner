@@ -3,12 +3,13 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const communitySchema = new Schema({
-  _id: { type: Schema.Types.ObjectId },
   name: {
     type: String,
-    require: true,
+    required: true,
     trim: true,
+    unique: true,
   },
+  items: [{ type: Schema.Types.ObjectId, ref: "Item" }],
 });
 
 const Community = mongoose.model("Community", communitySchema);
