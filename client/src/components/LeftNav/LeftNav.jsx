@@ -40,7 +40,8 @@ function MessagesTab() {
     <div className=" h-14 flex items-center ">
       <Link
         className={`text-h3 font-bold h-full flex items-center px-4 ${
-          currentPage === "/messages/received" || "/messages/sent"
+          currentPage === "/messages/received" ||
+          currentPage === "/messages/sent"
             ? "text-pri-5 border-l-4 border-pri-5 pl-3"
             : "text-neu-7 "
         }`}

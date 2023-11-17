@@ -37,8 +37,9 @@ const resolvers = {
     message: async (parent, { messageId }) => {
       return Message.findOne({ _id: messageId });
     },
-    myMessages: async () => {
+    myMessages: async (parent, args, context) => {
       // if (context.user) {
+      console.log(context.user);
       const objectId = new ObjectId("6557c41935d492c3cfc890e1"); // TEST ID REMOVE
       const myMessages = await User.findById(
         objectId /* context.user._id */

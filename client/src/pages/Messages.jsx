@@ -2,15 +2,19 @@ import { useQuery } from "@apollo/client";
 import { QUERY_MY_MESSAGES } from "../utils/queries";
 import Tab from "../components/Atoms/Tab";
 import { useLocation } from "react-router-dom";
+import PageHeader from "../components/Atoms/PageHeader";
 
-function ReceivedMessagesTable({ data }) {
-  console.log(data.length);
+function MessagesTable({ data, messagesSent }) {
   return (
     <table className="w-full bg-neu-0 rounded-lg">
       <thead className="text-neu-7 h-10 border-b-[1px] border-opac-neu ">
-        <th className="min-w-[208px] text-left px-6">From</th>
-        <th className="w-full text-left">Message</th>
-        <th className="text-right min-w-[224px] px-6">Date</th>
+        <tr>
+          <th className="min-w-[208px] text-left px-6">
+            {messagesSent ? "To" : "From"}
+          </th>
+          <th className="w-full text-left">Message</th>
+          <th className="text-right min-w-[224px] px-6">Date</th>
+        </tr>
       </thead>
       <tbody>
         {data.map((m, i) => (
@@ -18,13 +22,21 @@ function ReceivedMessagesTable({ data }) {
             key={i}
             className={`h-16  ${
               i !== data.length - 1 && "border-b-[1px] border-opac-neu"
-            }`}
+            } hover:bg-neu-2 cursor-pointer hover:border-[1px] hover:border-opac-neu`}
           >
-            <td className="px-6">{m.sender}</td>
+            <td
+              className={`px-6 font-bold ${
+                !m.isRead && !messagesSent
+                  ? "text-pri-5 border-l-4 border-pri-5 pl-5"
+                  : "text-neu-7"
+              }`}
+            >
+              {m.sender}
+            </td>
             <td>{m.content}</td>
             <td className="px-6 text-right">{m.createdAt}</td>
           </tr>
-        ))}{" "}
+        ))}
       </tbody>
     </table>
   );
@@ -47,21 +59,23 @@ export default function Messages() {
 
   return (
     <div>
-      <div className="flex items-center mb-6">
-        <i className="fa-solid fa-envelope text-pri-5 text-h3 mr-2"></i>
-        <h3 className="text-h3 font-bold">Messages</h3>
-      </div>
-      <div className="flex gap-4">
+      <PageHeader
+        icon={"fa-solid fa-envelope"}
+        label={"Messages"}
+        hasButton={true}
+        btnLabel={"Send Message"}
+      />
+      <div className="flex gap-4 mb-4">
         <Tab label="Received" to="/messages/received" />
         <Tab label="Sent" to="/messages/sent" />
       </div>
       {currentPage === "/messages/received" ? (
-        <div className="py-6">
-          <ReceivedMessagesTable data={messagesReceived} />
+        <div className="">
+          <MessagesTable data={messagesReceived} />
         </div>
       ) : (
         <div>
-          <h1>This is the sent messages page</h1>
+          <MessagesTable data={messagesSent} messagesSent={true} />
         </div>
       )}
     </div>
