@@ -1,4 +1,4 @@
-const { User } = require("../models");
+const { User, Community, Item } = require("../models");
 const { signToken, AuthenticationError } = require("../utils/auth");
 
 const resolvers = {
@@ -12,6 +12,9 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
+    communities: async () => {
+      return Community.find()
+    }
   },
   Mutation: {
     createUser: async (parent, { username, email, password }) => {

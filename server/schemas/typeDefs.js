@@ -6,6 +6,21 @@ const typeDefs = `
     avatar: String
  }
 
+ type Community {
+   _id: ID
+   name: String
+   items: [Item]
+ }
+
+ type Item {
+   _id: ID
+   name: String
+   description: String
+   owner: String
+   isPublic: Boolean
+   community: String
+ }
+
  type Auth {
     token: ID!
     user: User
@@ -14,6 +29,7 @@ const typeDefs = `
  type Query {
     users: [User]
     me: User
+    communities: [Community]
  }
 
  type Mutation {
