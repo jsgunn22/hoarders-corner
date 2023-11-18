@@ -24,7 +24,9 @@ function MessagesTable({ data, messagesSent }) {
     setModalState(false);
   };
 
-  return (
+  return !data ? (
+    <div>There are no messages</div>
+  ) : (
     <div>
       <table className="w-full bg-neu-0 rounded-lg">
         <thead className="text-neu-7 h-10 border-b-[1px] border-opac-neu ">
@@ -146,8 +148,8 @@ export default function Messages() {
 
   const myMessages = data?.myMessages || [];
 
-  const messagesReceived = myMessages.messagesReceived;
-  const messagesSent = myMessages.messagesSent;
+  const messagesReceived = myMessages.length && myMessages.messagesReceived;
+  const messagesSent = myMessages.length && myMessages.messagesSent;
 
   return (
     <div>
