@@ -23,7 +23,10 @@ const typeDefs = `
    owner: String
    isPublic: Boolean
    ownerId: User
+<<<<<<< HEAD
    ownerId: User
+=======
+>>>>>>> d950ded (correctly adds users to communities)
  }
 
  type Message {
@@ -58,11 +61,15 @@ const typeDefs = `
     login(email: String!, password: String!): Auth
     addCommunity(name: String!): Community
     joinCommunity(communityId: ID!, userId: ID!): Community
+<<<<<<< HEAD
     createItem(name: String!, description: String!, owner: String!, isPublic: Boolean!, ownerId: ID!, community: String!): Item
     addItemToCommunity(itemId: ID!, communityId: ID!): Item
     sendMessage(sender: String!, recipient: String!, content: String): Message
     createItem(name: String!, description: String!, owner: String!, isPublic: Boolean!, ownerId: ID!, community: String!): Item
     addItemToCommunity(itemId: ID!, communityId: ID!): Item
+=======
+    createItem(name: String!, description: String!, owner: String!, isPublic: Boolean!, ownerId: ID!, community: ID!): Item
+>>>>>>> d950ded (correctly adds users to communities)
  }
 `;
 

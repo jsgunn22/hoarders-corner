@@ -21,6 +21,7 @@ const itemSchema = new Schema({
   isPublic: {
     type: Boolean,
   },
+<<<<<<< HEAD
   community: {
     type: String,
     required: true,
@@ -30,6 +31,9 @@ const itemSchema = new Schema({
     type: String,
     required: true,
   },
+=======
+  ownerId: {type: Schema.Types.ObjectId, ref: "User"},
+>>>>>>> d950ded (correctly adds users to communities)
 });
 
 const Item = mongoose.model("Item", itemSchema);
