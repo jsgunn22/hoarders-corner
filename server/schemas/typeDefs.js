@@ -44,7 +44,7 @@ const typeDefs = `
  type Query {
     users: [User]
     me: User
-    communities: [Community]
+    communities: [Community]!
     community(communityId: ID!): Community
     items: [Item]
     item(itemId: ID!): Item

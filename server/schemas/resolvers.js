@@ -17,6 +17,7 @@ const resolvers = {
     },
     // community queries
     communities: async () => {
+      const communities = await
       return Community.find().populate([{ path: "users" }, { path: "items" }])
       
     },
