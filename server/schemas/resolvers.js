@@ -83,7 +83,6 @@ const resolvers = {
       }
       return Community.findOne({ _id: communityId }).populate("users");
     },
-<<<<<<< HEAD
     sendMessage: async (_, { sender, recipient, content }, context) => {
       const newMessage = await Message.create({ sender, recipient, content });
       await User.findOneAndUpdate(
@@ -118,20 +117,6 @@ const resolvers = {
         { new: true }
       );
     },
-=======
-    createItem: async (parent, { name, description, owner, isPublic, ownerId, community}) => {
-      return Item.create({ name, description, owner, isPublic, ownerId, community }).populate("users")
-    },
-    addItemToCommunity: async (parent, { itemId, communityId}) => {
-      return Community.findOneAndUpdate(
-        {_id: communityId},
-        {
-          $addToSet: { items: itemId }
-        },
-        {new: true}
-      )
-    }
->>>>>>> 32b87a9 (mutation for creating an item and adding to community)
   },
 };
 
