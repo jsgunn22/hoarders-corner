@@ -55,7 +55,7 @@ export default function AllCommunities() {
               className="m-2 flex justify-between"
               key={community._id}
             >
-              <div className="w-2/4 ml-2 ">
+              <div className="w-2/4 ml-2" >
                 <a href="#">
                   <h2>{community.name}</h2>
                 </a>

@@ -20,7 +20,7 @@ const userSchema = new Schema({
     minlength: 6,
   },
   items: [{ type: Schema.Types.ObjectId, ref: "Item" }],
-  communities: [{ type: Schema.Types.ObjectId, ref: "Community" }],
+  // communities: [{ type: Schema.Types.ObjectId, ref: "Community" }],
   messagesSent: [{ type: Schema.Types.ObjectId, ref: "Message" }],
   messagesReceived: [{ type: Schema.Types.ObjectId, ref: "Message" }],
 });
