@@ -38,14 +38,15 @@ const resolvers = {
       return Message.findOne({ _id: messageId });
     },
     myMessages: async (parent, args, context) => {
-      // if (context.user) {
-      console.log(context.user);
-      const objectId = new ObjectId("6557c41935d492c3cfc890e1"); // TEST ID REMOVE
-      const myMessages = await User.findById(
-        objectId /* context.user._id */
-      ).populate([{ path: "messagesSent" }, { path: "messagesReceived" }]);
-      // }
-      return myMessages;
+      if (context.user) {
+        // const objectId = new ObjectId(context.user.id); // TEST ID REMOVE
+        const myMessages = await User.findById(context.user._id).populate([
+          { path: "messagesSent" },
+          { path: "messagesReceived" },
+        ]);
+
+        return myMessages;
+      }
     },
   },
   Mutation: {

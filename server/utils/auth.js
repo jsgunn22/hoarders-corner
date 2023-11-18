@@ -32,7 +32,7 @@ module.exports = {
 
     return req;
   },
-  // assuming we will be using email, username, and mongodb default id
+
   signToken: function ({ email, username, _id }) {
     const payload = { email, username, _id };
     return jwt.sign({ authenticatedPerson: payload }, secret, {

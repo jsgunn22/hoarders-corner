@@ -2,6 +2,7 @@ import Botton from "../components/Atoms/Botton";
 import Auth from "../utils/auth";
 import { useQuery } from "@apollo/client";
 import { QUERY_COMMUNITIES } from "../utils/queries";
+import PageHeader from "../components/Atoms/PageHeader";
 
 const isLogged = Auth.loggedIn();
 
@@ -26,21 +27,17 @@ export default function AllCommunities() {
 
   return (
     <div className="container">
-      <div className="flex justify-end">
-        <div>
-          {isLogged && (
-            <a>
-              <Botton
-                label="Create Community"
-                type="submit"
-                action={handleCreateCommunity}
-              />
-            </a>
-          )}
-        </div>
-      </div>
+      <PageHeader
+        icon={"fa-solid fa-users"}
+        label="All Communities"
+        hasButton={isLogged && true}
+        btnLabel={"Create Community"}
+        action={handleCreateCommunity}
+      />
+      <div className="flex justify-end"></div>
       <div>
-        {isLogged && (
+        {/* I think these tabs are redundant since both options are in the left nav.  When I get some time ill remedy the messages ones too and move them to the left nav */}
+        {/* {isLogged && (
           <div className="flex justify-start ">
             <a href="#">
               <p className="border-b-4 border-pri-5 ">All Communities</p>
@@ -50,7 +47,7 @@ export default function AllCommunities() {
               <p className="ml-4">My Communities</p>
             </a>
           </div>
-        )}
+        )} */}
         <div>
           {communities.map((community) => (
             <div

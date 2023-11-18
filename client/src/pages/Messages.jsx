@@ -54,17 +54,9 @@ export default function Messages() {
   const messagesReceived = myMessages.messagesReceived;
   const messagesSent = myMessages.messagesSent;
 
-  console.log(messagesReceived);
-  console.log(messagesSent);
-
   return (
     <div>
-      <PageHeader
-        icon={"fa-solid fa-envelope"}
-        label={"Messages"}
-        hasButton={true}
-        btnLabel={"Send Message"}
-      />
+      <PageHeader icon={"fa-solid fa-envelope"} label={"Messages"} />
       <div className="flex gap-4 mb-4">
         <Tab label="Received" to="/messages/received" />
         <Tab label="Sent" to="/messages/sent" />
