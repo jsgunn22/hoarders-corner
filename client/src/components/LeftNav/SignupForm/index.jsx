@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 
 import Auth from "../../../utils/auth";
 
-import Input from "../../Atoms/Forms/Input";
-import Button from "../../Atoms/Forms/Buttons/Botton";
+import Input from "../../Atoms/Input";
+import Button from "../../Atoms/Botton";
 
 export default function SignupForm() {
   const [formState, setFormState] = useState({

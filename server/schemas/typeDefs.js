@@ -4,6 +4,9 @@ const typeDefs = `
     username: String
     email: String
     avatar: String
+    messagesSent: [Message]
+    messagesReceived: [Message]
+    communities: [Community]
  }
 
  type Community {
@@ -24,8 +27,9 @@ const typeDefs = `
 
  type Message {
    _id: ID
-   recipient: String
    sender: String
+   recipient: String
+   createdAt: String
    content: String
    isRead: Boolean
  }
@@ -45,6 +49,7 @@ const typeDefs = `
     item(itemId: ID!): Item
     messages: [Message]
     message(messageId: ID!): Message
+    myMessages: User
  }
 
  type Mutation {

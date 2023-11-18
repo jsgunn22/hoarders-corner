@@ -3,7 +3,10 @@ import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 
 import { Link, useLocation } from "react-router-dom";
-import Button from "../Atoms/Forms/Buttons/Botton";
+import Button from "../Atoms/Botton";
+
+import { QUERY_MY_MESSAGES } from "../../utils/queries";
+import { useQuery } from "@apollo/client";
 
 const tempHoards = [
   {
@@ -19,24 +22,37 @@ const tempHoards = [
 
 function MessagesTab() {
   const currentPage = useLocation().pathname;
-  // temprory condition until data base has message data
-  const hasMessages = true;
+
+  // Gets the count for the messages tab
+  const { loading, data, error } = useQuery(QUERY_MY_MESSAGES);
+
+  if (loading) return <h1>Loading..</h1>;
+
+  if (error) return <h1>{error}</h1>;
+
+  const myMessages = data?.myMessages || [];
+
+  const unreadCount = myMessages.messagesReceived.filter(
+    (m) => !m.isRead
+  ).length;
+
   return (
     <div className=" h-14 flex items-center ">
       <Link
         className={`text-h3 font-bold h-full flex items-center px-4 ${
-          currentPage === "/messages"
+          currentPage === "/messages/received" ||
+          currentPage === "/messages/sent"
             ? "text-pri-5 border-l-4 border-pri-5 pl-3"
             : "text-neu-7 "
         }`}
-        to="/messages"
+        to="/messages/received"
       >
         Messages
       </Link>
 
-      {hasMessages && (
+      {unreadCount > 0 && (
         <div className="bg-pri-5 rounded-full h-6 w-6 flex items-center ">
-          <p className="mx-auto text-neu-0">3</p>
+          <p className="mx-auto text-neu-0">{unreadCount}</p>
         </div>
       )}
     </div>
