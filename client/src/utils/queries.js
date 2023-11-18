@@ -23,7 +23,7 @@ export const QUERY_ME = gql`
 `;
 
 export const QUERY_COMMUNITIES = gql`
-  {
+  query communities {
     communities {
       _id
       name

@@ -23,6 +23,7 @@ const typeDefs = `
    owner: String
    isPublic: Boolean
    community: String
+   ownerId: User
  }
 
  type Message {
@@ -43,7 +44,7 @@ const typeDefs = `
  type Query {
     users: [User]
     me: User
-    communities: [Community]
+    communities: [Community]!
     community(communityId: ID!): Community
     items: [Item]
     item(itemId: ID!): Item
@@ -57,6 +58,8 @@ const typeDefs = `
     login(email: String!, password: String!): Auth
     addCommunity(name: String!): Community
     joinCommunity(communityId: ID!, userId: ID!): Community
+    createItem(name: String!, description: String!, owner: String!, isPublic: Boolean!, ownerId: ID!, community: String!): Item
+    addItemToCommunity(itemId: ID!, communityId: ID!): Item
  }
 `;
 
