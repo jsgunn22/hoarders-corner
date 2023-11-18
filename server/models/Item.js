@@ -23,14 +23,13 @@ const itemSchema = new Schema({
   },
   community: {
     type: String,
-    required: true
+    required: true,
   },
-  ownerId: {type: Schema.Types.ObjectId, ref: "User"},
+  ownerId: { type: Schema.Types.ObjectId, ref: "User" },
   community: {
     type: String,
     required: true,
   },
-  ownerId: { type: Schema.Types.ObjectId, ref: "User" },
 });
 
 const Item = mongoose.model("Item", itemSchema);
