@@ -82,8 +82,6 @@ const resolvers = {
         community.users.push(userID);
         await community.save();
       }
-
-
       return Community.findOne({ _id: communityId }).populate("users");
     },
     sendMessage: async (_, { sender, recipient, content }, context) => {
