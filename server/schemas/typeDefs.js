@@ -22,7 +22,7 @@ const typeDefs = `
    description: String
    owner: String
    isPublic: Boolean
-   community: String
+   ownerId: User
    ownerId: User
    ownerId: User
 <<<<<<< HEAD
