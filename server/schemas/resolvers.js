@@ -17,7 +17,8 @@ const resolvers = {
     },
     // community queries
     communities: async () => {
-      return Community.find().populate([{ path: "users" }, { path: "items" }]);
+      return Community.find().populate([{ path: "users" }, { path: "items" }])
+      
     },
     community: async (parent, { communityId }) => {
       return Community.findOne({ _id: communityId }).populate([
@@ -74,11 +75,11 @@ const resolvers = {
     addCommunity: async (parent, { name }) => {
       return Community.create({ name });
     },
-    joinCommunity: async (parent, { communityId, userId }) => {
+    joinCommunity: async (parent, { communityId, userID }) => {
       const community = await Community.findOne({ _id: communityId });
 
-      if (!community.users.includes(userId)) {
-        community.users.push(userId);
+      if (!community.users.includes(userID)) {
+        community.users.push(userID);
         await community.save();
       }
 
