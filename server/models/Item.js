@@ -21,6 +21,10 @@ const itemSchema = new Schema({
   isPublic: {
     type: Boolean,
   },
+  community: {
+    type: String,
+    required: true
+  },
   ownerId: {type: Schema.Types.ObjectId, ref: "User"},
   community: {
     type: String,
