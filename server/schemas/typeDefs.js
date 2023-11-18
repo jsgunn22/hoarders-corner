@@ -22,6 +22,7 @@ const typeDefs = `
    description: String
    owner: String
    isPublic: Boolean
+   community: String
    ownerId: User
 <<<<<<< HEAD
    ownerId: User
@@ -62,6 +63,7 @@ const typeDefs = `
     addCommunity(name: String!): Community
     joinCommunity(communityId: ID!, userId: ID!): Community
 <<<<<<< HEAD
+<<<<<<< HEAD
     createItem(name: String!, description: String!, owner: String!, isPublic: Boolean!, ownerId: ID!, community: String!): Item
     addItemToCommunity(itemId: ID!, communityId: ID!): Item
     sendMessage(sender: String!, recipient: String!, content: String): Message
@@ -70,6 +72,10 @@ const typeDefs = `
 =======
     createItem(name: String!, description: String!, owner: String!, isPublic: Boolean!, ownerId: ID!, community: ID!): Item
 >>>>>>> d950ded (correctly adds users to communities)
+=======
+    createItem(name: String!, description: String!, owner: String!, isPublic: Boolean!, ownerId: ID!, community: String!): Item
+    addItemToCommunity(itemId: ID!, communityId: ID!): Item
+>>>>>>> 32b87a9 (mutation for creating an item and adding to community)
  }
 `;
 

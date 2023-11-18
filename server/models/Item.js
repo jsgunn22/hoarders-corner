@@ -22,6 +22,7 @@ const itemSchema = new Schema({
     type: Boolean,
   },
 <<<<<<< HEAD
+<<<<<<< HEAD
   community: {
     type: String,
     required: true,
@@ -32,6 +33,12 @@ const itemSchema = new Schema({
     required: true,
   },
 =======
+=======
+  community: {
+    type: String,
+    required: true
+  },
+>>>>>>> 32b87a9 (mutation for creating an item and adding to community)
   ownerId: {type: Schema.Types.ObjectId, ref: "User"},
 >>>>>>> d950ded (correctly adds users to communities)
 });
