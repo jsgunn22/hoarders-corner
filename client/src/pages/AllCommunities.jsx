@@ -25,7 +25,7 @@ export default function AllCommunities() {
 
   const communities = data?.communities || [];
 
-  return ( communities.length === 0 ? <p>no</p> : 
+  return ( 
     <div className="container">
       <PageHeader
         icon={"fa-solid fa-users"}
