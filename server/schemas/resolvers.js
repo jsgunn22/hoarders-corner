@@ -81,8 +81,6 @@ const resolvers = {
         community.users.push(userId);
         await community.save();
       }
-
-
       return Community.findOne({ _id: communityId }).populate("users");
     },
     sendMessage: async (_, { sender, recipient, content }, context) => {
@@ -97,6 +95,18 @@ const resolvers = {
       );
       return newMessage;
     },
+    createItem: async (parent, { name, description, owner, isPublic, ownerId, community}) => {
+      return Item.create({ name, description, owner, isPublic, ownerId, community }).populate("users")
+    },
+    addItemToCommunity: async (parent, { itemId, communityId}) => {
+      return Community.findOneAndUpdate(
+        {_id: communityId},
+        {
+          $addToSet: { items: itemId }
+        },
+        {new: true}
+      )
+    }
   },
 };
 
