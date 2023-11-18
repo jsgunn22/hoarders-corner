@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { QUERY_MY_MESSAGES } from "../utils/queries";
 import Tab from "../components/Atoms/Tab";
 import { useLocation } from "react-router-dom";
@@ -6,6 +6,8 @@ import PageHeader from "../components/Atoms/PageHeader";
 import { useState } from "react";
 import Modal from "../components/Modals/Modal";
 import TextArea from "../components/Atoms/TextArea";
+import { SEND_MESSAGE } from "../utils/mutations";
+import Auth from "../utils/auth";
 
 function MessagesTable({ data, messagesSent }) {
   const [modalState, setModalState] = useState(false);
@@ -24,7 +26,7 @@ function MessagesTable({ data, messagesSent }) {
     setModalState(false);
   };
 
-  return !data ? (
+  return !data.length ? (
     <div>There are no messages</div>
   ) : (
     <div>
@@ -85,18 +87,41 @@ function MessageModal({
   messagesSent, // this checks to see the type of messages that it is.  messagesSent === true will render the sent messages version of the modal
 }) {
   const [textAreaValue, setTextAreaValue] = useState(""); // Holds the value of the input field
+  const [sendMessage, { error }] = useMutation(SEND_MESSAGE);
 
   // Replies to a message
-  const replyToMessage = () => {
+  const replyToMessage = async () => {
     if (textAreaValue.trim()) {
+      try {
+        const { data } = await sendMessage({
+          variables: {
+            sender: recipient,
+            recipient: Auth.getProfile().authenticatedPerson.username,
+            content: textAreaValue.trim(),
+          },
+        });
+      } catch (error) {
+        console.error(error);
+      }
       console.log(`replying to ${sender} ${textAreaValue}`);
       closeModal();
     }
   };
 
   // Sends additional message when viewing a sent message modal
-  const sendAdditionMessage = () => {
+  const sendAdditionMessage = async () => {
     if (textAreaValue.trim()) {
+      try {
+        const { data } = await sendMessage({
+          variables: {
+            sender: Auth.getProfile().authenticatedPerson.username,
+            recipient,
+            content: textAreaValue.trim(),
+          },
+        });
+      } catch (error) {
+        console.error(error);
+      }
       console.log(`sending addition message to ${recipient} ${textAreaValue}`);
       closeModal();
     }
@@ -143,13 +168,12 @@ export default function Messages() {
   const currentPage = useLocation().pathname;
   const { loading, data, error } = useQuery(QUERY_MY_MESSAGES);
 
-  if (loading) return <p>Loading..</p>;
   if (error) return <p>Error</p>;
 
   const myMessages = data?.myMessages || [];
 
-  const messagesReceived = myMessages.length && myMessages.messagesReceived;
-  const messagesSent = myMessages.length && myMessages.messagesSent;
+  const messagesReceived = myMessages.messagesReceived;
+  const messagesSent = myMessages.messagesSent;
 
   return (
     <div>
@@ -158,7 +182,9 @@ export default function Messages() {
         <Tab label="Received" to="/messages/received" />
         <Tab label="Sent" to="/messages/sent" />
       </div>
-      {currentPage === "/messages/received" ? (
+      {loading ? (
+        <p>Loading...</p>
+      ) : currentPage === "/messages/received" ? (
         <div className="">
           <MessagesTable data={messagesReceived} />
         </div>

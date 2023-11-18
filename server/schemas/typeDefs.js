@@ -57,6 +57,7 @@ const typeDefs = `
     login(email: String!, password: String!): Auth
     addCommunity(name: String!): Community
     joinCommunity(communityId: ID!, userId: ID!): Community
+    sendMessage(sender: String!, recipient: String!, content: String): Message
  }
 `;
 

@@ -23,3 +23,15 @@ export const CREATE_USER = gql`
     }
   }
 `;
+
+export const SEND_MESSAGE = gql`
+  mutation sendMessage(
+    $sender: String!
+    $recipient: String!
+    $content: String!
+  ) {
+    sendMessage(sender: $sender, recipient: $recipient, content: $content) {
+      _id
+    }
+  }
+`;

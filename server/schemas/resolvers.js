@@ -84,6 +84,18 @@ const resolvers = {
 
       return Community.findOne({ _id: communityId }).populate("users");
     },
+    sendMessage: async (_, { sender, recipient, content }, context) => {
+      const newMessage = await Message.create({ sender, recipient, content });
+      await User.findOneAndUpdate(
+        { username: recipient },
+        { $addToSet: { messagesReceived: newMessage._id } }
+      );
+      await User.findOneAndUpdate(
+        { username: sender },
+        { $addToSet: { messagesSent: newMessage._id } }
+      );
+      return newMessage;
+    },
   },
 };
 
