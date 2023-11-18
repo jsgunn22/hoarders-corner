@@ -24,8 +24,6 @@ function MessagesTable({ data, messagesSent }) {
     setModalState(false);
   };
 
-  console.log(data);
-
   return !data ? (
     <div>There are no messages</div>
   ) : (
