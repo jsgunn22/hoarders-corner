@@ -21,26 +21,11 @@ const itemSchema = new Schema({
   isPublic: {
     type: Boolean,
   },
-<<<<<<< HEAD
-<<<<<<< HEAD
-  community: {
-    type: String,
-    required: true,
-  },
-  ownerId: { type: Schema.Types.ObjectId, ref: "User" },
-  community: {
-    type: String,
-    required: true,
-  },
-=======
-=======
   community: {
     type: String,
     required: true
   },
->>>>>>> 32b87a9 (mutation for creating an item and adding to community)
   ownerId: {type: Schema.Types.ObjectId, ref: "User"},
->>>>>>> d950ded (correctly adds users to communities)
 });
 
 const Item = mongoose.model("Item", itemSchema);

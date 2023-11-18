@@ -77,6 +77,7 @@ const resolvers = {
     },
     joinCommunity: async (parent, { communityId, userId }) => {
       const community = await Community.findOne({ _id: communityId });
+
       if (!community.users.includes(userId)) {
         community.users.push(userId);
         await community.save();
