@@ -17,9 +17,7 @@ const resolvers = {
     },
     // community queries
     communities: async () => {
-      const communities = await
-      return Community.find().populate([{ path: "users" }, { path: "items" }])
-      
+      return Community.find().populate([{ path: "users" }, { path: "items" }]);
     },
     community: async (parent, { communityId }) => {
       return Community.findOne({ _id: communityId }).populate([
@@ -77,7 +75,7 @@ const resolvers = {
       return Community.create({ name });
     },
     joinCommunity: async (parent, { communityId, userId }) => {
-      const community = await Community.findOne({ _id: communityId })
+      const community = await Community.findOne({ _id: communityId });
       if (!community.users.includes(userId)) {
         community.users.push(userId);
         await community.save();
@@ -96,18 +94,28 @@ const resolvers = {
       );
       return newMessage;
     },
-    createItem: async (parent, { name, description, owner, isPublic, ownerId, community}) => {
-      return Item.create({ name, description, owner, isPublic, ownerId, community }).populate("users")
+    createItem: async (
+      parent,
+      { name, description, owner, isPublic, ownerId, community }
+    ) => {
+      return Item.create({
+        name,
+        description,
+        owner,
+        isPublic,
+        ownerId,
+        community,
+      }).populate("users");
     },
-    addItemToCommunity: async (parent, { itemId, communityId}) => {
+    addItemToCommunity: async (parent, { itemId, communityId }) => {
       return Community.findOneAndUpdate(
-        {_id: communityId},
+        { _id: communityId },
         {
-          $addToSet: { items: itemId }
+          $addToSet: { items: itemId },
         },
-        {new: true}
-      )
-    }
+        { new: true }
+      );
+    },
   },
 };
 
