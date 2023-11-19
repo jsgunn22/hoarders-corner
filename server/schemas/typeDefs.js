@@ -57,10 +57,13 @@ const typeDefs = `
  type Mutation {
     createUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
+
     addCommunity(name: String!): Community
-    joinCommunity(communityId: ID!, userId: ID!): Community
+    joinCommunity(communityId: ID!): Community
+
     createItem(name: String!, description: String!, owner: String!, isPublic: Boolean!, ownerId: ID!, community: String!): Item
     addItemToCommunity(itemId: ID!, communityId: ID!): Item
+    
     sendMessage(sender: String!, recipient: String!, content: String): Message
     markMessageRead(_id: ID): Message
  }
