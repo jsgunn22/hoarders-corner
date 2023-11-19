@@ -22,8 +22,9 @@ const typeDefs = `
    description: String
    owner: String
    isPublic: Boolean
-   community: String
    ownerId: User
+   community: String
+
  }
 
  type Message {
@@ -60,6 +61,7 @@ const typeDefs = `
     joinCommunity(communityId: ID!, userId: ID!): Community
     createItem(name: String!, description: String!, owner: String!, isPublic: Boolean!, ownerId: ID!, community: String!): Item
     addItemToCommunity(itemId: ID!, communityId: ID!): Item
+    sendMessage(sender: String!, recipient: String!, content: String): Message
  }
 `;
 

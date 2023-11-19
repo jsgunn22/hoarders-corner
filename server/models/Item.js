@@ -14,7 +14,7 @@ const itemSchema = new Schema({
   owner: {
     type: String,
     required: true,
-    // should it reference User and when creating a new one we can get the users 
+    // should it reference User and when creating a new one we can get the users
     // username via token/context
     // type: Schema.Types.ObjectId, ref: "User"
   },
