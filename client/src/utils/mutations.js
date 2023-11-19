@@ -35,3 +35,11 @@ export const SEND_MESSAGE = gql`
     }
   }
 `;
+
+export const MESSAGE_READ = gql`
+  mutation markMessageRead($_id: ID) {
+    markMessageRead(_id: $_id) {
+      _id
+    }
+  }
+`;
