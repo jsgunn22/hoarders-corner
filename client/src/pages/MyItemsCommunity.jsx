@@ -2,34 +2,12 @@ import { useMutation, useQuery } from "@apollo/client";
 import { QUERY_MY_ITEMS } from "../utils/queries";
 import Tab from "../components/Atoms/Tab";
 import { useLocation } from "react-router-dom";
-import PageHeader from "../components/Atoms/PageHeader";
 import { useEffect, useState } from "react";
-import Modal from "../components/Modals/Modal";
-import TextArea from "../components/Atoms/TextArea";
 import { ADD_ITEM } from "../utils/mutations";
 import Auth from "../utils/auth";
 import Button from "../components/Atoms/Button";
 
-const TempItems = [
-    {
-        id: 1, 
-        name: "Item 1",
-        description: "This is item 1",
-        ispublic: false 
-    },
-    {
-        id: 2,
-        name: "Item 2",
-        description: "This is item 2",
-        ispublic: true
-    },
-    {
-        id: 3,
-        name: "Item 3",
-        description: "This is item 3",
-        ispublic: false
-    }
-];
+
    
    
    
