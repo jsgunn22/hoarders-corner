@@ -43,3 +43,12 @@ export const MESSAGE_READ = gql`
     }
   }
 `;
+
+export const ADD_COMMUNITY = gql`
+mutation addCommunity($name: String!) {
+  addCommunity(name: $name) {
+    _id
+    name
+  }
+}
+`

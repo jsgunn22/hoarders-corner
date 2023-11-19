@@ -1,9 +1,11 @@
 import Botton from "../components/Atoms/Botton";
 import Auth from "../utils/auth";
-import { useQuery } from "@apollo/client";
+import { useState } from 'react';
+import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_COMMUNITIES } from "../utils/queries";
+import { ADD_COMMUNITY } from "../utils/mutations"
 import PageHeader from "../components/Atoms/PageHeader";
-
+import Modal from "../components/Modals/Modal"
 const isLogged = Auth.loggedIn();
 
 const styles = {
@@ -13,17 +15,50 @@ const styles = {
   },
 };
 
-const handleCreateCommunity = () => {
-  console.log("This is where the function to add the community will go");
-};
 
 export default function AllCommunities() {
+  const [showModal, setShowModal] = useState(false);
+  const [name, setInputValue] = useState('');
   const { loading, data, error } = useQuery(QUERY_COMMUNITIES);
+  const [addCommunity, { error: addCommunityError }] = useMutation(ADD_COMMUNITY, {
+    refetchQueries: [
+      QUERY_COMMUNITIES,
+      "communities"
+    ]
+  });
 
   if (loading) return <p>Loading..</p>;
   if (error) return <p>Error</p>;
 
   const communities = data?.communities || [];
+
+  const handleCreateCommunity = () => {
+    setShowModal(true);
+    setInputValue("");
+  };
+
+  const handleInputChange = (event) => {
+    event.preventDefault();
+    setInputValue(event.target.value);
+  }
+
+  const submitCommunityForm = async (event) => {
+
+    try {
+      const { data } = await addCommunity({
+        variables: { name },
+      })
+    } catch (err) {
+      console.error(err);      
+    }
+
+    if (data) {
+      setShowModal(false)
+      setInputValue("");
+    } else {
+      console.log("didn't create community");
+    }
+  }
 
   return ( 
     <div className="container">
@@ -32,7 +67,7 @@ export default function AllCommunities() {
         label="All Communities"
         hasButton={isLogged && true}
         btnLabel={"Create Community"}
-        action={handleCreateCommunity}
+        btnAction={handleCreateCommunity}
       />
       <div className="flex justify-end"></div>
       <div>
@@ -68,6 +103,15 @@ export default function AllCommunities() {
             </div>
           ))}
         </div>
+        {showModal && (
+          <Modal
+            heading={"Create A Community"}
+            body={<input type="text" placeholder="Title it here" value={name} onChange={handleInputChange} />}
+            btnLabel={'Create'}
+            btnAction={() => submitCommunityForm()}
+            closeModal={() => setShowModal(false)}
+          />
+        )}
       </div>
     </div>
   );
