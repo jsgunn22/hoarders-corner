@@ -3,21 +3,33 @@ import { QUERY_MY_MESSAGES } from "../utils/queries";
 import Tab from "../components/Atoms/Tab";
 import { useLocation } from "react-router-dom";
 import PageHeader from "../components/Atoms/PageHeader";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "../components/Modals/Modal";
 import TextArea from "../components/Atoms/TextArea";
-import { SEND_MESSAGE } from "../utils/mutations";
+import { SEND_MESSAGE, MESSAGE_READ } from "../utils/mutations";
 import Auth from "../utils/auth";
 
 function MessagesTable({ data, messagesSent }) {
+  const [tableData, setTableData] = useState([...data]);
   const [modalState, setModalState] = useState(false);
-  const [modalData, setModalData] = useState({
-    sender: "",
-    content: "",
-    createdAt: "",
-  });
+  const [modalData, setModalData] = useState();
+  const [markMessageRead, { error }] = useMutation(MESSAGE_READ);
+
+  const updateUnreadMessage = async (messageId) => {
+    const newData = tableData.map((message) =>
+      message._id === messageId ? { ...message, isRead: true } : message
+    );
+    setTableData(newData);
+
+    try {
+      const { data } = await markMessageRead({ variables: { _id: messageId } });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const openModal = (m) => {
+    !m.isRead && updateUnreadMessage(m._id);
     setModalState(true);
     setModalData(m);
   };
@@ -25,8 +37,8 @@ function MessagesTable({ data, messagesSent }) {
   const closeModal = () => {
     setModalState(false);
   };
-
-  return !data.length ? (
+  useEffect(() => {});
+  return !tableData.length ? (
     <div>There are no messages</div>
   ) : (
     <div>
@@ -41,7 +53,7 @@ function MessagesTable({ data, messagesSent }) {
           </tr>
         </thead>
         <tbody>
-          {data.map((m, i) => (
+          {tableData.map((m, i) => (
             <tr
               onClick={() => openModal(m)}
               key={i}
