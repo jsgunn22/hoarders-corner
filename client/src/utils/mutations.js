@@ -52,3 +52,11 @@ mutation addCommunity($name: String!) {
   }
 }
 `
+export const JOIN_COMMUNITY = gql`
+  mutation joinCommunity($communityId: ID!) {
+    joinCommunity(communityId: $communityId) {
+      _id
+      name
+    }
+  }
+`

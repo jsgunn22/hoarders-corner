@@ -663,10 +663,6 @@ video {
   display: table;
 }
 
-.\!table {
-  display: table !important;
-}
-
 .h-0 {
   height: 0px;
 }

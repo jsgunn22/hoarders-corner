@@ -75,7 +75,19 @@ const resolvers = {
     addCommunity: async (parent, { name }) => {
       return Community.create({ name });
     },
-    joinCommunity: async (parent, { communityId, userId }) => {
+    joinCommunity: async (parent, { communityId }, context) => {
+      if (context.user) {
+        return Community.findOneAndUpdate(
+          {_id: communityId},
+          {
+            $addToSet: { users: context.user._id}
+          },
+          { 
+            new: true,
+            runValidators: true,
+          }
+        )
+      }
       const community = await Community.findOne({ _id: communityId });
       if (!community.users.includes(userId)) {
         community.users.push(userId);

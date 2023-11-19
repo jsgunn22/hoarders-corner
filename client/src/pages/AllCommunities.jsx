@@ -1,9 +1,14 @@
 import Botton from "../components/Atoms/Botton";
 import Auth from "../utils/auth";
+
 import { useState } from 'react';
 import { useQuery, useMutation } from "@apollo/client";
+
 import { QUERY_COMMUNITIES } from "../utils/queries";
 import { ADD_COMMUNITY } from "../utils/mutations"
+import { JOIN_COMMUNITY } from "../utils/mutations"
+
+
 import PageHeader from "../components/Atoms/PageHeader";
 import Modal from "../components/Modals/Modal"
 const isLogged = Auth.loggedIn();
@@ -19,7 +24,10 @@ const styles = {
 export default function AllCommunities() {
   const [showModal, setShowModal] = useState(false);
   const [name, setInputValue] = useState('');
+
   const { loading, data, error } = useQuery(QUERY_COMMUNITIES);
+
+
   const [addCommunity, { error: addCommunityError }] = useMutation(ADD_COMMUNITY, {
     refetchQueries: [
       QUERY_COMMUNITIES,
@@ -27,23 +35,32 @@ export default function AllCommunities() {
     ]
   });
 
+  const [joinCommunity, { error: joinCommunityError }] = useMutation(JOIN_COMMUNITY, {
+    refetchQueries: [
+      QUERY_COMMUNITIES,
+      "communities"
+    ]
+  })
+
   if (loading) return <p>Loading..</p>;
   if (error) return <p>Error</p>;
 
   const communities = data?.communities || [];
 
+  // displays Modal since set to true
   const handleCreateCommunity = () => {
     setShowModal(true);
     setInputValue("");
   };
 
+  // grabs user input 
   const handleInputChange = (event) => {
     event.preventDefault();
     setInputValue(event.target.value);
   }
 
+  // function for creating a community 
   const submitCommunityForm = async (event) => {
-
     try {
       const { data } = await addCommunity({
         variables: { name },
@@ -60,6 +77,25 @@ export default function AllCommunities() {
     }
   }
 
+const joinCommunityAction = async (communityId) => {
+  try {
+    const { data } = await joinCommunity({
+      variables: { communityId },
+    })
+  } catch (joinCommunityError) {
+    console.log(joinCommunityError);
+  }
+
+// data returns as array of communities but function still works
+
+  if (communityId) {
+    alert("Successfully Joined!")
+  } else if(!communityId) {
+    alert("Didn't successfully join");
+  }
+
+}
+
   return ( 
     <div className="container">
       <PageHeader
@@ -71,18 +107,6 @@ export default function AllCommunities() {
       />
       <div className="flex justify-end"></div>
       <div>
-        {/* I think these tabs are redundant since both options are in the left nav.  When I get some time ill remedy the messages ones too and move them to the left nav */}
-        {/* {isLogged && (
-          <div className="flex justify-start ">
-            <a href="#">
-              <p className="border-b-4 border-pri-5 ">All Communities</p>
-            </a>
-
-            <a href="#">
-              <p className="ml-4">My Communities</p>
-            </a>
-          </div>
-        )} */}
         <div>
           {communities.map((community) => (
             <div
@@ -96,7 +120,7 @@ export default function AllCommunities() {
                 </a>
               </div>
               <div className="flex justify-evenly w-2/4 text-center">
-                {isLogged && <Botton label="Join" type="submit" />}
+                {isLogged && <Botton label="Join" type="submit" action={() => joinCommunityAction(community._id)} />}
                 <p>{community.items.length} Members</p>
                 <p>{community.items.length} Items</p>
               </div>
