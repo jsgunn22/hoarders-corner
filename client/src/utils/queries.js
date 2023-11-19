@@ -59,3 +59,17 @@ export const QUERY_MY_MESSAGES = gql`
     }
   }
 `;
+
+export const QUERY_MY_ITEMS = gql`
+  query items {
+    items {
+      _id
+      name
+      description
+      owner
+      isPublic
+      ownerID
+      community
+    }
+  }
+`;
