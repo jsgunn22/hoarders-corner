@@ -1,27 +1,15 @@
-   const TempItems = [
-    {
-        id: 1, 
-        name: "Item 1",
-        description: "This is item 1", 
-        owner: "Owner 1"
-    },
-    {
-        id: 2,
-        name: "Item 2",
-        description: "This is item 2",
-        owner: "Owner 2"
-    },
-    {
-        id: 3,
-        name: "Item 3",
-        description: "This is item 3",
-        owner: "Owner 3"
-    }
-];
+import { useMutation, useQuery } from "@apollo/client";
+import { QUERY_ITEMS_COMMUNITIES } from "../utils/queries";
+import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import Auth from "../utils/auth";
+
+   
+
    
    
    
-   function IndividualItem (item) {
+   function IndividualItem (name, description, owner) {
     return (
      <tr className="border font-bold py-2 px-4">
         <td>{item.name}</td>
@@ -35,6 +23,11 @@
    
     
 export default function ItemsCommunity() {
+    const { loading, data, error } = useQuery(QUERY_ITEMS_COMMUNITIES);
+    if (loading) return <p>Loading..</p>;
+    if (error) return <p>Error</p>;
+    
+    const item = data?.itemByCommunity || [];
     return (
     <div>
       <div className="flex items-center justify-between">
@@ -54,7 +47,7 @@ export default function ItemsCommunity() {
                 </tr>
             </thead>
             <tbody>
-                {TempItems.map((item, index) => <IndividualItem name={item.name} description={item.description} owner={item.owner} key={index}/>)}
+                {item.map((item, index) => <IndividualItem name={item.name} description={item.description} owner={item.owner} key={index}/>)}
             </tbody>
         </table>
       </div>
