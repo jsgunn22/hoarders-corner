@@ -8,17 +8,8 @@ import Auth from "../utils/auth";
 import Input from "../components/Atoms/Input";
 
 import Modal from "../components/Modals/Modal";
-
-
-
-   
-   
    function MyIndividualItem ({name, description, isPublic}) {
- 
-
-   
     return (
-      
      <tr className="border font-bold py-2 px-4">
         <td>{name}</td>
         <td>{description}</td>
@@ -37,13 +28,6 @@ import Modal from "../components/Modals/Modal";
     </tr>
     );}
    
-
-
-
-
-
-
-    
 export default function ItemsCommunity() {
        const [modalState, setModalState] = useState(false);
        function openModal(){
