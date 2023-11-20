@@ -34,6 +34,10 @@ export const QUERY_COMMUNITIES = gql`
         isPublic
         community
       }
+      users {
+        _id
+        username
+      }
     }
   }
 `;

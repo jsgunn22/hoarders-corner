@@ -82,6 +82,10 @@ const resolvers = {
     },
     joinCommunity: async (parent, { communityId }, context) => {
       if (context.user) {
+        await User.findByIdAndUpdate(context.user._id, {
+          $addToSet: { communities: communityId },
+        });
+
         return Community.findOneAndUpdate(
           { _id: communityId },
           {
@@ -98,7 +102,17 @@ const resolvers = {
         community.users.push(userId);
         await community.save();
       }
+
       return Community.findOne({ _id: communityId }).populate("users");
+    },
+    leaveCommunity: async (parent, { communityId }, context) => {
+      await Community.findByIdAndUpdate(communityId, {
+        $pull: { users: context.user._id },
+      });
+
+      return User.findByIdAndUpdate(context.user._id, {
+        $pull: { communities: communityId },
+      });
     },
     sendMessage: async (_, { sender, recipient, content }, context) => {
       const newMessage = await Message.create({ sender, recipient, content });

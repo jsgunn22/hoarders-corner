@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import Auth from "../../../utils/auth";
 
 import Input from "../../Atoms/Input";
-import Button from "../../Atoms/Botton";
+import Button from "../../Atoms/Button";
 
 export default function LoginForm() {
   const [formState, setFormState] = useState({

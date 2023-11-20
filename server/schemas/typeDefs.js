@@ -62,6 +62,7 @@ const typeDefs = `
 
     addCommunity(name: String!): Community
     joinCommunity(communityId: ID!): Community
+    leaveCommunity(communityId: ID!): User
 
     createItem(name: String!, description: String!, owner: String!, isPublic: Boolean!, ownerId: ID!, community: String!): Item
     addItemToCommunity(itemId: ID!, communityId: ID!): Item

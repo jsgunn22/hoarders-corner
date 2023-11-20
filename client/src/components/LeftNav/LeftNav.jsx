@@ -3,7 +3,7 @@ import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 
 import { Link, useLocation } from "react-router-dom";
-import Button from "../Atoms/Botton";
+import Button from "../Atoms/Button";
 
 import { QUERY_MY_COMMUNITIES, QUERY_MY_MESSAGES } from "../../utils/queries";
 import { useQuery } from "@apollo/client";
@@ -74,10 +74,8 @@ function MyCommunitiesSection() {
         <p>You have not joined any communities</p>
       ) : (
         <div>
-          {myCommunities.map((c) => (
-            <>
-              <NavLink label={c.name} to={`/my-communities/${c.name}`} />
-            </>
+          {myCommunities.map((c, i) => (
+            <NavLink key={i} label={c.name} to={`/my-communities/${c.name}`} />
           ))}
         </div>
       )}
