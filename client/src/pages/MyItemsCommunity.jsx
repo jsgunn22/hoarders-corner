@@ -31,6 +31,27 @@ import Button from "../components/Atoms/Button";
     </tr>
     );}
    
+function MessagesTable({ data, messagesSent }) {
+    const [nameData, setNameData] = useState('');
+    const [descriptionData, setDescriptionData] = useState('');
+    const [isPublicData, setIsPublicData] = useState(false);
+    const [modalState, setModalState] = useState(false);
+    const [modalData, setModalData] = useState();
+
+    const [addItem, { error }] = useMutation(ADD_ITEM);
+
+  const openModal = (m) => {
+    setModalState(true);
+    setModalData(m);
+  };
+
+  const closeModal = () => {
+    setModalState(false);
+  };
+  useEffect(() => {});
+
+}
+
     
 export default function ItemsCommunity() {
     return (
@@ -38,7 +59,7 @@ export default function ItemsCommunity() {
       <div className="flex items-center justify-between">
         <button className= "bg-opac-pri  rounded  px-4  py-3  h-10  cursor-pointer hover:bg-pri-3 active:bg-pri-9  text-h4  font-medium  text-pri-5 hover:text-neu-0 "><span>&#9830;</span></button> 
         <h2 className="text-h2 font-bold text-neu-7">My Books</h2>
-        <button className= "bg-opac-pri  rounded  px-4  py-3  h-10  cursor-pointer hover:bg-pri-3 active:bg-pri-9  text-h4  font-medium  text-pri-5 hover:text-neu-0 ">Add Item</button> 
+        <button className= "bg-opac-pri  rounded  px-4  py-3  h-10  cursor-pointer hover:bg-pri-3 active:bg-pri-9  text-h4  font-medium  text-pri-5 hover:text-neu-0 " onClick={()=> openModal(m)}>Add Item</button> 
       </div>
         
       <div className="p-8 overflow-auto relative">
@@ -61,44 +82,8 @@ export default function ItemsCommunity() {
   }
 
 
-function MessagesTable({ data, messagesSent }) {
-    const [nameData, setNameData] = useState('');
-    const [descriptionData, setDescriptionData] = useState('');
-    const [isPublicData, setIsPublicData] = useState(false);
-    const [modalState, setModalState] = useState(false);
-    const [modalData, setModalData] = useState();
 
-    const [addItem, { error }] = useMutation(ADD_ITEM);
-
-  const openModal = (m) => {
-    setModalState(true);
-    setModalData(m);
-  };
-
-  const closeModal = () => {
-    setModalState(false);
-  };
-  useEffect(() => {});
-
-}
-
-  //adds an item modal
-    const addItem = async () => {
-        if (textAreaValue.trim()) {
-        try {
-            const { data } = await addItem({
-            variables: {
-                name: nameData.trim(),
-                description: descriptionData.trim(),
-                ispublic: isPublicData.trim(),
-            },
-            });
-        } catch (error) {
-            console.error(error);
-            }
-        closeModal();
-        }
-    };
+ 
 
     return (
         <div>
