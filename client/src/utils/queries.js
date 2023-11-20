@@ -81,3 +81,27 @@ export const QUERY_ITEMS_COMMUNITIES = gql`
     }
   }
 `;
+
+export const QUERY_MY_COMMUNITIES = gql`
+  query myCommunities {
+    myCommunities {
+      _id
+      username
+      communities {
+        _id
+        name
+        items {
+          _id
+          isPublic
+          ownerId {
+            _id
+            username
+          }
+        }
+        users {
+          _id
+        }
+      }
+    }
+  }
+`;

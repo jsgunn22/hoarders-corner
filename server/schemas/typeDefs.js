@@ -47,6 +47,7 @@ const typeDefs = `
     me: User
     communities: [Community]!
     community(communityId: ID!): Community
+    myCommunities: User
     items: [Item]
     itemByCommunity(community: String!): [Item]
     item(itemId: ID!): Item

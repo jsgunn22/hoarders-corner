@@ -5,7 +5,7 @@ import SignupForm from "./SignupForm";
 import { Link, useLocation } from "react-router-dom";
 import Button from "../Atoms/Botton";
 
-import { QUERY_MY_MESSAGES } from "../../utils/queries";
+import { QUERY_MY_COMMUNITIES, QUERY_MY_MESSAGES } from "../../utils/queries";
 import { useQuery } from "@apollo/client";
 
 const tempHoards = [
@@ -59,6 +59,32 @@ function MessagesTab() {
   );
 }
 
+function MyCommunitiesSection() {
+  const { loading, data, error } = useQuery(QUERY_MY_COMMUNITIES);
+
+  if (loading) return <p>...loading</p>;
+  if (error) return <p>{error}</p>;
+
+  const myCommunities = data?.myCommunities.communities || [];
+
+  return (
+    <div>
+      <SectionLabel label="My Hoards" />
+      {myCommunities.length === 0 ? (
+        <p>You have not joined any communities</p>
+      ) : (
+        <div>
+          {myCommunities.map((c) => (
+            <>
+              <NavLink label={c.name} to={`/my-communities/${c.name}`} />
+            </>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function SectionLabel({ label }) {
   return (
     <div className="px-4 h-14 flex items-center ">
@@ -87,7 +113,7 @@ function NavLink({ to, label }) {
 }
 
 export default function LeftNav() {
-  const logout = () => {
+  const logout = (event) => {
     event.preventDefault();
     Auth.logout();
   };
@@ -109,11 +135,7 @@ export default function LeftNav() {
               <SectionLabel label="Communities" />
               <NavLink label="All Communities" to="/" />
               <NavLink label="My Communities" to="/my-communities" />
-              <SectionLabel label="My Hoards" />
-              {/* The following bit is temporary to render when we have data and items to render */}
-              {tempHoards.map((item, index) => (
-                <NavLink key={index} label={item.name} to={`/${item.name}`} />
-              ))}{" "}
+              <MyCommunitiesSection />
             </div>
             <div className="w-full bg-neu-0 px-4 py-2 border-t-2 border-opac-neu flex-shrink">
               <Button label="Log Out" style="w-full" action={logout} />

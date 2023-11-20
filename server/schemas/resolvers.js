@@ -25,6 +25,9 @@ const resolvers = {
         { path: "items" },
       ]);
     },
+    myCommunities: async (parent, args, context) => {
+      return User.findById(context.user._id).populate("communities");
+    },
     items: async () => {
       return Item.find();
     },
