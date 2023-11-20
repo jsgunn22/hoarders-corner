@@ -39,7 +39,9 @@ export default function AllCommunities() {
     }
   );
 
-  const [leaveCommunity, { err }] = useMutation(LEAVE_COMMUNITY);
+  const [leaveCommunity, { err }] = useMutation(LEAVE_COMMUNITY, {
+    refetchQueries: [QUERY_COMMUNITIES, "communities"],
+  });
 
   if (loading) return <p>Loading..</p>;
   if (error) return <p>Error</p>;
@@ -128,7 +130,6 @@ export default function AllCommunities() {
               className="m-2 flex justify-between"
               key={community._id}
             >
-              {console.log(community)}
               <div className="w-2/4 ml-2">
                 <a href="#">
                   <h2>{community.name}</h2>
