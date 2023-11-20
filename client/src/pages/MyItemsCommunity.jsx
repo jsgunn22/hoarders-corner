@@ -28,7 +28,7 @@ import Modal from "../components/Modals/Modal";
     </tr>
     );}
    
-export default function ItemsCommunity() {
+export default function MyItemsCommunity() {
        const [modalState, setModalState] = useState(false);
        function openModal(){
           setModalState(true);

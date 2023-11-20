@@ -69,3 +69,15 @@ export const QUERY_MY_ITEMS = gql`
     }
   }
 `;
+
+export const QUERY_ITEMS_COMMUNITIES = gql`
+  query itemByCommunity($community: String!) {
+    itemByCommunity(community: $community, isPublic: true) {
+      _id
+      name
+      description
+      owner
+      ownerId
+    }
+  }
+`;
