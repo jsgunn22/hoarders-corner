@@ -45,13 +45,13 @@ export const MESSAGE_READ = gql`
 `;
 
 export const ADD_COMMUNITY = gql`
-mutation addCommunity($name: String!) {
-  addCommunity(name: $name) {
-    _id
-    name
+  mutation addCommunity($name: String!) {
+    addCommunity(name: $name) {
+      _id
+      name
+    }
   }
-}
-`
+`;
 export const JOIN_COMMUNITY = gql`
   mutation joinCommunity($communityId: ID!) {
     joinCommunity(communityId: $communityId) {
@@ -59,4 +59,31 @@ export const JOIN_COMMUNITY = gql`
       name
     }
   }
-`
+`;
+export const ADD_ITEM = gql`
+  mutation createItem(
+    $name: String!
+    $description: String!
+    $owner: String!
+    $isPublic: Boolean!
+    $ownerId: ID!
+    $community: String!
+  ) {
+    addItem(
+      name: $name
+      description: $description
+      owner: $owner
+      isPublic: $isPublic
+      ownerId: $ownerId
+      community: $community
+    ) {
+      _id
+      name
+      description
+      owner
+      isPublic
+      ownerId
+      community
+    }
+  }
+`;
