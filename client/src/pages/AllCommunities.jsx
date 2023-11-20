@@ -1,16 +1,15 @@
-import Botton from "../components/Atoms/Botton";
+import Button from "../components/Atoms/Button";
 import Auth from "../utils/auth";
 
-import { useState } from 'react';
+import { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 
 import { QUERY_COMMUNITIES } from "../utils/queries";
-import { ADD_COMMUNITY } from "../utils/mutations"
-import { JOIN_COMMUNITY } from "../utils/mutations"
-
+import { ADD_COMMUNITY, LEAVE_COMMUNITY } from "../utils/mutations";
+import { JOIN_COMMUNITY } from "../utils/mutations";
 
 import PageHeader from "../components/Atoms/PageHeader";
-import Modal from "../components/Modals/Modal"
+import Modal from "../components/Modals/Modal";
 const isLogged = Auth.loggedIn();
 
 const styles = {
@@ -20,27 +19,29 @@ const styles = {
   },
 };
 
-
 export default function AllCommunities() {
   const [showModal, setShowModal] = useState(false);
-  const [name, setInputValue] = useState('');
+  const [name, setInputValue] = useState("");
 
   const { loading, data, error } = useQuery(QUERY_COMMUNITIES);
 
+  const [addCommunity, { error: addCommunityError }] = useMutation(
+    ADD_COMMUNITY,
+    {
+      refetchQueries: [QUERY_COMMUNITIES, "communities"],
+    }
+  );
 
-  const [addCommunity, { error: addCommunityError }] = useMutation(ADD_COMMUNITY, {
-    refetchQueries: [
-      QUERY_COMMUNITIES,
-      "communities"
-    ]
+  const [joinCommunity, { error: joinCommunityError }] = useMutation(
+    JOIN_COMMUNITY,
+    {
+      refetchQueries: [QUERY_COMMUNITIES, "communities"],
+    }
+  );
+
+  const [leaveCommunity, { err }] = useMutation(LEAVE_COMMUNITY, {
+    refetchQueries: [QUERY_COMMUNITIES, "communities"],
   });
-
-  const [joinCommunity, { error: joinCommunityError }] = useMutation(JOIN_COMMUNITY, {
-    refetchQueries: [
-      QUERY_COMMUNITIES,
-      "communities"
-    ]
-  })
 
   if (loading) return <p>Loading..</p>;
   if (error) return <p>Error</p>;
@@ -53,50 +54,65 @@ export default function AllCommunities() {
     setInputValue("");
   };
 
-  // grabs user input 
+  // grabs user input
   const handleInputChange = (event) => {
     event.preventDefault();
     setInputValue(event.target.value);
-  }
+  };
 
-  // function for creating a community 
+  // function for creating a community
   const submitCommunityForm = async (event) => {
     try {
       const { data } = await addCommunity({
         variables: { name },
-      })
+      });
     } catch (err) {
-      console.error(err);      
+      console.error(err);
     }
 
     if (data) {
-      setShowModal(false)
+      setShowModal(false);
       setInputValue("");
     } else {
       console.log("didn't create community");
     }
-  }
+  };
 
-const joinCommunityAction = async (communityId) => {
-  try {
-    const { data } = await joinCommunity({
-      variables: { communityId },
-    })
-  } catch (joinCommunityError) {
-    console.log(joinCommunityError);
-  }
+  const joinCommunityAction = async (communityId) => {
+    try {
+      const { data } = await joinCommunity({
+        variables: { communityId },
+      });
+    } catch (joinCommunityError) {
+      console.log(joinCommunityError);
+    }
 
-// data returns as array of communities but function still works
+    // data returns as array of communities but function still works
 
-  if (communityId) {
-    alert("Successfully Joined!")
-  } else if(!communityId) {
-    alert("Didn't successfully join");
-  }
+    if (communityId) {
+      alert("Successfully Joined!");
+    } else if (!communityId) {
+      alert("Didn't successfully join");
+    }
+  };
 
-}
+  const leaveCommunityAction = async (communityId, communityName) => {
+    try {
+      const { data } = await leaveCommunity({ variables: { communityId } });
+    } catch (error) {
+      console.error(error);
+    }
 
-  return ( 
+    if (communityId) {
+      alert(`You are no longer following ${communityName}`);
+    } else if (!communityId) {
+      alert("Didn't successfully leave");
+    }
+  };
+
+  const myUserId = Auth.getProfile().authenticatedPerson._id;
+
+  return (
     <div className="container">
       <PageHeader
         icon={"fa-solid fa-users"}
@@ -114,14 +130,32 @@ const joinCommunityAction = async (communityId) => {
               className="m-2 flex justify-between"
               key={community._id}
             >
-              <div className="w-2/4 ml-2" >
+              <div className="w-2/4 ml-2">
                 <a href="#">
                   <h2>{community.name}</h2>
                 </a>
               </div>
               <div className="flex justify-evenly w-2/4 text-center">
-                {isLogged && <Botton label="Join" type="submit" action={() => joinCommunityAction(community._id)} />}
-                <p>{community.items.length} Members</p>
+                {isLogged && (
+                  <>
+                    {community.users.some((user) => user._id === myUserId) ? (
+                      <Button
+                        label="Leave"
+                        style="warning"
+                        action={() =>
+                          leaveCommunityAction(community._id, community.name)
+                        }
+                      />
+                    ) : (
+                      <Button
+                        label="Join"
+                        type="submit"
+                        action={() => joinCommunityAction(community._id)}
+                      />
+                    )}
+                  </>
+                )}
+                <p>{community.users.length} Members</p>
                 <p>{community.items.length} Items</p>
               </div>
             </div>
@@ -130,8 +164,15 @@ const joinCommunityAction = async (communityId) => {
         {showModal && (
           <Modal
             heading={"Create A Community"}
-            body={<input type="text" placeholder="Title it here" value={name} onChange={handleInputChange} />}
-            btnLabel={'Create'}
+            body={
+              <input
+                type="text"
+                placeholder="Title it here"
+                value={name}
+                onChange={handleInputChange}
+              />
+            }
+            btnLabel={"Create"}
             btnAction={() => submitCommunityForm()}
             closeModal={() => setShowModal(false)}
           />

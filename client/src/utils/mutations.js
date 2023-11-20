@@ -87,3 +87,16 @@ export const ADD_ITEM = gql`
     }
   }
 `;
+
+export const LEAVE_COMMUNITY = gql`
+  mutation leaveCommunity($communityId: ID!) {
+    leaveCommunity(communityId: $communityId) {
+      _id
+      username
+      communities {
+        _id
+        name
+      }
+    }
+  }
+`;

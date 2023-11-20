@@ -34,6 +34,10 @@ export const QUERY_COMMUNITIES = gql`
         isPublic
         community
       }
+      users {
+        _id
+        username
+      }
     }
   }
 `;
@@ -78,6 +82,30 @@ export const QUERY_ITEMS_COMMUNITIES = gql`
       description
       owner
       ownerId
+    }
+  }
+`;
+
+export const QUERY_MY_COMMUNITIES = gql`
+  query myCommunities {
+    myCommunities {
+      _id
+      username
+      communities {
+        _id
+        name
+        items {
+          _id
+          isPublic
+          ownerId {
+            _id
+            username
+          }
+        }
+        users {
+          _id
+        }
+      }
     }
   }
 `;

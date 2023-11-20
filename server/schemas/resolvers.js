@@ -25,6 +25,9 @@ const resolvers = {
         { path: "items" },
       ]);
     },
+    myCommunities: async (parent, args, context) => {
+      return User.findById(context.user._id).populate("communities");
+    },
     items: async () => {
       return Item.find();
     },
@@ -74,11 +77,29 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    addCommunity: async (parent, { name }) => {
-      return Community.create({ name });
+    addCommunity: async (parent, { name }, context) => {
+      const newCommunity = await Community.create({ name });
+
+      const addToMyCommunities = await User.findByIdAndUpdate(
+        context.user._id,
+        {
+          $addToSet: { communities: newCommunity._id },
+        }
+      );
+
+      const addMeToNewCommunity = await Community.findByIdAndUpdate(
+        newCommunity._id,
+        { $addToSet: { users: context.user._id } },
+        { new: true }
+      ).populate("users");
+      return addMeToNewCommunity;
     },
     joinCommunity: async (parent, { communityId }, context) => {
       if (context.user) {
+        await User.findByIdAndUpdate(context.user._id, {
+          $addToSet: { communities: communityId },
+        });
+
         return Community.findOneAndUpdate(
           { _id: communityId },
           {
@@ -95,7 +116,17 @@ const resolvers = {
         community.users.push(userId);
         await community.save();
       }
+
       return Community.findOne({ _id: communityId }).populate("users");
+    },
+    leaveCommunity: async (parent, { communityId }, context) => {
+      await Community.findByIdAndUpdate(communityId, {
+        $pull: { users: context.user._id },
+      });
+
+      return User.findByIdAndUpdate(context.user._id, {
+        $pull: { communities: communityId },
+      });
     },
     sendMessage: async (_, { sender, recipient, content }, context) => {
       const newMessage = await Message.create({ sender, recipient, content });
