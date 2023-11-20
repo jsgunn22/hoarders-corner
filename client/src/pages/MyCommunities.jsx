@@ -11,7 +11,7 @@ export default function MyCommunities() {
   const [addCommunity, { error: addCommunityError }] = useMutation(
     ADD_COMMUNITY,
     {
-      refetchQueries: [QUERY_COMMUNITIES, "communities"],
+      refetchQueries: [QUERY_MY_COMMUNITIES, "communities"],
     }
   );
   const [showModal, setShowModal] = useState(false);

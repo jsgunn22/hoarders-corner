@@ -77,8 +77,22 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    addCommunity: async (parent, { name }) => {
-      return Community.create({ name });
+    addCommunity: async (parent, { name }, context) => {
+      const newCommunity = await Community.create({ name });
+
+      const addToMyCommunities = await User.findByIdAndUpdate(
+        context.user._id,
+        {
+          $addToSet: { communities: newCommunity._id },
+        }
+      );
+
+      const addMeToNewCommunity = await Community.findByIdAndUpdate(
+        newCommunity._id,
+        { $addToSet: { users: context.user._id } },
+        { new: true }
+      ).populate("users");
+      return addMeToNewCommunity;
     },
     joinCommunity: async (parent, { communityId }, context) => {
       if (context.user) {
