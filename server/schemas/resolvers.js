@@ -31,8 +31,11 @@ const resolvers = {
     items: async () => {
       return Item.find();
     },
-    itemByCommunity: async (parent, { community }) => {
-      return Item.find({ community: "community", isPublic: true });
+    itemByCommunity: async (parent, { communityId }) => {
+      return Community.findById(communityId).populate([
+        { path: "users" },
+        { path: "items" },
+      ]);
     },
     item: async (parent, { itemId }) => {
       return Item.findOne({ _id: itemId });

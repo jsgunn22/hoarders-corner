@@ -1,6 +1,6 @@
 import PageHeader from "../components/Atoms/PageHeader";
 import CommunityRow from "../components/CommunityRow/CommunityRow";
-import { QUERY_MY_COMMUNITIES, QUERY_COMMUNITIES } from "../utils/queries";
+import { QUERY_MY_COMMUNITIES } from "../utils/queries";
 import { useQuery, useMutation } from "@apollo/client";
 import { useState } from "react";
 import { ADD_COMMUNITY } from "../utils/mutations";

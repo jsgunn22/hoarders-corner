@@ -2,6 +2,7 @@ import Button from "../Atoms/Button";
 import { useMutation } from "@apollo/client";
 import { LEAVE_COMMUNITY } from "../../utils/mutations";
 import { QUERY_MY_COMMUNITIES } from "../../utils/queries";
+import { Link } from "react-router-dom";
 
 export default function CommunityRow({ _id, name, members, items }) {
   const [leaveCommunity, { err }] = useMutation(LEAVE_COMMUNITY, {
@@ -22,9 +23,12 @@ export default function CommunityRow({ _id, name, members, items }) {
   };
 
   return (
-    <tr className="w-full bg-neu-0 h-16 flex rounded-lg shadow-md hover:shadow-xl cursor-pointer ">
+    <tr className="w-full bg-neu-0 h-16 flex rounded-lg shadow-md hover:shadow-lg cursor-pointer ">
       <td className="px-6 flex items-center w-full">
-        <h3 className="text-h3 font-bold text-pri-5">{name}</h3>
+        <Link className="flex items-center" to={`/communities/${_id}`}>
+          <h3 className="text-h3 font-bold text-pri-5 mr-1">{name}</h3>
+          <i className="fa-solid fa-arrow-right"></i>
+        </Link>
       </td>
       <td className="flex items-center min-w-[128px]">
         <i className="fa-solid fa-users mr-1 text-pri-5 "></i>

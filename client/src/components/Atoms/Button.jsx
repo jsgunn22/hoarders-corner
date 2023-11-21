@@ -16,7 +16,7 @@ export default function Button({ label, action, type, icon, style }) {
   }`;
   return (
     <button className={classList} onClick={action} type={type}>
-      {icon && <i className={`mr-2 ${icon}`}></i>}
+      {icon && <i className={`${label && "mr-2"} ${icon}`}></i>}
       {label}
     </button>
   );

@@ -4,7 +4,7 @@ import App from "./App.jsx";
 import AllCommunities from "./pages/AllCommunities.jsx";
 import MyCommunities from "./pages/MyCommunities.jsx";
 import Messages from "./pages/Messages.jsx";
-import ItemsCommunity from "./pages/ItemsCommunity.jsx";
+import MyCommunityItems from "./pages/MyCommunityItems.jsx";
 import MyItemsCommunity from "./pages/MyItemsCommunity.jsx";
 
 const router = createBrowserRouter([
@@ -30,8 +30,8 @@ const router = createBrowserRouter([
         element: <MyCommunities />,
       },
       {
-        path: "/itemscommunity",
-        element: <ItemsCommunity />,
+        path: "/communities/:communityId",
+        element: <MyCommunityItems />,
       },
       {
         path: "myitemscommunity",

@@ -115,6 +115,7 @@ export default function AllCommunities() {
     }
   };
 
+
   const getCategoryIcon = (name) => {
     switch (name) {
       case "Books":
@@ -140,10 +141,8 @@ export default function AllCommunities() {
     }
   };
   
-
-
-  const myUserId = Auth.getProfile().authenticatedPerson._id;
-
+  const myUserId = isLogged && Auth.getProfile().authenticatedPerson._id;
+  
   return (
     <div className="container">
       <PageHeader
