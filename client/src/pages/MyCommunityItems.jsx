@@ -73,7 +73,7 @@ function MessageModal({ name, closeModal }) {
   );
 }
 
-export default function ItemsCommunity() {
+export default function MyCommunityItems() {
   const [messageModalState, setMessageModalState] = useState(false);
   const [messageModalData, setMessageModalData] = useState();
   const { communityId } = useParams();
