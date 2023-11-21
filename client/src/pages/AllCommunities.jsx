@@ -1,5 +1,8 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUsers, faBook, faMagic, faCompactDisc, faBeer, faMugHot, faDolly, faCheese, faGamepad } from "@fortawesome/free-solid-svg-icons";
 import Button from "../components/Atoms/Button";
 import Auth from "../utils/auth";
+
 
 import { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
@@ -18,6 +21,8 @@ const styles = {
     border: "1px solid black",
   },
 };
+
+
 
 export default function AllCommunities() {
   const [showModal, setShowModal] = useState(false);
@@ -110,6 +115,33 @@ export default function AllCommunities() {
     }
   };
 
+  const getCategoryIcon = (name) => {
+    switch (name) {
+      case "Books":
+        return faBook;
+      case "Magic the Gathering":
+        return faMagic;
+      case "Blue Rays":
+        return faCompactDisc;
+      case "Vinyl Records":
+        return faCompactDisc;
+      case "Bottle Caps":
+        return faBeer;
+      case "Beer Mugs":
+        return faMugHot;
+      case "Porcelain Dolls":
+        return faDolly;
+      case "Cheese Curds":
+        return faCheese;
+      case "Video Games":
+        return faGamepad;
+      default:
+        return faUsers; 
+    }
+  };
+  
+
+
   const myUserId = Auth.getProfile().authenticatedPerson._id;
 
   return (
@@ -127,15 +159,15 @@ export default function AllCommunities() {
           {communities.map((community) => (
             <div
               style={styles.parentDiv}
-              className="m-2 flex justify-between"
+              className="border border-gray-300 rounded-lg p-4 m-4 flex justify-between shadow-md hover:shadow-lg transition duration-300"
               key={community._id}
             >
               <div className="w-2/4 ml-2">
-                <a href="#">
-                  <h2>{community.name}</h2>
+                <a href="#"className="text-blue-500 hover:underline">
+                <h2 className="text-xl font-semibold">{community.name}</h2>
                 </a>
               </div>
-              <div className="flex justify-evenly w-2/4 text-center">
+              <div className="flex justify-evenly w-1/2 text-center items-center space-x-4">
                 {isLogged && (
                   <>
                     {community.users.some((user) => user._id === myUserId) ? (
@@ -150,13 +182,17 @@ export default function AllCommunities() {
                       <Button
                         label="Join"
                         type="submit"
+                        className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-full transition duration-300"
                         action={() => joinCommunityAction(community._id)}
                       />
                     )}
                   </>
                 )}
-                <p>{community.users.length} Members</p>
-                <p>{community.items.length} Items</p>
+                <p className="text-gray-600">{community.items.length} Members</p>
+                <p className="text-gray-600">{community.items.length} Items</p>
+                <FontAwesomeIcon
+                icon={getCategoryIcon(community.name)} 
+                className="text-2xl mr-2" />
               </div>
             </div>
           ))}
