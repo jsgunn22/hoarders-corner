@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { ADD_ITEM } from "../utils/mutations";
 import Auth from "../utils/auth";
 import Input from "../components/Atoms/Input";
+import { Link } from "react-router-dom";
 
 import Modal from "../components/Modals/Modal";
    function MyIndividualItem ({name, description, isPublic}) {
@@ -29,6 +30,14 @@ import Modal from "../components/Modals/Modal";
     );}
    
 export default function MyItemsCommunity() {
+  if (!Auth.loggedIn()) {
+
+    return (
+     <div>
+       <p>Must be logged in to view this page</p> 
+       <Link to="/">Go to Homepage</Link>
+     </div>
+    )}
        const [modalState, setModalState] = useState(false);
        function openModal(){
           setModalState(true);

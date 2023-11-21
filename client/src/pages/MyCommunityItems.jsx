@@ -10,6 +10,7 @@ import Input from "../components/Atoms/Input";
 import TextArea from "../components/Atoms/TextArea";
 import PageHeader from "../components/Atoms/PageHeader";
 import CreateItemForm from "../components/CreateItemForm/CreateItemForm";
+import { Link } from "react-router-dom";
 
 function IndividualItem({ name, description, owner, _id, openMessageModal }) {
   return (
@@ -76,6 +77,15 @@ function MessageModal({ name, closeModal }) {
 }
 
 export default function MyCommunityItems() {
+  if (!Auth.loggedIn()) {
+
+    return (
+     <div>
+       <p>Must be logged in to view this page</p> 
+       <Link to="/">Go to Homepage</Link>
+     </div>
+    )}
+
   const [messageModalState, setMessageModalState] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [messageModalData, setMessageModalData] = useState();

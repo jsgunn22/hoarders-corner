@@ -5,8 +5,20 @@ import { useQuery, useMutation } from "@apollo/client";
 import { useState } from "react";
 import { ADD_COMMUNITY } from "../utils/mutations";
 import Modal from "../components/Modals/Modal";
+import Auth from "../utils/auth";
+import { Link } from "react-router-dom";
+
 
 export default function MyCommunities() {
+ if (!Auth.loggedIn()) {
+
+   return (
+    <div>
+      <p>Must be logged in to view this page</p> 
+      <Link to="/">Go to Homepage</Link>
+    </div>
+   )}
+
   const { loading, data, error } = useQuery(QUERY_MY_COMMUNITIES);
   const [addCommunity, { error: addCommunityError }] = useMutation(
     ADD_COMMUNITY,
@@ -52,8 +64,9 @@ export default function MyCommunities() {
     }
   };
 
-  return myCommunities.length === 0 ? (
-    <p>You are not a memember of any communities</p>
+  return (
+   myCommunities.length === 0 ? (
+    <p>You are not a member of any communities</p>
   ) : (
     <>
       <PageHeader
@@ -93,5 +106,5 @@ export default function MyCommunities() {
         />
       )}
     </>
-  );
-}
+  )
+)}
