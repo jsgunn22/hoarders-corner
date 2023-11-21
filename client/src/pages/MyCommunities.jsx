@@ -6,9 +6,19 @@ import { useState } from "react";
 import { ADD_COMMUNITY } from "../utils/mutations";
 import Modal from "../components/Modals/Modal";
 import Auth from "../utils/auth";
+import { Link } from "react-router-dom";
 
 
 export default function MyCommunities() {
+ if (!Auth.loggedIn()) {
+
+   return (
+    <div>
+      <p>Must be logged in to view this page</p> 
+      <Link to="/">Go to Homepage</Link>
+    </div>
+   )}
+
   const { loading, data, error } = useQuery(QUERY_MY_COMMUNITIES);
   const [addCommunity, { error: addCommunityError }] = useMutation(
     ADD_COMMUNITY,
