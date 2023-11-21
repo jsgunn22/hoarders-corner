@@ -1,5 +1,5 @@
 import { useQuery, useMutation } from "@apollo/client";
-import { QUERY_COMMUNITY_ITEMS } from "../utils/queries";
+import { QUERY_COMMUNITY_ITEMS, QUERY_MY_MESSAGES } from "../utils/queries";
 import { useParams } from "react-router-dom";
 import Button from "../components/Atoms/Button";
 import { SEND_MESSAGE } from "../utils/mutations";
@@ -27,7 +27,9 @@ function IndividualItem({ name, description, owner, _id, openMessageModal }) {
 
 function MessageModal({ name, closeModal }) {
   const [textAreaValue, setTextAreaValue] = useState("");
-  const [sendMessage, { error }] = useMutation(SEND_MESSAGE);
+  const [sendMessage, { error }] = useMutation(SEND_MESSAGE, {
+    refetchQueries: [QUERY_MY_MESSAGES, "messages"],
+  });
 
   const sendToOwner = async () => {
     console.log(textAreaValue);
@@ -47,8 +49,8 @@ function MessageModal({ name, closeModal }) {
     }
   };
 
-  const handleTextAreaChange = (value) => {
-    setTextAreaValue(value);
+  const handleTextAreaChange = (event) => {
+    setTextAreaValue(event.target.value);
   };
 
   return (
@@ -78,13 +80,13 @@ function MessageModal({ name, closeModal }) {
 
 export default function MyCommunityItems() {
   if (!Auth.loggedIn()) {
-
     return (
-     <div>
-       <p>Must be logged in to view this page</p> 
-       <Link to="/">Go to Homepage</Link>
-     </div>
-    )}
+      <div>
+        <p>Must be logged in to view this page</p>
+        <Link to="/">Go to Homepage</Link>
+      </div>
+    );
+  }
 
   const [messageModalState, setMessageModalState] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
@@ -141,16 +143,19 @@ export default function MyCommunityItems() {
             </tr>
           </thead>
           <tbody>
-            {communityItems.map((item, index) => (
-              <IndividualItem
-                openMessageModal={openMessageModal}
-                _id={item._id}
-                name={item.name}
-                description={item.description}
-                owner={item.owner}
-                key={index}
-              />
-            ))}
+            {communityItems.map(
+              (item, index) =>
+                item.isPublic && (
+                  <IndividualItem
+                    openMessageModal={openMessageModal}
+                    _id={item._id}
+                    name={item.name}
+                    description={item.description}
+                    owner={item.owner}
+                    key={index}
+                  />
+                )
+            )}
           </tbody>
         </table>
       </div>

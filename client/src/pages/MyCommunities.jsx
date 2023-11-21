@@ -8,16 +8,15 @@ import Modal from "../components/Modals/Modal";
 import Auth from "../utils/auth";
 import { Link } from "react-router-dom";
 
-
 export default function MyCommunities() {
- if (!Auth.loggedIn()) {
-
-   return (
-    <div>
-      <p>Must be logged in to view this page</p> 
-      <Link to="/">Go to Homepage</Link>
-    </div>
-   )}
+  if (!Auth.loggedIn()) {
+    return (
+      <div>
+        <p>Must be logged in to view this page</p>
+        <Link to="/">Go to Homepage</Link>
+      </div>
+    );
+  }
 
   const { loading, data, error } = useQuery(QUERY_MY_COMMUNITIES);
   const [addCommunity, { error: addCommunityError }] = useMutation(
@@ -32,7 +31,7 @@ export default function MyCommunities() {
   if (loading) return <p>...loading</p>;
   if (error) return <p>{error}</p>;
 
-  const myCommunities = data?.myCommunities.communities || [];
+  const myCommunities = data?.myCommunities || [];
 
   // CREATE COMMUNITY
   // displays Modal since set to true
@@ -65,9 +64,6 @@ export default function MyCommunities() {
   };
 
   return (
-   myCommunities.length === 0 ? (
-    <p>You are not a member of any communities</p>
-  ) : (
     <>
       <PageHeader
         label="My Communities"
@@ -76,37 +72,43 @@ export default function MyCommunities() {
         btnLabel="Create Community"
         btnAction={handleCreateCommunity}
       />
-      <table className="w-full mt-2">
-        <tbody className="flex flex-col gap-4">
-          {myCommunities.map((c, i) => (
-            <CommunityRow
-              key={i}
-              _id={c._id}
-              name={c.name}
-              members={c.users.length}
-              items={c.items.length}
-              isMyCommunity={true}
-              hasButton={true}
+      {myCommunities.length === 0 ? (
+        <p>You are not a member of any communities</p>
+      ) : (
+        <>
+          <table className="w-full mt-2">
+            <tbody className="flex flex-col gap-4">
+              {myCommunities.communities.map((c, i) => (
+                <CommunityRow
+                  key={i}
+                  _id={c._id}
+                  name={c.name}
+                  members={c.users.length}
+                  items={c.items.length}
+                  isMyCommunity={true}
+                  hasButton={true}
+                />
+              ))}
+            </tbody>
+          </table>
+          {showModal && (
+            <Modal
+              heading={"Create A Community"}
+              body={
+                <input
+                  type="text"
+                  placeholder="Title it here"
+                  value={name}
+                  onChange={handleInputChange}
+                />
+              }
+              btnLabel={"Create"}
+              btnAction={() => submitCommunityForm()}
+              closeModal={() => setShowModal(false)}
             />
-          ))}
-        </tbody>
-      </table>
-      {showModal && (
-        <Modal
-          heading={"Create A Community"}
-          body={
-            <input
-              type="text"
-              placeholder="Title it here"
-              value={name}
-              onChange={handleInputChange}
-            />
-          }
-          btnLabel={"Create"}
-          btnAction={() => submitCommunityForm()}
-          closeModal={() => setShowModal(false)}
-        />
+          )}
+        </>
       )}
     </>
-  )
-)}
+  );
+}

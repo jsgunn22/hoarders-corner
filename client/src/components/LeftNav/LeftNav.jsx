@@ -5,20 +5,8 @@ import SignupForm from "./SignupForm";
 import { Link, useLocation } from "react-router-dom";
 import Button from "../Atoms/Button";
 
-import { QUERY_MY_COMMUNITIES, QUERY_MY_MESSAGES } from "../../utils/queries";
+import { QUERY_MY_HOARDS, QUERY_MY_MESSAGES } from "../../utils/queries";
 import { useQuery } from "@apollo/client";
-
-const tempHoards = [
-  {
-    name: "Books",
-  },
-  {
-    name: "Magic the Gathering",
-  },
-  {
-    name: "Bottle Caps",
-  },
-];
 
 function MessagesTab() {
   const currentPage = useLocation().pathname;
@@ -34,7 +22,7 @@ function MessagesTab() {
 
   const unreadCount = myMessages.messagesReceived.filter(
     (m) => !m.isRead
-  ).length;
+  )?.length;
 
   return (
     <div className=" h-14 flex items-center ">
@@ -59,27 +47,33 @@ function MessagesTab() {
   );
 }
 
-function MyCommunitiesSection() {
-  const { loading, data, error } = useQuery(QUERY_MY_COMMUNITIES);
+function MyHoards() {
+  const { loading, data, error } = useQuery(QUERY_MY_HOARDS);
 
   if (loading) return <p>...loading</p>;
   if (error) return <p>{error}</p>;
 
-  const myCommunities = data?.myCommunities.communities || [];
+  const uniqueHoards = data?.myHoards.communities.filter((community) =>
+    community.items.some(
+      (item) => item.ownerId?._id === Auth.getProfile().authenticatedPerson._id
+    )
+  );
 
   return (
-    <div>
-      <SectionLabel label="My Hoards" />
-      {myCommunities.length === 0 ? (
-        <p>You have not joined any communities</p>
-      ) : (
-        <div>
-          {myCommunities.map((c, i) => (
-            <NavLink key={i} label={c.name} to={`/my-communities/${c.name}`} />
-          ))}
-        </div>
-      )}
-    </div>
+    uniqueHoards && (
+      <div>
+        <SectionLabel label="My Hoards" />
+        {uniqueHoards.length === 0 ? (
+          <p>You have not joined any communities</p>
+        ) : (
+          <div>
+            {uniqueHoards.map((h, i) => (
+              <NavLink key={i} label={h.name} to={`/hoard/${h._id}`} />
+            ))}
+          </div>
+        )}
+      </div>
+    )
   );
 }
 
@@ -133,7 +127,7 @@ export default function LeftNav() {
               <SectionLabel label="Communities" />
               <NavLink label="All Communities" to="/" />
               <NavLink label="My Communities" to="/my-communities" />
-              <MyCommunitiesSection />
+              <MyHoards />
             </div>
             <div className="w-full bg-neu-0 px-4 py-2 border-t-2 border-opac-neu flex-shrink">
               <Button label="Log Out" style="w-full" action={logout} />
