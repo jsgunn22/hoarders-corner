@@ -655,6 +655,10 @@ video {
   margin-top: 0.3rem;
 }
 
+.mt-3 {
+  margin-top: 0.75rem;
+}
+
 .inline-block {
   display: inline-block;
 }
@@ -707,6 +711,11 @@ video {
   height: 100vh;
 }
 
+.h-fit {
+  height: -moz-fit-content;
+  height: fit-content;
+}
+
 .w-2\/4 {
   width: 50%;
 }
@@ -754,6 +763,10 @@ video {
 
 .min-w-\[96px\] {
   min-width: 96px;
+}
+
+.min-w-full {
+  min-width: 100%;
 }
 
 .max-w-\[290px\] {
@@ -1009,6 +1022,10 @@ video {
 
 .pt-0\.5 {
   padding-top: 0.125rem;
+}
+
+.pt-3 {
+  padding-top: 0.75rem;
 }
 
 .text-left {

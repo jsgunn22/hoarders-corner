@@ -8,6 +8,7 @@ import { useState } from "react";
 import Modal from "../components/Modals/Modal";
 import Input from "../components/Atoms/Input";
 import TextArea from "../components/Atoms/TextArea";
+import PageHeader from "../components/Atoms/PageHeader";
 
 function IndividualItem({ name, description, owner, _id, openMessageModal }) {
   return (
@@ -98,42 +99,41 @@ export default function MyCommunityItems() {
 
   return (
     <>
-      <div>
-        <div className="flex items-center justify-between">
-          <button className="bg-opac-pri  rounded  px-4  py-3  h-10  cursor-pointer hover:bg-pri-3 active:bg-pri-9  text-h4  font-medium  text-pri-5 hover:text-neu-0 ">
-            <span>&#8592;</span>
-          </button>
-          <h2 className="text-h2 font-bold text-neu-7">Books</h2>
-          <button className="bg-opac-pri  rounded  px-4  py-3  h-10  cursor-pointer hover:bg-pri-3 active:bg-pri-9  text-h4  font-medium  text-pri-5 hover:text-neu-0 ">
-            Join
-          </button>
-        </div>
-
-        <div className="p-8 overflow-auto relative">
-          <table className="table-fixed  border-x border-y rounded w-full shadow-lg bg-white border-collapse">
-            <thead>
-              <tr>
-                <th className="text-h3 font-bold text-neu-7">Name</th>
-                <th className="text-h3 font-bold text-neu-7">Description</th>
-                <th className="text-h3 font-bold text-neu-7">Owner</th>
-                <button></button>
-              </tr>
-            </thead>
-            <tbody>
-              {communityItems.map((item, index) => (
-                <IndividualItem
-                  openMessageModal={openMessageModal}
-                  _id={item._id}
-                  name={item.name}
-                  description={item.description}
-                  owner={item.owner}
-                  key={index}
-                />
-              ))}
-            </tbody>
-          </table>
-        </div>
+      <div className="flex w-full items-center h-fit">
+        <Button icon={`fa-solid fa-arrow-left`} />
+        <PageHeader
+          label={`My Communities / ${data.itemByCommunity.name}`}
+          hasButton={true}
+          btnLabel={`Add Item`}
+          icon={""}
+        />
       </div>
+
+      <div className="p-8 overflow-auto relative">
+        <table className="table-fixed  border-x border-y rounded w-full shadow-lg bg-white border-collapse">
+          <thead>
+            <tr>
+              <th className="text-h3 font-bold text-neu-7">Name</th>
+              <th className="text-h3 font-bold text-neu-7">Description</th>
+              <th className="text-h3 font-bold text-neu-7">Owner</th>
+              <button></button>
+            </tr>
+          </thead>
+          <tbody>
+            {communityItems.map((item, index) => (
+              <IndividualItem
+                openMessageModal={openMessageModal}
+                _id={item._id}
+                name={item.name}
+                description={item.description}
+                owner={item.owner}
+                key={index}
+              />
+            ))}
+          </tbody>
+        </table>
+      </div>
+
       {messageModalState && (
         <MessageModal name={messageModalData} closeModal={closeMessageModal} />
       )}
