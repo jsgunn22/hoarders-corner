@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { ADD_ITEM } from "../utils/mutations";
 import Auth from "../utils/auth";
 import Input from "../components/Atoms/Input";
+import { Link } from "react-router-dom";
 
 import Modal from "../components/Modals/Modal";
    function MyIndividualItem ({name, description, isPublic}) {

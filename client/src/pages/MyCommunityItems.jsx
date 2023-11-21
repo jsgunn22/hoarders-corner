@@ -9,6 +9,7 @@ import Modal from "../components/Modals/Modal";
 import Input from "../components/Atoms/Input";
 import TextArea from "../components/Atoms/TextArea";
 import PageHeader from "../components/Atoms/PageHeader";
+import { Link } from "react-router-dom";
 
 function IndividualItem({ name, description, owner, _id, openMessageModal }) {
   return (
@@ -83,7 +84,7 @@ export default function MyCommunityItems() {
        <Link to="/">Go to Homepage</Link>
      </div>
     )}
-    
+
   const [messageModalState, setMessageModalState] = useState(false);
   const [messageModalData, setMessageModalData] = useState();
   const { communityId } = useParams();
