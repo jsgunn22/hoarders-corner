@@ -75,6 +75,15 @@ function MessageModal({ name, closeModal }) {
 }
 
 export default function MyCommunityItems() {
+  if (!Auth.loggedIn()) {
+
+    return (
+     <div>
+       <p>Must be logged in to view this page</p> 
+       <Link to="/">Go to Homepage</Link>
+     </div>
+    )}
+    
   const [messageModalState, setMessageModalState] = useState(false);
   const [messageModalData, setMessageModalData] = useState();
   const { communityId } = useParams();
