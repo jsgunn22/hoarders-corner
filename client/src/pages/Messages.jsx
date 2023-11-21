@@ -140,8 +140,8 @@ function MessageModal({
   };
 
   // This function is passed into the text area to gather its value in textAreaValue
-  const handleTextAreaChange = (value) => {
-    setTextAreaValue(value);
+  const handleTextAreaChange = (event) => {
+    setTextAreaValue(event.target.value);
   };
   return (
     <div className="w-screen h-screen bg-[#00000080] absolute top-0 left-0">
