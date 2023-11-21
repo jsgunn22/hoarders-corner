@@ -4,12 +4,18 @@ import TextArea from "../Atoms/TextArea";
 import Checkbox from "../Atoms/Checkbox";
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
+import { ADD_ITEM } from "../../utils/mutations";
+import Auth from "../../utils/auth";
+import { QUERY_COMMUNITY_ITEMS } from "../../utils/queries";
 
 export default function CreateItemForm({
   communityName,
   closeModal,
   communityId,
 }) {
+  const [createItem, { error, data }] = useMutation(ADD_ITEM, {
+    refetchQueries: [QUERY_COMMUNITY_ITEMS, "communities"],
+  });
   const [isPublic, setIsPublic] = useState(false);
   const [formState, setFormState] = useState({
     name: "",
@@ -24,8 +30,6 @@ export default function CreateItemForm({
       ...formState,
       [name]: value,
     });
-
-    console.log(formState);
   };
 
   const handleIsPublic = () => {
@@ -33,7 +37,25 @@ export default function CreateItemForm({
     setFormState({ ...formState, isPublic: !isPublic });
   };
 
-  const createNewItem = () => {};
+  const createNewItem = async () => {
+    console.log("test");
+    event.preventDefault();
+    try {
+      const { data } = await createItem({
+        variables: {
+          name: formState.name,
+          description: formState.description,
+          isPublic: formState.isPublic,
+          owner: Auth.getProfile().authenticatedPerson.username,
+          community: communityName,
+          communityId: communityId,
+        },
+      });
+    } catch (error) {
+      console.error(error);
+    }
+    closeModal();
+  };
 
   return (
     <>
@@ -46,6 +68,7 @@ export default function CreateItemForm({
           </>
         }
         btnLabel={"Create Item"}
+        btnAction={createNewItem}
         body={
           <>
             <Input

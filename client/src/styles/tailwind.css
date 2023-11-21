@@ -691,6 +691,10 @@ video {
   height: 0.875rem;
 }
 
+.h-4 {
+  height: 1rem;
+}
+
 .h-6 {
   height: 1.5rem;
 }
@@ -710,10 +714,6 @@ video {
 
 .h-screen {
   height: 100vh;
-}
-
-.h-4 {
-  height: 1rem;
 }
 
 .w-2\/4 {
@@ -1115,10 +1115,6 @@ video {
   --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
-.outline-pri-5 {
-  outline-color: #872EB8;
 }
 
 .filter {

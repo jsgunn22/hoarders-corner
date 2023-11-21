@@ -66,23 +66,25 @@ export const ADD_ITEM = gql`
     $description: String!
     $owner: String!
     $isPublic: Boolean!
-    $ownerId: ID!
     $community: String!
+    $communityId: String!
   ) {
-    addItem(
+    createItem(
       name: $name
       description: $description
       owner: $owner
       isPublic: $isPublic
-      ownerId: $ownerId
       community: $community
+      communityId: $communityId
     ) {
       _id
       name
       description
       owner
       isPublic
-      ownerId
+      ownerId {
+        _id
+      }
       community
     }
   }

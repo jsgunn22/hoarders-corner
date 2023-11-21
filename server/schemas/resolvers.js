@@ -145,16 +145,25 @@ const resolvers = {
     },
     createItem: async (
       parent,
-      { name, description, owner, isPublic, ownerId, community }
+      { name, description, owner, isPublic, community, communityId },
+      context
     ) => {
-      return Item.create({
+      const newItem = await Item.create({
         name,
         description,
         owner,
         isPublic,
-        ownerId,
+        ownerId: context.user._id,
         community,
-      }).populate("users");
+      });
+
+      await User.findByIdAndUpdate(context.user._id, {
+        $addToSet: { items: newItem._id },
+      });
+
+      await Community.findByIdAndUpdate(communityId, {
+        $addToSet: { items: newItem._id },
+      });
     },
     addItemToCommunity: async (parent, { itemId, communityId }) => {
       return Community.findOneAndUpdate(

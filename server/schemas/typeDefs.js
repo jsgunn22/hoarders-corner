@@ -64,7 +64,7 @@ const typeDefs = `
     joinCommunity(communityId: ID!): Community
     leaveCommunity(communityId: ID!): User
 
-    createItem(name: String!, description: String!, owner: String!, isPublic: Boolean!, ownerId: ID!, community: String!): Item
+    createItem(name: String!, description: String!, owner: String!, isPublic: Boolean!, community: String!, communityId: String!): Item
     addItemToCommunity(itemId: ID!, communityId: ID!): Item
     
     sendMessage(sender: String!, recipient: String!, content: String): Message
