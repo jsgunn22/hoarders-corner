@@ -5,6 +5,8 @@ import { useQuery, useMutation } from "@apollo/client";
 import { useState } from "react";
 import { ADD_COMMUNITY } from "../utils/mutations";
 import Modal from "../components/Modals/Modal";
+import Auth from "../utils/auth";
+
 
 export default function MyCommunities() {
   const { loading, data, error } = useQuery(QUERY_MY_COMMUNITIES);
@@ -52,8 +54,9 @@ export default function MyCommunities() {
     }
   };
 
-  return myCommunities.length === 0 ? (
-    <p>You are not a memember of any communities</p>
+  return (
+   myCommunities.length === 0 ? (
+    <p>You are not a member of any communities</p>
   ) : (
     <>
       <PageHeader
@@ -93,5 +96,5 @@ export default function MyCommunities() {
         />
       )}
     </>
-  );
-}
+  )
+)}
