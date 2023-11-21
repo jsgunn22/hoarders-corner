@@ -62,11 +62,9 @@ function MyHoards() {
         {myHoards.length === 0 ? (
           <p>You have not joined any communities</p>
         ) : (
-          <div>
-            {myHoards.map((h, i) => (
-              <NavLink key={i} label={h.name} to={`/hoard/${h._id}`} />
-            ))}
-          </div>
+          myHoards.map((h, i) => (
+            <NavLink key={i} label={h.name} to={`/hoard/${h._id}`} />
+          ))
         )}
       </div>
     )
