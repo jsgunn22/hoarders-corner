@@ -85,6 +85,8 @@ export default function MyCommunities() {
               name={c.name}
               members={c.users.length}
               items={c.items.length}
+              isMyCommunity={true}
+              hasButton={true}
             />
           ))}
         </tbody>

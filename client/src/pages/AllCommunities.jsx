@@ -7,10 +7,12 @@ import Auth from "../utils/auth";
 import { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 
-import { QUERY_COMMUNITIES } from "../utils/queries";
+import { QUERY_COMMUNITIES, QUERY_MY_COMMUNITIES } from "../utils/queries";
 import { ADD_COMMUNITY, LEAVE_COMMUNITY } from "../utils/mutations";
 import { JOIN_COMMUNITY } from "../utils/mutations";
 
+
+import CommunityRow from "../components/CommunityRow/CommunityRow";
 import PageHeader from "../components/Atoms/PageHeader";
 import Modal from "../components/Modals/Modal";
 const isLogged = Auth.loggedIn();
@@ -47,6 +49,7 @@ export default function AllCommunities() {
   const [leaveCommunity, { err }] = useMutation(LEAVE_COMMUNITY, {
     refetchQueries: [QUERY_COMMUNITIES, "communities"],
   });
+  
 
   if (loading) return <p>Loading..</p>;
   if (error) return <p>Error</p>;
@@ -152,51 +155,23 @@ export default function AllCommunities() {
         btnLabel={"Create Community"}
         btnAction={handleCreateCommunity}
       />
-      <div className="flex justify-end"></div>
-      <div>
-        <div>
-          {communities.map((community) => (
-            <div
-              style={styles.parentDiv}
-              className="border border-gray-300 rounded-lg p-4 m-4 flex justify-between shadow-md hover:shadow-lg transition duration-300"
-              key={community._id}
-            >
-              <div className="w-2/4 ml-2">
-                <a href="#"className="text-blue-500 hover:underline">
-                <h2 className="text-xl font-semibold">{community.name}</h2>
-                </a>
-              </div>
-              <div className="flex justify-evenly w-1/2 text-center items-center space-x-4">
-                {isLogged && (
-                  <>
-                    {community.users.some((user) => user._id === myUserId) ? (
-                      <Button
-                        label="Leave"
-                        style="warning"
-                        action={() =>
-                          leaveCommunityAction(community._id, community.name)
-                        }
-                      />
-                    ) : (
-                      <Button
-                        label="Join"
-                        type="submit"
-                        className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-full transition duration-300"
-                        action={() => joinCommunityAction(community._id)}
-                      />
-                    )}
-                  </>
-                )}
-                <p className="text-gray-600">{community.items.length} Members</p>
-                <p className="text-gray-600">{community.items.length} Items</p>
-                <FontAwesomeIcon
-                icon={getCategoryIcon(community.name)} 
-                className="text-2xl mr-2" />
-              </div>
-            </div>
+      <table className="w-full mt-2">
+        <tbody className="flex flex-col gap-4">
+        {communities.map((c, i) => (
+           <div key={i}>
+           <CommunityRow
+             _id={c._id}
+             name={c.name}
+             members={c.users.length}
+             items={c.items.length}
+             join={joinCommunityAction}
+             hasButton={isLogged === true}
+             isMyCommunity={c.users.some((user) => user._id === myUserId) }
+           />
+           
+         </div>
           ))}
-        </div>
-        {showModal && (
+          {showModal && (
           <Modal
             heading={"Create A Community"}
             body={
@@ -212,7 +187,9 @@ export default function AllCommunities() {
             closeModal={() => setShowModal(false)}
           />
         )}
-      </div>
+        </tbody>
+      </table>
+      
     </div>
   );
 }
