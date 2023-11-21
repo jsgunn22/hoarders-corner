@@ -9,6 +9,7 @@ import Modal from "../components/Modals/Modal";
 import Input from "../components/Atoms/Input";
 import TextArea from "../components/Atoms/TextArea";
 import PageHeader from "../components/Atoms/PageHeader";
+import CreateItemForm from "../components/CreateItemForm/CreateItemForm";
 
 function IndividualItem({ name, description, owner, _id, openMessageModal }) {
   return (
@@ -76,6 +77,7 @@ function MessageModal({ name, closeModal }) {
 
 export default function MyCommunityItems() {
   const [messageModalState, setMessageModalState] = useState(false);
+  const [showCreateModal, setShowCreateModal] = useState(false);
   const [messageModalData, setMessageModalData] = useState();
   const { communityId } = useParams();
 
@@ -97,6 +99,14 @@ export default function MyCommunityItems() {
     setMessageModalState(false);
   };
 
+  const openCreateItemModal = () => {
+    setShowCreateModal(true);
+  };
+
+  const closeModal = () => {
+    setShowCreateModal(false);
+  };
+
   return (
     <>
       <div className="flex w-full items-center h-fit">
@@ -105,6 +115,7 @@ export default function MyCommunityItems() {
           label={`My Communities / ${data.itemByCommunity.name}`}
           hasButton={true}
           btnLabel={`Add Item`}
+          btnAction={openCreateItemModal}
           icon={""}
         />
       </div>
@@ -136,6 +147,14 @@ export default function MyCommunityItems() {
 
       {messageModalState && (
         <MessageModal name={messageModalData} closeModal={closeMessageModal} />
+      )}
+
+      {showCreateModal && (
+        <CreateItemForm
+          communityName={data.itemByCommunity.name}
+          closeModal={closeModal}
+          communityId={data.itemByCommunity._id}
+        />
       )}
     </>
   );

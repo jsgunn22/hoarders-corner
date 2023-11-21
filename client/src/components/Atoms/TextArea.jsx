@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function TextArea({ label, onChange }) {
+export default function TextArea({ name, label, value, onChange }) {
   const [isFocused, setIsFocused] = useState(false);
   const [hasValue, setHasValue] = useState(false);
   const [showError, setShowError] = useState(false);
@@ -29,12 +29,14 @@ export default function TextArea({ label, onChange }) {
         {label}
       </label>
       <textarea
+        name={name}
+        value={value}
         className={`border-2 rounded-md bg-neu-0  ${
           emptyError ? "border-dan-5" : "border-neu-5"
         } focus:border-pri-5 focus:outline-none p-3 w-full`}
         onFocus={handleFocus}
         onBlur={handleBlur}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={onChange}
       ></textarea>
       {showError || emptyError ? (
         <div className="flex text-dan-5 relative top-1 gap-1 h-0">
