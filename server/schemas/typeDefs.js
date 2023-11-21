@@ -49,7 +49,7 @@ const typeDefs = `
     community(communityId: ID!): Community
     myCommunities: User
     items: [Item]
-    itemByCommunity(community: String!): [Item]
+    itemByCommunity(communityId: String!): Community
     item(itemId: ID!): Item
     messages: [Message]
     message(messageId: ID!): Message

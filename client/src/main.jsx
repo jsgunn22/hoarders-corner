@@ -30,7 +30,7 @@ const router = createBrowserRouter([
         element: <MyCommunities />,
       },
       {
-        path: "/itemscommunity",
+        path: "/communities/:communityId",
         element: <ItemsCommunity />,
       },
       {
