@@ -4,7 +4,7 @@ import { LEAVE_COMMUNITY } from "../../utils/mutations";
 import { QUERY_MY_COMMUNITIES } from "../../utils/queries";
 import { Link } from "react-router-dom";
 
-export default function CommunityRow({ _id, name, members, items }) {
+export default function CommunityRow({ _id, name, members, items, isMyCommunity, join, hasButton }) {
   const [leaveCommunity, { err }] = useMutation(LEAVE_COMMUNITY, {
     refetchQueries: [QUERY_MY_COMMUNITIES, "communities"],
   });
@@ -39,11 +39,15 @@ export default function CommunityRow({ _id, name, members, items }) {
         <h4 className="text-h4 font-bold">{items} Items</h4>
       </td>
       <td className="flex px-6 items-center h-full">
-        <Button
+        {hasButton && (isMyCommunity ? <Button
           label="Leave"
           action={() => leaveCommunityAction(_id, name)}
-          style="warning"
-        />
+          style="warning" 
+        /> : <Button
+        label="Join"
+        action={() => join(_id)}
+      />)
+      }
       </td>
     </tr>
   );
