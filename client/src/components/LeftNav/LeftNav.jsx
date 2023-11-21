@@ -8,6 +8,9 @@ import Button from "../Atoms/Button";
 import { QUERY_MY_HOARDS, QUERY_MY_MESSAGES } from "../../utils/queries";
 import { useQuery } from "@apollo/client";
 
+import { useUserContext } from "../../utils/userContext";
+import { useEffect } from "react";
+
 function MessagesTab() {
   const currentPage = useLocation().pathname;
 
@@ -48,26 +51,19 @@ function MessagesTab() {
 }
 
 function MyHoards() {
-  const { loading, data, error } = useQuery(QUERY_MY_HOARDS);
+  const { myHoards, updateHoards } = useUserContext();
 
-  if (loading) return <p>...loading</p>;
-  if (error) return <p>{error}</p>;
-
-  const uniqueHoards = data?.myHoards.communities.filter((community) =>
-    community.items.some(
-      (item) => item.ownerId?._id === Auth.getProfile().authenticatedPerson._id
-    )
-  );
+  updateHoards();
 
   return (
-    uniqueHoards && (
+    myHoards.length > 0 && (
       <div>
         <SectionLabel label="My Hoards" />
-        {uniqueHoards.length === 0 ? (
+        {myHoards.length === 0 ? (
           <p>You have not joined any communities</p>
         ) : (
           <div>
-            {uniqueHoards.map((h, i) => (
+            {myHoards.map((h, i) => (
               <NavLink key={i} label={h.name} to={`/hoard/${h._id}`} />
             ))}
           </div>

@@ -9,6 +9,7 @@ import { setContext } from "@apollo/client/link/context";
 
 // import Navbar from "./components/Navbar";
 import LeftNav from "./components/LeftNav/LeftNav";
+import { UserProvider } from "./utils/userContext";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -35,7 +36,9 @@ function App() {
       {/* ApolloProvider adds support for graphql management */}
       <ApolloProvider client={client}>
         <div className="flex bg-neu-2 h-screen">
-          <LeftNav />
+          <UserProvider>
+            <LeftNav />
+          </UserProvider>
           <div className="w-full mx-8 my-6">
             {/* Primary rendering area */}
             <Outlet />
