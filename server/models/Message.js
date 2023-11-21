@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const dateFormat = require("../utils/dateFormat");
 const { Schema } = mongoose;
 
 const messageSchema = new Schema(
@@ -17,10 +17,15 @@ const messageSchema = new Schema(
       type: Boolean,
       default: false,
     },
-  },
-  {
-    timestamps: true, // gets the createdAt date
+    createdAt: {
+      type: Date,
+      default: Date.now,
+      get: (timestamp) => dateFormat(timestamp),
+    },
   }
+  // {
+  //   timestamps: true, // gets the createdAt date
+  // }
 );
 
 const Message = mongoose.model("Message", messageSchema);
