@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { QUERY_MY_HOARD } from "../utils/queries";
 import PageHeader from "../components/Atoms/PageHeader";
 import Checkbox from "../components/Atoms/Checkbox";
-import { UPDATE_ITEM_PUBLIC } from "../utils/mutations";
+import { UPDATE_ITEM_PUBLIC, DELETE_ITEM } from "../utils/mutations";
 import Prompt from "../components/Modals/Prompt";
 import { useState } from "react";
 
@@ -26,7 +26,7 @@ function HoardItem({ _id, index, name, description, isPublic, handleDelete }) {
       <td className="px-6 w-full py-3">{description}</td>
       <td className="items-center flex flex-col w-24 ">
         <div className="mx-auto mt-6">
-          <Checkbox checked={isPublic} onChange={handleDelete} />
+          <Checkbox checked={isPublic} onChange={updateItem} />
         </div>
       </td>
       <td className="w-24 text-center ">
@@ -40,8 +40,17 @@ function HoardItem({ _id, index, name, description, isPublic, handleDelete }) {
 }
 
 function DeletePrompt({ data, closeModal }) {
+  const [deleteItem, { error }] = useMutation(DELETE_ITEM, {
+    refetchQueries: [QUERY_MY_HOARD, "items"],
+  });
+
   const deleteThisItem = () => {
-    console.log(data._id);
+    try {
+      deleteItem({ variables: { itemId: data._id } });
+      closeModal();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

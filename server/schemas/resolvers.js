@@ -196,6 +196,9 @@ const resolvers = {
         { new: true }
       );
     },
+    deleteItem: async (_, { itemId }) => {
+      return Item.findByIdAndDelete(itemId);
+    },
     markMessageRead: async (_, { _id }) => {
       return Message.findByIdAndUpdate(_id, { isRead: true });
     },

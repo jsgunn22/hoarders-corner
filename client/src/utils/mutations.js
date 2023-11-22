@@ -99,6 +99,14 @@ export const UPDATE_ITEM_PUBLIC = gql`
   }
 `;
 
+export const DELETE_ITEM = gql`
+  mutation deleteItem($itemId: String!) {
+    deleteItem(itemId: $itemId) {
+      _id
+    }
+  }
+`;
+
 export const LEAVE_COMMUNITY = gql`
   mutation leaveCommunity($communityId: ID!) {
     leaveCommunity(communityId: $communityId) {
