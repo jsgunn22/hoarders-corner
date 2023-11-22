@@ -2,35 +2,79 @@
   {
     "community": "Books",
     "name": "Catch-22",
-    "description": "Joseph Heller",
+    "description": "A satirical novel by Joseph Heller, set during World War II. Renowned for its ironic and critical view of the absurdities of military life and the nature of power.",
     "isPublic": "true",
     "owner": "Turanga Leela"
   },
+
+  {
+    "community": "Books",
+    "name": "Fahrenheit 451",
+    "description": "A dystopian novel written by Ray Bradbury in 1953. It depicts a society in which books are prohibited and burned by firemen. The story revolves around Guy Montag, a fireman who questions his role in censoring literature and destroying knowledge. As he becomes disillusioned, Montag decides to leave his job and dedicate himself to preserving literary and cultural works.",
+    "isPublic": "true",
+    "owner": "Turanga Leela"
+  },
+
+  {
+    "community": "Books",
+    "name": "Atlas Shrugged",
+    "description": "A novel written by Ayn Rand, first published in 1957. Set in a dystopian future, the book tells the story of a world in which society's most productive individuals mysteriously start disappearing. As the novel unfolds, it explores themes of individualism, capitalism, and the power of the human mind. Through complex characters and a thought-provoking narrative, Atlas Shrugged challenges conventional notions of collectivism and champions the importance of rational self-interest and personal achievement.",
+    "isPublic": "true",
+    "owner": "Turanga Leela"
+  },
+
   {
     "community": "Magic the Gathering",
     "name": "Damnation",
-    "description": "Black Mana holographic",
+    "description": "A powerful card featuring Black Mana, known for its iconic holographic design. Ideal for players seeking to enhance their deck with a devastating board wipe spell.",
     "isPublic": "true",
     "owner": "Nibbler"
   },
+
+  {
+    "community": "Magic the Gathering",
+    "name": "Tropical Island",
+    "description": "Valued between $2,600 and $3,000, Tropical Island is not actually part of the legendary Power 9 but it is widely regarded as one of the most valuable Magic: The Gathering Cards putting it into most Top 10 lists and edging up to the #9 spot for ours. Containing serene, island art by Jesper Myrfors this pretty little card is incredibly useful for generating mana just when you need it most; especially if you are playing a green and blue mixed deck.",
+    "isPublic": "true",
+    "owner": "Nibbler"
+  },
+
   {
     "community": "Vinyl Records",
     "name": "Dark Side of the Moon",
-    "description": "Pink Floyd",
+    "description": "A classic album by Pink Floyd, featuring a unique blend of progressive and psychedelic rock. A must-have for vinyl collectors, known for its rich sound quality.",
     "isPublic": "false",
     "owner": "Turanga Leela"
   },
+
+  {
+    "community": "Vinyl Records",
+    "name": "Nirvana - Nevermind",
+    "description": "Side One Tracks in Order: Smells Like Teen Spirit, In Bloom, Come As You Are, Breed, Lithium, Polly. Side Two: Territorial Pissings, Drain You ,Lounge Act, Stay Away, On A Plain, Something In The Way. ",
+    "isPublic": "true",
+    "owner": "Turanga Leela"
+  },
+
+  {
+    "community": "Vinyl Records",
+    "name": "Nirvana - Nevermind",
+    "description": "Nevermind is the second album from iconic grunge band Nirvana who are often considered as the emblem of Gen X and the catalyst for bringing alternative rock music to mainstream consciousness. Released in 1991, it's an album that defined a generation and changed the course of rock music. With Kurt Cobain's raw and emotional vocals, Dave Grohl's thunderous drums, and Krist Novoselic's driving bass lines, the album captured the angst and alienation of the '90s. From the iconic opening riff of Smells Like Teen Spirit to the haunting ballad Something in the Way, every track is a masterpiece that still resonates today. Produced by multi-GRAMMY-winning legend Butch Vig, 'Nevermind' is a staple in any serious vinyl collection.",
+    "isPublic": "true",
+    "owner": "Turanga Leela"
+  },
+
   {
     "community": "Bottle Caps",
-    "name": "Coca-Cola",
-    "description": "Rare 1930s",
+    "name": "Coca Cola",
+    "description": "A rare collectible from the 1930s, this Coca-Cola bottle cap is a prized item for enthusiasts, showcasing the vintage design and branding of the era.",
     "isPublic": "true",
     "owner": "Phillip Fry"
   },
+  
   {
     "community": "Video Games",
     "name": "Hollow Knight",
-    "description": "Team Cherry",
+    "description": "An acclaimed indie game by Team Cherry, celebrated for its intricate hand-drawn art, deep lore, and challenging gameplay. A gem in the world of platformers.",
     "isPublic": "true",
     "owner": "Nibbler"
   }
