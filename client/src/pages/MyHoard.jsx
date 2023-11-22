@@ -3,12 +3,13 @@ import { useParams } from "react-router-dom";
 import { QUERY_MY_HOARD } from "../utils/queries";
 import PageHeader from "../components/Atoms/PageHeader";
 
-function HoardItem({ name, description, isPublic }) {
+function HoardItem({ name, description, isPublic, image }) {
   return (
     <tr className="">
       <td>{name}</td>
       <td>{description}</td>
       <td>{isPublic ? "isPublic" : "isNotPublic"}</td>
+      <td><img src={image} alt={name} /></td>
     </tr>
   );
 }
@@ -38,6 +39,7 @@ export default function MyHoard() {
               name={item.name}
               isPublic={item.isPublic}
               description={item.description}
+              image={item.image} 
             />
           ))}
         </tbody>
