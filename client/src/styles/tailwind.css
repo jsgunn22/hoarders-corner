@@ -716,6 +716,17 @@ video {
   height: 100vh;
 }
 
+.w-24 {
+  width: 6rem;
+}
+
+.w-6 {
+  width: 1.5rem;
+}
+
+.w-\[560px\] {
+  width: 560px;
+
 .h-3 {
   height: 0.75rem;
 }
@@ -1179,6 +1190,11 @@ video {
 .hover\:bg-war-9:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(144 110 70 / var(--tw-bg-opacity));
+}
+
+.hover\:text-dan-5:hover {
+  --tw-text-opacity: 1;
+  color: rgb(253 89 89 / var(--tw-text-opacity));
 }
 
 .hover\:text-neu-0:hover {

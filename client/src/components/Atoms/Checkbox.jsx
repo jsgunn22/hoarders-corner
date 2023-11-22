@@ -6,7 +6,7 @@ export default function Checkbox({ label, id, checked, onChange, name }) {
         id={id}
         checked={checked}
         onChange={onChange}
-        className="h-4 mr-1"
+        className="h-4 mr-1 cursor-pointer"
         name={name}
       />
       <label form={id}>{label}</label>
