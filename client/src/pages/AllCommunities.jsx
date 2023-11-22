@@ -77,8 +77,12 @@ export default function AllCommunities() {
       const { data } = await addCommunity({
         variables: { name },
       });
-    } catch (err) {
-      console.error(err);
+
+    } catch (addCommunityError) {
+      console.log(addCommunityError);
+      if (addCommunityError.message.includes('E11000')) {
+        alert(`${name} Community already exists`);
+      }
     }
 
     if (data) {
@@ -94,12 +98,16 @@ export default function AllCommunities() {
     try {
       console.log(oneCommunity);
       console.log(oneCommunity._id);
-      window.location.href = `/communities/${oneCommunity._id}`;
+      if (!oneCommunity._id) {
+        alert("Community not found")
+        setFindCommunity("")
+      } else {
+        window.location.href = `/communities/${oneCommunity._id}`;
+      }
       
     } catch (error) {
       console.log(error);
     }
-    // need to query using the findcommunityvalue to grab the communities id and then put that into the window location
   }
 
 
@@ -120,13 +128,6 @@ export default function AllCommunities() {
       alert("Didn't successfully join");
     }
   };
-
-  // function for searching for a community
-  const findACommunity = async () => {
-
-  }
-
-
 
 
   const myUserId = isLogged && Auth.getProfile().authenticatedPerson._id;
@@ -150,6 +151,7 @@ export default function AllCommunities() {
               placeholder="Find a Community"
               value={findCommunityValue}
               onChange={handleSearchChange}
+              className="w-100 h-7 pl-10 text-left"
             />
           }
         />
@@ -176,6 +178,7 @@ export default function AllCommunities() {
                   placeholder="Title it here"
                   value={name}
                   onChange={handleInputChange}
+                  
                 />
               }
               btnLabel={"Create"}

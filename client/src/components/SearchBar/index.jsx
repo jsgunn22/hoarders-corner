@@ -12,12 +12,12 @@ export default function SearchBar({
 
 }) {
     return (
-        <div className='flex '>
-            <div>
+        <div className='flex justify-center mb-4 '>
+            <div className="mr-1 " >
                 {body}
             </div>
             <div>
-                <Button label="Search" action={btnAction} type={bType} />
+                <Button  label="Search" action={btnAction} type={bType} />
             </div>
         </div>
     )
