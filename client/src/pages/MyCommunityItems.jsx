@@ -11,20 +11,60 @@ import PageHeader from "../components/Atoms/PageHeader";
 import CreateItemForm from "../components/CreateItemForm/CreateItemForm";
 import { Link } from "react-router-dom";
 
-function IndividualItem({ name, description, owner, _id, openMessageModal }) {
-  return (
-    <div className="border font-bold py-2 px-4 flex w-full">
-      <div className="flex w-full">{name}</div>
-      <div className="flex w-full">{description}</div>
-      <div className="flex w-full">{owner}</div>
-      <div className="flex w-full">
-        <Button label="Message Owner" action={() => openMessageModal(owner)} />
-      </div>
+import catch22Gif from "../styles/gifs/catch22.jpg";
+import far451 from "../styles/gifs/Fahrenheit451.jpg";
+import atlas from "../styles/gifs/atlasshrugged.jpg";
+import damnation from "../styles/gifs/damnation.jpg"; 
+import trop from "../styles/gifs/tropicalisland.jpg";
+import dark from "../styles/gifs/darkside.jpg";
+
+function IndividualItem({ name, description, owner, _id, openMessageModal, image  }) {
+  const [showDescription, setShowDescription] = useState(false);
+
+  const gifMap = {
+    "Catch-22": catch22Gif,
+    "Fahrenheit 451": far451,
+    "Atlas Shrugged": atlas,
+    "Damnation": damnation,
+    "Tropical Island": trop,
+    "Dark Side of the Moon": dark,
+  };
+
+ return (
+  <div
+  className="bg-white border-gray-400 shadow-lg hover:shadow-2xl rounded-lg mb-6 p-8"
+  onMouseEnter={() => setShowDescription(true)}
+  onMouseLeave={() => setShowDescription(false)}
+>
+
+<h3 className="text-6xl font-extrabold text-gray-900 mb-6 hover:text-7xl"
+    style={{ fontFamily: 'CoolFont, sans-serif', fontSize: '3rem', margin: '0.5rem 0', borderBottom: '3px solid #000' }}
+  >
+   {name}
+  </h3>
+  {showDescription && (
+    <div> 
+      <p className="text-xl text-gray-700 mb-6 hover:text-3xl">{description}</p>
     </div>
-  );
+  )}
+  <div className="text-gray-800 text-xl mb-4 hover:text-2xl"> Owned by: <span className="font-semibold">{owner}</span>
+  </div>
+
+  <div className="mb-6">
+  {gifMap[name] && (
+    <img src={gifMap[name]} alt={`${name} GIF`} className="w-64 h-64" />
+  )}
+  {image && (
+    <img src={image} alt={name} />
+  )}
+</div>
+
+<Button label="Message Owner" action={() => openMessageModal(owner)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-8 text-xl rounded-lg"/>
+</div>
+);
 }
 
-function MessageModal({ name, closeModal }) {
+  function MessageModal({ name, closeModal }) {
   const [textAreaValue, setTextAreaValue] = useState("");
   const [sendMessage, { error }] = useMutation(SEND_MESSAGE, {
     refetchQueries: [QUERY_MY_MESSAGES, "messages"],
@@ -77,6 +117,7 @@ function MessageModal({ name, closeModal }) {
   );
 }
 
+
 export default function MyCommunityItems() {
   if (!Auth.loggedIn()) {
     return (
@@ -119,10 +160,14 @@ export default function MyCommunityItems() {
   };
 
   return (
-    <>
-      <div className="flex w-full items-center h-fit">
-        <Button icon={`fa-solid fa-arrow-left`} />
-        <PageHeader
+  <>
+    <div className="flex w-full items-center py-4 px-6 bg-gray-100 shadow-md">
+    <div className="flex items-center mr-8">
+      <Button icon={`fa-solid fa-arrow-left`} />
+      </div>
+      <div className="flex-grow flex items-center">
+      <h1 className="text-3xl font-semibold">MyCommunities/</h1>
+      <PageHeader
           label={`${data.itemByCommunity.name}`}
           hasButton={true}
           btnLabel={`Add Item`}
@@ -130,36 +175,22 @@ export default function MyCommunityItems() {
           icon={""}
         />
       </div>
-
-      <div className="p-8 overflow-auto relative w-full">
-        <div className="w-full border-x border-y rounded w-full shadow-lg bg-white border-collapse">
-          <div>
-            <div className="flex">
-              <div className="w-full text-h3 font-bold text-neu-7">Name</div>
-              <div className="w-full text-h3 font-bold text-neu-7">
-                Description
-              </div>
-              <div className="w-full text-h3 font-bold text-neu-7">Owner</div>
-              <button></button>
-            </div>
-          </div>
-          <div>
-            {communityItems.map(
-              (item, index) =>
-                item.isPublic && (
-                  <IndividualItem
-                    openMessageModal={openMessageModal}
-                    _id={item._id}
-                    name={item.name}
-                    description={item.description}
-                    owner={item.owner}
-                    key={index}
-                  />
-                )
-            )}
-          </div>
-        </div>
       </div>
+      
+      <div className="p-8 pr-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {communityItems.map((item, index) => (
+          <IndividualItem
+            key={item._id}
+            openMessageModal={openMessageModal}
+            _id={item._id}
+            name={item.name}
+            description={item.description}
+            owner={item.owner}
+            image={item.image}
+          />
+        ))}
+      </div>
+  
 
       {messageModalState && (
         <MessageModal name={messageModalData} closeModal={closeMessageModal} />
