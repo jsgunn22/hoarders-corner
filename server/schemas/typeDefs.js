@@ -45,14 +45,19 @@ const typeDefs = `
  type Query {
     users: [User]
     me: User
+
     communities: [Community]!
     community(communityId: ID!): Community
     myCommunities: User
+    communityName(name: String!): Community
+
     items: [Item]
     itemByCommunity(communityId: String!): Community
     item(itemId: ID!): Item
+
     myHoards: User
     myHoard(communityId: String!): [Item]
+
     messages: [Message]
     message(messageId: ID!): Message
     myMessages: User

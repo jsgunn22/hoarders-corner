@@ -42,6 +42,18 @@ export const QUERY_COMMUNITIES = gql`
   }
 `;
 
+export const QUERY_COMMUNITY = gql`
+  query communityName($name: String!) {
+    communityName(name: $name) {
+      name
+      _id
+      
+    }
+  }
+
+`
+
+
 export const QUERY_MY_MESSAGES = gql`
   query myMessages {
     myMessages {
