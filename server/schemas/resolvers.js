@@ -31,6 +31,9 @@ const resolvers = {
         { path: "items" },
       ]);
     },
+    communityName: async(parent, {name}) => {
+      return Community.findOne({name: name});
+    },
     items: async () => {
       return Item.find();
     },
