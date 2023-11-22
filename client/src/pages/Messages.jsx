@@ -10,10 +10,12 @@ import { SEND_MESSAGE, MESSAGE_READ } from "../utils/mutations";
 import Auth from "../utils/auth";
 
 function MessagesTable({ data, messagesSent }) {
-  const [tableData, setTableData] = useState([...data]);
+  const [tableData, setTableData] = useState(data && [...data]);
   const [modalState, setModalState] = useState(false);
   const [modalData, setModalData] = useState();
-  const [markMessageRead, { error }] = useMutation(MESSAGE_READ);
+  const [markMessageRead, { error }] = useMutation(MESSAGE_READ, {
+    refetchQueries: [QUERY_MY_MESSAGES, "messages"],
+  });
 
   const updateUnreadMessage = async (messageId) => {
     const newData = tableData.map((message) =>
@@ -37,8 +39,8 @@ function MessagesTable({ data, messagesSent }) {
   const closeModal = () => {
     setModalState(false);
   };
-  useEffect(() => {});
-  return !tableData.length ? (
+
+  return !tableData ? (
     <div>There are no messages</div>
   ) : (
     <div>

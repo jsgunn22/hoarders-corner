@@ -26,7 +26,10 @@ const resolvers = {
       ]);
     },
     myCommunities: async (parent, args, context) => {
-      return User.findById(context.user._id).populate("communities");
+      return User.findById(context.user._id).populate([
+        { path: "communities" },
+        { path: "items" },
+      ]);
     },
     items: async () => {
       return Item.find();
@@ -39,6 +42,16 @@ const resolvers = {
     },
     item: async (parent, { itemId }) => {
       return Item.findOne({ _id: itemId });
+    },
+    myHoard: async (parent, { communityId }, context) => {
+      const { name } = await Community.findById(communityId);
+      return Item.find({ ownerId: context.user._id, community: name });
+    },
+    myHoards: async (parent, args, context) => {
+      return User.findById(context.user._id).populate([
+        { path: "items" },
+        { path: "communities", populate: "items" },
+      ]);
     },
     messages: async () => {
       return Message.find();

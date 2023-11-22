@@ -64,12 +64,32 @@ export const QUERY_MY_MESSAGES = gql`
   }
 `;
 
-export const QUERY_MY_ITEMS = gql`
-  query items {
-    items {
-      name
+export const QUERY_MY_HOARDS = gql`
+  query myHoards {
+    myHoards {
+      _id
+      communities {
+        _id
+        name
+        items {
+          ownerId {
+            _id
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const QUERY_MY_HOARD = gql`
+  query myHoard($communityId: String!) {
+    myHoard(communityId: $communityId) {
+      _id
+      community
       description
       isPublic
+      name
+      owner
     }
   }
 `;
@@ -109,7 +129,6 @@ export const QUERY_MY_COMMUNITIES = gql`
           isPublic
           ownerId {
             _id
-            username
           }
         }
         users {

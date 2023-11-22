@@ -3,10 +3,10 @@ const typeDefs = `
     _id: ID
     username: String
     email: String
-    avatar: String
     messagesSent: [Message]
     messagesReceived: [Message]
     communities: [Community]
+    items: [Item]
  }
 
  type Community {
@@ -51,6 +51,8 @@ const typeDefs = `
     items: [Item]
     itemByCommunity(communityId: String!): Community
     item(itemId: ID!): Item
+    myHoards: User
+    myHoard(communityId: String!): [Item]
     messages: [Message]
     message(messageId: ID!): Message
     myMessages: User

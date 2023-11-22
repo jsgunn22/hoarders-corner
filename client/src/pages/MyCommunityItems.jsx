@@ -1,12 +1,11 @@
 import { useQuery, useMutation } from "@apollo/client";
-import { QUERY_COMMUNITY_ITEMS } from "../utils/queries";
+import { QUERY_COMMUNITY_ITEMS, QUERY_MY_MESSAGES } from "../utils/queries";
 import { useParams } from "react-router-dom";
 import Button from "../components/Atoms/Button";
 import { SEND_MESSAGE } from "../utils/mutations";
 import Auth from "../utils/auth";
 import { useState } from "react";
 import Modal from "../components/Modals/Modal";
-import Input from "../components/Atoms/Input";
 import TextArea from "../components/Atoms/TextArea";
 import PageHeader from "../components/Atoms/PageHeader";
 import CreateItemForm from "../components/CreateItemForm/CreateItemForm";
@@ -14,20 +13,22 @@ import { Link } from "react-router-dom";
 
 function IndividualItem({ name, description, owner, _id, openMessageModal }) {
   return (
-    <tr className="border font-bold py-2 px-4">
-      <td>{name}</td>
-      <td>{description}</td>
-      <td>{owner}</td>
-      <td>
+    <div className="border font-bold py-2 px-4 flex w-full">
+      <div className="flex w-full">{name}</div>
+      <div className="flex w-full">{description}</div>
+      <div className="flex w-full">{owner}</div>
+      <div className="flex w-full">
         <Button label="Message Owner" action={() => openMessageModal(owner)} />
-      </td>
-    </tr>
+      </div>
+    </div>
   );
 }
 
 function MessageModal({ name, closeModal }) {
   const [textAreaValue, setTextAreaValue] = useState("");
-  const [sendMessage, { error }] = useMutation(SEND_MESSAGE);
+  const [sendMessage, { error }] = useMutation(SEND_MESSAGE, {
+    refetchQueries: [QUERY_MY_MESSAGES, "messages"],
+  });
 
   const sendToOwner = async () => {
     console.log(textAreaValue);
@@ -47,8 +48,8 @@ function MessageModal({ name, closeModal }) {
     }
   };
 
-  const handleTextAreaChange = (value) => {
-    setTextAreaValue(value);
+  const handleTextAreaChange = (event) => {
+    setTextAreaValue(event.target.value);
   };
 
   return (
@@ -78,13 +79,13 @@ function MessageModal({ name, closeModal }) {
 
 export default function MyCommunityItems() {
   if (!Auth.loggedIn()) {
-
     return (
-     <div>
-       <p>Must be logged in to view this page</p> 
-       <Link to="/">Go to Homepage</Link>
-     </div>
-    )}
+      <div>
+        <p>Must be logged in to view this page</p>
+        <Link to="/">Go to Homepage</Link>
+      </div>
+    );
+  }
 
   const [messageModalState, setMessageModalState] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
@@ -122,7 +123,7 @@ export default function MyCommunityItems() {
       <div className="flex w-full items-center h-fit">
         <Button icon={`fa-solid fa-arrow-left`} />
         <PageHeader
-          label={`My Communities / ${data.itemByCommunity.name}`}
+          label={`${data.itemByCommunity.name}`}
           hasButton={true}
           btnLabel={`Add Item`}
           btnAction={openCreateItemModal}
@@ -130,29 +131,34 @@ export default function MyCommunityItems() {
         />
       </div>
 
-      <div className="p-8 overflow-auto relative">
-        <table className="table-fixed  border-x border-y rounded w-full shadow-lg bg-white border-collapse">
-          <thead>
-            <tr>
-              <th className="text-h3 font-bold text-neu-7">Name</th>
-              <th className="text-h3 font-bold text-neu-7">Description</th>
-              <th className="text-h3 font-bold text-neu-7">Owner</th>
+      <div className="p-8 overflow-auto relative w-full">
+        <div className="w-full border-x border-y rounded w-full shadow-lg bg-white border-collapse">
+          <div>
+            <div className="flex">
+              <div className="w-full text-h3 font-bold text-neu-7">Name</div>
+              <div className="w-full text-h3 font-bold text-neu-7">
+                Description
+              </div>
+              <div className="w-full text-h3 font-bold text-neu-7">Owner</div>
               <button></button>
-            </tr>
-          </thead>
-          <tbody>
-            {communityItems.map((item, index) => (
-              <IndividualItem
-                openMessageModal={openMessageModal}
-                _id={item._id}
-                name={item.name}
-                description={item.description}
-                owner={item.owner}
-                key={index}
-              />
-            ))}
-          </tbody>
-        </table>
+            </div>
+          </div>
+          <div>
+            {communityItems.map(
+              (item, index) =>
+                item.isPublic && (
+                  <IndividualItem
+                    openMessageModal={openMessageModal}
+                    _id={item._id}
+                    name={item.name}
+                    description={item.description}
+                    owner={item.owner}
+                    key={index}
+                  />
+                )
+            )}
+          </div>
+        </div>
       </div>
 
       {messageModalState && (
