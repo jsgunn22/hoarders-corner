@@ -14,7 +14,7 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     if (loading) setMyHoards(<p>...loading</p>);
     if (error) setMyHoards(<p>{error}</p>);
-    console.log(data);
+    // console.log(data);
     if (data) {
       const uniqueHoards = data?.myHoards.communities.filter((community) =>
         community.items.some(
@@ -27,13 +27,7 @@ export const UserProvider = ({ children }) => {
     }
   }, [loading, data, error]);
 
-  const updateHoards = () => {
-    setMyHoards(myHoards);
-  };
-
   return (
-    <UserContext.Provider value={{ myHoards, updateHoards }}>
-      {children}
-    </UserContext.Provider>
+    <UserContext.Provider value={{ myHoards }}>{children}</UserContext.Provider>
   );
 };

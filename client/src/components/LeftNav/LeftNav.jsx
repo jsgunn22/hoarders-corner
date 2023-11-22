@@ -51,9 +51,7 @@ function MessagesTab() {
 }
 
 function MyHoards() {
-  const { myHoards, updateHoards } = useUserContext();
-
-  updateHoards();
+  const { myHoards } = useUserContext();
 
   return (
     myHoards.length > 0 && (

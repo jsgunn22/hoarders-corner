@@ -39,10 +39,6 @@ export default function AllCommunities() {
     }
   );
 
-  const [leaveCommunity, { err }] = useMutation(LEAVE_COMMUNITY, {
-    refetchQueries: [QUERY_COMMUNITIES, "communities"],
-  });
-
   if (loading) return <p>Loading..</p>;
   if (error) return <p>Error</p>;
 
@@ -107,8 +103,8 @@ export default function AllCommunities() {
         btnLabel={"Create Community"}
         btnAction={handleCreateCommunity}
       />
-      <table className="w-full mt-2">
-        <tbody className="flex flex-col gap-4">
+      <div className="w-full mt-2">
+        <div className="flex flex-col gap-4">
           {communities.map((c, i) => (
             <div key={i}>
               <CommunityRow
@@ -138,8 +134,8 @@ export default function AllCommunities() {
               closeModal={() => setShowModal(false)}
             />
           )}
-        </tbody>
-      </table>
+        </div>
+      </div>
     </div>
   );
 }

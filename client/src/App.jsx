@@ -38,11 +38,12 @@ function App() {
         <div className="flex bg-neu-2 h-screen">
           <UserProvider>
             <LeftNav />
+
+            <div className="w-full mx-8 my-6">
+              {/* Primary rendering area */}
+              <Outlet />
+            </div>
           </UserProvider>
-          <div className="w-full mx-8 my-6">
-            {/* Primary rendering area */}
-            <Outlet />
-          </div>
         </div>
         {/* <Navbar /> */}
         {/* Outlet is where the router dom will render based on the url */}

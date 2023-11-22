@@ -76,8 +76,8 @@ export default function MyCommunities() {
         <p>You are not a member of any communities</p>
       ) : (
         <>
-          <table className="w-full mt-2">
-            <tbody className="flex flex-col gap-4">
+          <div className="w-full mt-2">
+            <div className="flex flex-col gap-4">
               {myCommunities.communities.map((c, i) => (
                 <CommunityRow
                   key={i}
@@ -89,8 +89,8 @@ export default function MyCommunities() {
                   hasButton={true}
                 />
               ))}
-            </tbody>
-          </table>
+            </div>
+          </div>
           {showModal && (
             <Modal
               heading={"Create A Community"}

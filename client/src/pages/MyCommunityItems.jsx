@@ -14,14 +14,14 @@ import { Link } from "react-router-dom";
 
 function IndividualItem({ name, description, owner, _id, openMessageModal }) {
   return (
-    <tr className="border font-bold py-2 px-4">
-      <td>{name}</td>
-      <td>{description}</td>
-      <td>{owner}</td>
-      <td>
+    <div className="border font-bold py-2 px-4 flex w-full">
+      <div className="flex w-full">{name}</div>
+      <div className="flex w-full">{description}</div>
+      <div className="flex w-full">{owner}</div>
+      <div className="flex w-full">
         <Button label="Message Owner" action={() => openMessageModal(owner)} />
-      </td>
-    </tr>
+      </div>
+    </div>
   );
 }
 
@@ -124,7 +124,7 @@ export default function MyCommunityItems() {
       <div className="flex w-full items-center h-fit">
         <Button icon={`fa-solid fa-arrow-left`} />
         <PageHeader
-          label={`My Communities / ${data.itemByCommunity.name}`}
+          label={`${data.itemByCommunity.name}`}
           hasButton={true}
           btnLabel={`Add Item`}
           btnAction={openCreateItemModal}
@@ -132,17 +132,19 @@ export default function MyCommunityItems() {
         />
       </div>
 
-      <div className="p-8 overflow-auto relative">
-        <table className="table-fixed  border-x border-y rounded w-full shadow-lg bg-white border-collapse">
-          <thead>
-            <tr>
-              <th className="text-h3 font-bold text-neu-7">Name</th>
-              <th className="text-h3 font-bold text-neu-7">Description</th>
-              <th className="text-h3 font-bold text-neu-7">Owner</th>
+      <div className="p-8 overflow-auto relative w-full">
+        <div className="w-full border-x border-y rounded w-full shadow-lg bg-white border-collapse">
+          <div>
+            <div className="flex">
+              <div className="w-full text-h3 font-bold text-neu-7">Name</div>
+              <div className="w-full text-h3 font-bold text-neu-7">
+                Description
+              </div>
+              <div className="w-full text-h3 font-bold text-neu-7">Owner</div>
               <button></button>
-            </tr>
-          </thead>
-          <tbody>
+            </div>
+          </div>
+          <div>
             {communityItems.map(
               (item, index) =>
                 item.isPublic && (
@@ -156,8 +158,8 @@ export default function MyCommunityItems() {
                   />
                 )
             )}
-          </tbody>
-        </table>
+          </div>
+        </div>
       </div>
 
       {messageModalState && (
