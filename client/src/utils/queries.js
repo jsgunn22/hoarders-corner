@@ -88,6 +88,7 @@ export const QUERY_MY_HOARD = gql`
       community
       description
       isPublic
+      image
       name
       owner
     }
@@ -104,6 +105,7 @@ export const QUERY_COMMUNITY_ITEMS = gql`
         name
         description
         owner
+        image
         isPublic
         ownerId {
           _id
