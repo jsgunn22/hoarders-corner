@@ -26,6 +26,11 @@ const itemSchema = new Schema({
     required: true
   },
   ownerId: {type: Schema.Types.ObjectId, ref: "User"},
+  image: {
+    type: String,
+    trim: true,
+  },
+  
 });
 
 const Item = mongoose.model("Item", itemSchema);
