@@ -4,8 +4,10 @@ import { QUERY_MY_HOARD } from "../utils/queries";
 import PageHeader from "../components/Atoms/PageHeader";
 import Checkbox from "../components/Atoms/Checkbox";
 import { UPDATE_ITEM_PUBLIC } from "../utils/mutations";
+import Prompt from "../components/Modals/Prompt";
+import { useState } from "react";
 
-function HoardItem({ _id, index, name, description, isPublic }) {
+function HoardItem({ _id, index, name, description, isPublic, handleDelete }) {
   const [updateItemPublic, { error }] = useMutation(UPDATE_ITEM_PUBLIC, {
     refetchQueries: [QUERY_MY_HOARD, "items"],
   });
@@ -18,26 +20,46 @@ function HoardItem({ _id, index, name, description, isPublic }) {
     }
   };
 
-  const deleteItem = () => {
-    console.log(_id);
-  };
-
   return (
     <tr className={`h-16 ${!index && "border-b-[1px] border-opac-neu"} `}>
       <td className="px-6 min-w-[208px]">{name}</td>
       <td className="px-6 w-full py-3">{description}</td>
       <td className="items-center flex flex-col w-24 ">
         <div className="mx-auto mt-6">
-          <Checkbox checked={isPublic} onChange={updateItem} />
+          <Checkbox checked={isPublic} onChange={handleDelete} />
         </div>
       </td>
       <td className="w-24 text-center ">
         <i
           className="fa-solid fa-trash  cursor-pointer text-neu-7 hover:text-dan-5"
-          onClick={deleteItem}
+          onClick={handleDelete}
         ></i>
       </td>
     </tr>
+  );
+}
+
+function DeletePrompt({ data, closeModal }) {
+  const deleteThisItem = () => {
+    console.log(data._id);
+  };
+
+  return (
+    <Prompt
+      heading={
+        <>
+          Are you sure you want to delete{" "}
+          <span className="text-pri-5">{data.name}</span>
+        </>
+      }
+      body={<p>This action can not be undone</p>}
+      priLabel="Delete"
+      secLabel="Cancel"
+      priStyle="danger"
+      secStyle="neutral"
+      priAction={deleteThisItem}
+      secAction={closeModal}
+    />
   );
 }
 
@@ -46,10 +68,20 @@ export default function MyHoard() {
   const { loading, data, error } = useQuery(QUERY_MY_HOARD, {
     variables: { communityId: id },
   });
+  const [deletePromptState, setDeletePromptState] = useState(false);
+  const [deletePromtData, setDeletePromptData] = useState();
 
   const myItems = data?.myHoard || [];
   const pageTitle = data?.myHoard[0].community;
-  console.log(pageTitle);
+
+  const openDeletePrompt = (data) => {
+    setDeletePromptData(data);
+    setDeletePromptState(true);
+  };
+
+  const closeDeletePrompt = () => {
+    setDeletePromptState(false);
+  };
 
   return (
     <>
@@ -79,10 +111,14 @@ export default function MyHoard() {
               name={item.name}
               isPublic={item.isPublic}
               description={item.description}
+              handleDelete={() => openDeletePrompt({ ...item })}
             />
           ))}
         </tbody>
       </table>
+      {deletePromptState && (
+        <DeletePrompt data={deletePromtData} closeModal={closeDeletePrompt} />
+      )}
     </>
   );
 }
