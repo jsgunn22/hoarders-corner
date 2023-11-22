@@ -178,6 +178,15 @@ const resolvers = {
         $addToSet: { items: newItem._id },
       });
     },
+    updateItemPublic: async (parent, { itemId }) => {
+      const thisItem = await Item.findById(itemId);
+
+      return Item.findByIdAndUpdate(
+        itemId,
+        { isPublic: !thisItem.isPublic },
+        { new: true }
+      );
+    },
     addItemToCommunity: async (parent, { itemId, communityId }) => {
       return Community.findOneAndUpdate(
         { _id: communityId },

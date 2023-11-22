@@ -68,6 +68,7 @@ const typeDefs = `
 
     createItem(name: String!, description: String!, owner: String!, isPublic: Boolean!, community: String!, communityId: String!): Item
     addItemToCommunity(itemId: ID!, communityId: ID!): Item
+    updateItemPublic(itemId: String!): Item
     
     sendMessage(sender: String!, recipient: String!, content: String): Message
     markMessageRead(_id: ID): Message
