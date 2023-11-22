@@ -5,6 +5,7 @@ import AllCommunities from "./pages/AllCommunities.jsx";
 import MyCommunities from "./pages/MyCommunities.jsx";
 import Messages from "./pages/Messages.jsx";
 import MyCommunityItems from "./pages/MyCommunityItems.jsx";
+import MyHoard from "./pages/MyHoard.jsx";
 // import MyItemsCommunity from "./pages/MyItemsCommunity.jsx";
 
 const router = createBrowserRouter([
@@ -33,10 +34,10 @@ const router = createBrowserRouter([
         path: "/communities/:communityId",
         element: <MyCommunityItems />,
       },
-      // {
-      //   path: "myitemscommunity",
-      //   element: <MyItemsCommunity />,
-      // },
+      {
+        path: "/hoard/:id",
+        element: <MyHoard />,
+      },
     ],
   },
 ]);

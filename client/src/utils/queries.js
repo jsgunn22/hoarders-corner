@@ -81,6 +81,19 @@ export const QUERY_MY_HOARDS = gql`
   }
 `;
 
+export const QUERY_MY_HOARD = gql`
+  query myHoard($communityId: String!) {
+    myHoard(communityId: $communityId) {
+      _id
+      community
+      description
+      isPublic
+      name
+      owner
+    }
+  }
+`;
+
 export const QUERY_COMMUNITY_ITEMS = gql`
   query itemByCommunity($communityId: String!) {
     itemByCommunity(communityId: $communityId) {

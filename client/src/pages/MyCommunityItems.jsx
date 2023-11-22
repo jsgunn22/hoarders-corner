@@ -6,7 +6,6 @@ import { SEND_MESSAGE } from "../utils/mutations";
 import Auth from "../utils/auth";
 import { useState } from "react";
 import Modal from "../components/Modals/Modal";
-import Input from "../components/Atoms/Input";
 import TextArea from "../components/Atoms/TextArea";
 import PageHeader from "../components/Atoms/PageHeader";
 import CreateItemForm from "../components/CreateItemForm/CreateItemForm";
