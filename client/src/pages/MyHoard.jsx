@@ -6,6 +6,7 @@ import Checkbox from "../components/Atoms/Checkbox";
 import { UPDATE_ITEM_PUBLIC, DELETE_ITEM } from "../utils/mutations";
 import Prompt from "../components/Modals/Prompt";
 import { useState } from "react";
+import CreateItemForm from "../components/CreateItemForm/CreateItemForm";
 
 function HoardItem({ _id, index, name, description, isPublic, handleDelete }) {
   const [updateItemPublic, { error }] = useMutation(UPDATE_ITEM_PUBLIC, {
@@ -80,16 +81,23 @@ export default function MyHoard() {
   const [deletePromptState, setDeletePromptState] = useState(false);
   const [deletePromtData, setDeletePromptData] = useState();
 
+  const [createModalState, setCreateModalState] = useState(false);
+
   const myItems = data?.myHoard || [];
   const pageTitle = data?.myHoard[0].community;
+
+  const openCreateModal = () => {
+    setCreateModalState(true);
+  };
 
   const openDeletePrompt = (data) => {
     setDeletePromptData(data);
     setDeletePromptState(true);
   };
 
-  const closeDeletePrompt = () => {
+  const closeModal = () => {
     setDeletePromptState(false);
+    setCreateModalState(false);
   };
 
   return (
@@ -101,8 +109,11 @@ export default function MyHoard() {
             My Hoard <span className="text-pri-5">{pageTitle}</span>
           </>
         }
+        hasButton={true}
+        btnLabel={`Add Item`}
+        btnAction={openCreateModal}
       />
-      <table className="w-full h-6 bg-neu-0 rounded-lg shadow-md">
+      <table className="w-full h-6 bg-neu-0 rounded-lg shadow-md mt-4">
         <thead className="text-neu-7 h-10 border-b-[1px] border-opac-neu">
           <tr>
             <th className="min-w-[208px] text-left px-6">Item Name</th>
@@ -126,7 +137,14 @@ export default function MyHoard() {
         </tbody>
       </table>
       {deletePromptState && (
-        <DeletePrompt data={deletePromtData} closeModal={closeDeletePrompt} />
+        <DeletePrompt data={deletePromtData} closeModal={closeModal} />
+      )}
+      {createModalState && (
+        <CreateItemForm
+          closeModal={closeModal}
+          communityName={pageTitle}
+          communityId={id}
+        />
       )}
     </>
   );
