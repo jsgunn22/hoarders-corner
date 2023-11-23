@@ -1,7 +1,7 @@
 import { useQuery, useMutation } from "@apollo/client";
 import {
   QUERY_COMMUNITY_ITEMS,
-  QUERY_MY_MESSAGES,
+  QUERY_MY_MESSAGES, 
   QUERY_COMMUNITIES,
 } from "../utils/queries";
 import { useParams } from "react-router-dom";
@@ -18,6 +18,8 @@ import TextArea from "../components/Atoms/TextArea";
 import PageHeader from "../components/Atoms/PageHeader";
 import CreateItemForm from "../components/CreateItemForm/CreateItemForm";
 import { Link } from "react-router-dom";
+import SearchBar from "../components/SearchBar";
+
 
 function IndividualItem({ name, description, owner, _id, openMessageModal }) {
   return (
@@ -99,6 +101,8 @@ export default function MyCommunityItems() {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [messageModalData, setMessageModalData] = useState();
   const { communityId } = useParams();
+  const [findItemValue, setFindItem] = useState("");
+  const [renderOneItem, setRenderOneItem] = useState(null);
 
   const [joinCommunity, { error: joinCommunityError }] = useMutation(
     JOIN_COMMUNITY,
@@ -113,16 +117,17 @@ export default function MyCommunityItems() {
     variables: { communityId: communityId },
   });
 
+
   if (loading) return <p>Loading..</p>;
   if (error) return <p>Error</p>;
 
   const communityItems = data?.itemByCommunity.items || [];
-
   // checks to see if the user is a member of the community they are viewing
   const joinedCommunity = data?.itemByCommunity.users.some(
     (user) => user._id === Auth.getProfile().authenticatedPerson._id
   );
-  console.log(joinedCommunity);
+
+  
 
   const openMessageModal = (data) => {
     setMessageModalState(true);
@@ -173,6 +178,36 @@ export default function MyCommunityItems() {
     }
   };
 
+  const handleSearchChange = (event) => {
+    event.preventDefault();
+    setFindItem(event.target.value);
+  };
+
+  const searchForItem = async (event) => {
+    try {
+      // checks for a matching value in the query's Communities.items.name values
+      const itemInCommunity = data?.itemByCommunity.items.some(
+        (name) => name.name === findItemValue
+      )
+      const publicItem = data?.itemByCommunity.items.find(
+        (item) => item.name === findItemValue
+      )
+
+      if (itemInCommunity === true && publicItem.isPublic === true ) {
+        const item = data?.itemByCommunity.items.find(
+          (name) => name.name === `${findItemValue}`
+        )
+        setRenderOneItem(item)
+      } else if (itemInCommunity === false || publicItem.isPublic === false ) {
+        alert("Item not found or isn't public")
+      }
+      
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
   return (
     <>
       <div className="flex w-full items-center h-fit">
@@ -200,6 +235,21 @@ export default function MyCommunityItems() {
       </div>
 
       <div className="p-8 overflow-auto relative w-full">
+        <div>
+        <SearchBar
+          bType={"submit"}
+          btnAction={searchForItem}
+          body={
+            <input
+              type="text"
+              placeholder="Find an Item"
+              value={findItemValue}
+              onChange={handleSearchChange}
+              className="w-100 h-7 pl-10 text-left"
+            />
+          }
+        />
+        </div>
         <div className="w-full border-x border-y rounded w-full shadow-lg bg-white border-collapse">
           <div>
             <div className="flex">
@@ -211,7 +261,16 @@ export default function MyCommunityItems() {
               <button></button>
             </div>
           </div>
-          {communityItems.length === 0 ? ( 
+          {renderOneItem  ? (
+            <IndividualItem
+              openMessageModal={openMessageModal}
+              _id={renderOneItem._id}
+              name={renderOneItem.name}
+              description={renderOneItem.description}
+              owner={renderOneItem.owner}
+            />
+          ) : (
+          communityItems.length === 0 ? ( 
             <p className="border font-bold py-2 px-4 flex w-full text-center">No items in this community</p>
           ) : (
           <div>
@@ -229,6 +288,7 @@ export default function MyCommunityItems() {
                 )
             )}
           </div>
+          )
           )}
         </div>
       </div>

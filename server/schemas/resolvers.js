@@ -46,6 +46,9 @@ const resolvers = {
     item: async (parent, { itemId }) => {
       return Item.findOne({ _id: itemId });
     },
+    itemName: async (parent, { name }) => {
+      return Item.findOne({name: name})
+    },
     myHoard: async (parent, { communityId }, context) => {
       const { name } = await Community.findById(communityId);
       return Item.find({ ownerId: context.user._id, community: name });

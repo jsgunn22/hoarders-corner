@@ -54,6 +54,7 @@ const typeDefs = `
     items: [Item]
     itemByCommunity(communityId: String!): Community
     item(itemId: ID!): Item
+    itemName(name: String): Item
 
     myHoards: User
     myHoard(communityId: String!): [Item]
