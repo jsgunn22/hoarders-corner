@@ -37,7 +37,7 @@ Hoarder's Corner uses the following packages:
 
 ## Installation
 
-Deploy the live application via https://get-your-fit-on-92db4f8ac46c.herokuapp.com/
+Deploy the live application via [Heroku Application](https://smell-o-scope-fing-longer-8a61e2b82a17.herokuapp.com/)
 
 ## Usage
 
