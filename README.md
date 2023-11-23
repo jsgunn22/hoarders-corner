@@ -40,20 +40,17 @@ Deploy the live application via [Heroku Application](https://smell-o-scope-fing-
 
 ## Usage
 
-To use the Fitness App, you must first create an account. Once you have created an account, you can log in and start logging your exercise and nutrition.
-![Log In](<assets/Screenshot 2023-09-27 221323.png>)
+On the front page of Hoarder's corner a user will see a list of communities and the option to log in or sign up
+![Hoarder's Corner log In](put open closed <> then assets/file name)
 
-To log your exercise, go to the "Exercise" page and click the "Add Exercise" button. You can then enter the details of your exercise, such as the type of exercise, the duration, and the number of calories burned.
-![Exercise](<assets/Screenshot 2023-09-27 221540.png>)
+To view a list of a user's communities, click on "my communities"
+![A list of my communities](put open closed <> then assets/file name)
 
-To log your nutrition, go to the "Nutrition" page and click the "Add Food" button. You can then enter the details of the food you ate, such as the name of the food, the serving size, and the calories.
-![Nutrition](<assets/Screenshot 2023-09-27 221624.png>)
+To view a list of items in each of the user's communities click on the community on the left hand side under "My Hoards"
+![A list of items in a user's community](put open closed <> then assets/file name)
 
-To look up calories for nutrition, go to the "Explore" page and search there.
-![Explore](<assets/Screenshot 2023-09-27 225138.png>)
-
-The Fitness App will automatically calculate your calorie intake and calorie burn for each day. You can view your progress by going to the "Progress" page.
-![Profile](<assets/Screenshot 2023-09-27 224922.png>)
+To view sent and received messages and reply to a sent message, click on the "Messages in the left hand column"
+![Messages](put open closed <> then assets/file name)
 
 ## Contributing
 
