@@ -1,26 +1,77 @@
 # Hoarder's Corner
 
-## Good news, everyone!
+## Description
 
-Welcome to the Group 5 Project. I've initialized to the project so that as we decide on concepts we would like to implement we have a boilerplate to begin with. Below is a list of tasks I've completed;
+## Table of Contents
 
-- initialized a repository on github
-- Deployed application to Heroku and connected an Mongodb via Atlas. This will help us to test the application with every deployment.
-- Implemented a simple vite application
-- Implemented a simple server to use express and Apolloclient
-- Implement core jwt authenticaion
-  - User model
-  - Resolvers and typeDefs to interact with the model
-  - A simple wireframe log in page
-  - Mutation utils to interact with the db
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+- [Support](#support)
+- [Additional Information](#additional-information)
+- [Assets](#assets)
 
-## Dev
+## Features
 
-`npm i` will run a script that will install all packages needed.
+User authentication and registration
+Exercise logging
+Nutrition logging
+Calorie counting and calculation
+Progress tracking
+Packages
 
-`npm run dev` will run the application in test mode.
+The Fitness App uses the following packages:
 
-`npm run seed` will run seeding data for users.
+- bcrypt: For password hashing
+- cloudinary: For image uploading and storage
+- connect-session-sequelize: For user session management
+- dayjs: For date and time manipulation
+- dotenv: For managing environment variables
+- express: For web framework
+- express-handlebars: For template engine
+- express-session: For user session management
+- multer: For file uploading
+- mysql2: For MySQL database connection
+- sequelize: For object-relational mapping (ORM)
+
+## Installation
+
+Deploy the live application via https://get-your-fit-on-92db4f8ac46c.herokuapp.com/
+
+## Usage
+
+To use the Fitness App, you must first create an account. Once you have created an account, you can log in and start logging your exercise and nutrition.
+![Log In](<assets/Screenshot 2023-09-27 221323.png>)
+
+To log your exercise, go to the "Exercise" page and click the "Add Exercise" button. You can then enter the details of your exercise, such as the type of exercise, the duration, and the number of calories burned.
+![Exercise](<assets/Screenshot 2023-09-27 221540.png>)
+
+To log your nutrition, go to the "Nutrition" page and click the "Add Food" button. You can then enter the details of the food you ate, such as the name of the food, the serving size, and the calories.
+![Nutrition](<assets/Screenshot 2023-09-27 221624.png>)
+
+To look up calories for nutrition, go to the "Explore" page and search there.
+![Explore](<assets/Screenshot 2023-09-27 225138.png>)
+
+The Fitness App will automatically calculate your calorie intake and calorie burn for each day. You can view your progress by going to the "Progress" page.
+![Profile](<assets/Screenshot 2023-09-27 224922.png>)
+
+## Contributing
+
+Cloning the repo is welcome. Do not push new code into the repo without creating a pull requests.
+
+## License
+
+N/A
+
+## Support
+
+If you have any questions or problems with the Fitness App, please create an issue on the GitHub repository: https://github.com/topics/fitness-app.
+
+## Additional Information
+
+The Fitness App is still under development, but it is already a usable and powerful tool for tracking your fitness progress. We are constantly adding new features and improvements, so please stay tuned for updates!
 
 ## Assets
 
