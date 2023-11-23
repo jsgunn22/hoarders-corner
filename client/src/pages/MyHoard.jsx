@@ -7,6 +7,7 @@ import { UPDATE_ITEM_PUBLIC, DELETE_ITEM } from "../utils/mutations";
 import Prompt from "../components/Modals/Prompt";
 import { useState } from "react";
 import CreateItemForm from "../components/CreateItemForm/CreateItemForm";
+import AllCommunities from "./AllCommunities";
 
 function HoardItem({ _id, index, name, description, isPublic, handleDelete }) {
   const [updateItemPublic, { error }] = useMutation(UPDATE_ITEM_PUBLIC, {
