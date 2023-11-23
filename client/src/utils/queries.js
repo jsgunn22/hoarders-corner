@@ -160,7 +160,6 @@ export const QUERY_ITEM_NAME = gql`
       isPublic
       name
       owner
-      ownerId
     }
   }
 

@@ -101,6 +101,8 @@ export default function MyCommunityItems() {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [messageModalData, setMessageModalData] = useState();
   const { communityId } = useParams();
+  const [findItemValue, setFindItem] = useState("");
+  const [renderOneItem, setRenderOneItem] = useState(null);
 
   const [joinCommunity, { error: joinCommunityError }] = useMutation(
     JOIN_COMMUNITY,
@@ -115,16 +117,20 @@ export default function MyCommunityItems() {
     variables: { communityId: communityId },
   });
 
+  const {loading: itemLoading, data: itemData, error: itemError} = useQuery(QUERY_ITEM_NAME, {
+    variables: { name: "falcon"}
+  })
+
   if (loading) return <p>Loading..</p>;
   if (error) return <p>Error</p>;
 
   const communityItems = data?.itemByCommunity.items || [];
-
   // checks to see if the user is a member of the community they are viewing
   const joinedCommunity = data?.itemByCommunity.users.some(
     (user) => user._id === Auth.getProfile().authenticatedPerson._id
   );
-  console.log(joinedCommunity);
+
+  
 
   const openMessageModal = (data) => {
     setMessageModalState(true);
@@ -175,6 +181,32 @@ export default function MyCommunityItems() {
     }
   };
 
+  const handleSearchChange = (event) => {
+    event.preventDefault();
+    setFindItem(event.target.value);
+  };
+
+  const searchForItem = async (event) => {
+    try {
+      // checks for a matching value in the query's Communities.items.name values
+      const itemInCommunity = data?.itemByCommunity.items.some(
+        (name) => name.name === `${findItemValue}`
+      )
+      if (itemInCommunity === true) {
+        const item = data?.itemByCommunity.items.find(
+          (name) => name.name === `${findItemValue}`
+        )
+        setRenderOneItem(item)
+      } else if (itemInCommunity === false) {
+        alert("Item not found")
+      }
+      
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
   return (
     <>
       <div className="flex w-full items-center h-fit">
@@ -205,13 +237,13 @@ export default function MyCommunityItems() {
         <div>
         <SearchBar
           bType={"submit"}
-          // btnAction={searchForCommunity}
+          btnAction={searchForItem}
           body={
             <input
               type="text"
               placeholder="Find an Item"
-              // value={findCommunityValue}
-              // onChange={handleSearchChange}
+              value={findItemValue}
+              onChange={handleSearchChange}
               className="w-100 h-7 pl-10 text-left"
             />
           }
@@ -228,7 +260,16 @@ export default function MyCommunityItems() {
               <button></button>
             </div>
           </div>
-          {communityItems.length === 0 ? ( 
+          {renderOneItem ? (
+            <IndividualItem
+              openMessageModal={openMessageModal}
+              _id={renderOneItem._id}
+              name={renderOneItem.name}
+              description={renderOneItem.description}
+              owner={renderOneItem.owner}
+            />
+          ) : (
+          communityItems.length === 0 ? ( 
             <p className="border font-bold py-2 px-4 flex w-full text-center">No items in this community</p>
           ) : (
           <div>
@@ -246,6 +287,7 @@ export default function MyCommunityItems() {
                 )
             )}
           </div>
+          )
           )}
         </div>
       </div>
