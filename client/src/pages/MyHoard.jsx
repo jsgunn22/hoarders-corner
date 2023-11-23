@@ -122,6 +122,8 @@ export default function MyHoard() {
             <th className="px-6 w-24 text-center">Action</th>
           </tr>
         </thead>
+        {myItems.length === 0 ?  (
+          <p> You have no items in this community</p> ) : (
         <tbody>
           {myItems.map((item, i) => (
             <HoardItem
@@ -135,6 +137,7 @@ export default function MyHoard() {
             />
           ))}
         </tbody>
+        )}
       </table>
       {deletePromptState && (
         <DeletePrompt data={deletePromtData} closeModal={closeModal} />

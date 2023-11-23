@@ -143,6 +143,9 @@ export default function MyCommunityItems() {
               <button></button>
             </div>
           </div>
+          {communityItems.length === 0 ? ( 
+            <p className="border font-bold py-2 px-4 flex w-full text-center">No items in this community</p>
+          ) : (
           <div>
             {communityItems.map(
               (item, index) =>
@@ -158,6 +161,7 @@ export default function MyCommunityItems() {
                 )
             )}
           </div>
+          )}
         </div>
       </div>
 
