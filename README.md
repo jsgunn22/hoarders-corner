@@ -2,6 +2,12 @@
 
 ## Description
 
+Hoarder's Corner is an innovative platform designed to cater to the diverse interests of collectors. This application serves as a virtual showcase for users to display, discuss, and potentially trade their cherished possessions. It offers a diverse range of collections for users to explore and join, providing a unique opportunity to connect with like-minded individuals.
+
+Within these groups, users can showcase items they wish to make public, fostering a sense of community and shared interest. This feature allows for interactive discussions about publicly displayed items, enhancing the overall user experience.
+
+The platform is designed to be user-friendly and intuitive, making it accessible to even those who have never digitally tracked inventory before. Hoarder's Corner is more than just an application; it's a community for collectors. So, whether you're a seasoned collector or just starting your collection journey, Hoarder's Corner is the perfect place for you to explore and enjoy. Enjoy your collection journey!
+
 ## Table of Contents
 
 - [Features](#features)
@@ -14,10 +20,7 @@
 
 ## Features
 
-All Communities
-My Communities
-My Hoards
-Messaging
+All Communities | My Communities | My Hoards | Messaging
 
 Hoarder's Corner uses the following packages:
 -concurrently: For running multiple NPM scripts concurrenlty
