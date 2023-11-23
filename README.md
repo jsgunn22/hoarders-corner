@@ -10,7 +10,6 @@
 - [Contributing](#contributing)
 - [License](#license)
 - [Support](#support)
-- [Additional Information](#additional-information)
 - [Assets](#assets)
 
 ## Features
@@ -66,11 +65,7 @@ N/A
 
 ## Support
 
-If you have any questions or problems with the Fitness App, please create an issue on the GitHub repository: https://github.com/topics/fitness-app.
-
-## Additional Information
-
-The Fitness App is still under development, but it is already a usable and powerful tool for tracking your fitness progress. We are constantly adding new features and improvements, so please stay tuned for updates!
+If you have any questions or problems with Hoarder's Corner, please create an issue on the GitHub repository: [Hoarder's Corner](https://github.com/jsgunn22/smell-o-scope)
 
 ## Assets
 
