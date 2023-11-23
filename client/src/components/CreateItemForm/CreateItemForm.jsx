@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_ITEM } from "../../utils/mutations";
 import Auth from "../../utils/auth";
-import { QUERY_COMMUNITY_ITEMS, QUERY_MY_HOARD } from "../../utils/queries";
+import { QUERY_COMMUNITY_ITEMS, QUERY_MY_HOARD, QUERY_MY_COMMUNITIES } from "../../utils/queries";
 
 export default function CreateItemForm({
   communityName,
@@ -14,9 +14,25 @@ export default function CreateItemForm({
   communityId,
 }) {
   const [createItem, { error, data }] = useMutation(ADD_ITEM, {
-    refetchQueries: [QUERY_COMMUNITY_ITEMS, "communities"],
-    refetchQueries: [QUERY_MY_HOARD, "items"],
+    refetchQueries: [
+      {
+        query: QUERY_COMMUNITY_ITEMS,
+        variables: {
+          communityId: communityId,
+        },
+      },
+      {
+        query: QUERY_MY_HOARD,
+        variables: {
+          communityId: communityId,
+        },
+      },
+      {
+        query: QUERY_MY_COMMUNITIES
+      }
+    ],
   });
+
   const [isPublic, setIsPublic] = useState(false);
   const [formState, setFormState] = useState({
     name: "",
