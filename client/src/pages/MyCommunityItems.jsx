@@ -1,7 +1,7 @@
 import { useQuery, useMutation } from "@apollo/client";
 import {
   QUERY_COMMUNITY_ITEMS,
-  QUERY_MY_MESSAGES, QUERY_ITEM_NAME,
+  QUERY_MY_MESSAGES, 
   QUERY_COMMUNITIES,
 } from "../utils/queries";
 import { useParams } from "react-router-dom";
@@ -117,14 +117,12 @@ export default function MyCommunityItems() {
     variables: { communityId: communityId },
   });
 
-  const {loading: itemLoading, data: itemData, error: itemError} = useQuery(QUERY_ITEM_NAME, {
-    variables: { name: "falcon"}
-  })
 
   if (loading) return <p>Loading..</p>;
   if (error) return <p>Error</p>;
 
   const communityItems = data?.itemByCommunity.items || [];
+  // console.log(communityItems);
   // checks to see if the user is a member of the community they are viewing
   const joinedCommunity = data?.itemByCommunity.users.some(
     (user) => user._id === Auth.getProfile().authenticatedPerson._id
@@ -190,15 +188,19 @@ export default function MyCommunityItems() {
     try {
       // checks for a matching value in the query's Communities.items.name values
       const itemInCommunity = data?.itemByCommunity.items.some(
-        (name) => name.name === `${findItemValue}`
+        (name) => name.name === findItemValue
       )
-      if (itemInCommunity === true) {
+      const publicItem = data?.itemByCommunity.items.find(
+        (item) => item.name === findItemValue
+      )
+
+      if (itemInCommunity === true && publicItem.isPublic === true ) {
         const item = data?.itemByCommunity.items.find(
           (name) => name.name === `${findItemValue}`
         )
         setRenderOneItem(item)
-      } else if (itemInCommunity === false) {
-        alert("Item not found")
+      } else if (itemInCommunity === false || publicItem.isPublic === false ) {
+        alert("Item not found or isn't public")
       }
       
     } catch (error) {
@@ -260,7 +262,7 @@ export default function MyCommunityItems() {
               <button></button>
             </div>
           </div>
-          {renderOneItem ? (
+          {renderOneItem  ? (
             <IndividualItem
               openMessageModal={openMessageModal}
               _id={renderOneItem._id}
