@@ -159,17 +159,16 @@ export default function AllCommunities() {
         />
         <div className="flex flex-col gap-4">
           {communities.map((c, i) => (
-            <div key={i}>
-              <CommunityRow
-                _id={c._id}
-                name={c.name}
-                members={c.users.length}
-                items={c.items.length}
-                join={joinCommunityAction}
-                hasButton={isLogged === true}
-                isMyCommunity={c.users.some((user) => user._id === myUserId)}
-              />
-            </div>
+            <CommunityRow
+              key={i}
+              _id={c._id}
+              name={c.name}
+              members={c.users.length}
+              items={c.items.filter((i) => i.isPublic).length}
+              join={joinCommunityAction}
+              hasButton={isLogged === true}
+              isMyCommunity={c.users.some((user) => user._id === myUserId)}
+            />
           ))}
           {showModal && (
             <Modal
