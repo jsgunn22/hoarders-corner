@@ -84,6 +84,13 @@ export default function MyHoard() {
   const [createModalState, setCreateModalState] = useState(false);
 
   const myItems = data?.myHoard || [];
+  if (myItems.length ===0 ) { 
+    return (
+      <div>
+        <AllCommunities />
+      </div>
+    )
+  }
   const pageTitle = data?.myHoard[0].community;
 
   const openCreateModal = () => {
@@ -122,8 +129,6 @@ export default function MyHoard() {
             <th className="px-6 w-24 text-center">Action</th>
           </tr>
         </thead>
-        {myItems.length === 0 ?  (
-          <p> You have no items in this community</p> ) : (
         <tbody>
           {myItems.map((item, i) => (
             <HoardItem
@@ -137,7 +142,7 @@ export default function MyHoard() {
             />
           ))}
         </tbody>
-        )}
+        
       </table>
       {deletePromptState && (
         <DeletePrompt data={deletePromtData} closeModal={closeModal} />
@@ -151,4 +156,5 @@ export default function MyHoard() {
       )}
     </>
   );
+  
 }
