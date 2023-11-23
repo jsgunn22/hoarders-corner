@@ -15,26 +15,25 @@
 
 ## Features
 
-User authentication and registration
-Exercise logging
-Nutrition logging
-Calorie counting and calculation
-Progress tracking
-Packages
+All Communities
+My Communities
+My Hoards
+Messaging
 
-The Fitness App uses the following packages:
+Hoarder's Corner uses the following packages:
+-concurrently: For running multiple NPM scripts concurrenlty
+-tailwindcss: For CSS frameworking for rapidly building custom designs
 
+- apollo: For comprehsive state management that enables management of local and remote data with GraphQL
 - bcrypt: For password hashing
-- cloudinary: For image uploading and storage
-- connect-session-sequelize: For user session management
-- dayjs: For date and time manipulation
-- dotenv: For managing environment variables
 - express: For web framework
-- express-handlebars: For template engine
-- express-session: For user session management
-- multer: For file uploading
-- mysql2: For MySQL database connection
-- sequelize: For object-relational mapping (ORM)
+- graphql: For querying for APIs
+- jsonwebtoken: For authentication and information exchange
+- mongoose: For managing relationships between data, providing schema validation and translating between objects in code and representing of those objects in Mongo DB
+- react, react-dom, react-router-dom: For building user interfaces in single-page applications
+- types: For helping catch errors in development
+- eslint: For identifying and reporting on patterns found in code with the goal of making code more consistent and avoiding bugs
+  -vitejs/plugin-react-swc: For compiling React code
 
 ## Installation
 
