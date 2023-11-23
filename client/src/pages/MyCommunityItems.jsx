@@ -1,8 +1,16 @@
 import { useQuery, useMutation } from "@apollo/client";
-import { QUERY_COMMUNITY_ITEMS, QUERY_MY_MESSAGES } from "../utils/queries";
+import {
+  QUERY_COMMUNITY_ITEMS,
+  QUERY_MY_MESSAGES,
+  QUERY_COMMUNITIES,
+} from "../utils/queries";
 import { useParams } from "react-router-dom";
 import Button from "../components/Atoms/Button";
-import { SEND_MESSAGE } from "../utils/mutations";
+import {
+  SEND_MESSAGE,
+  JOIN_COMMUNITY,
+  LEAVE_COMMUNITY,
+} from "../utils/mutations";
 import Auth from "../utils/auth";
 import { useState } from "react";
 import Modal from "../components/Modals/Modal";
@@ -92,6 +100,15 @@ export default function MyCommunityItems() {
   const [messageModalData, setMessageModalData] = useState();
   const { communityId } = useParams();
 
+  const [joinCommunity, { error: joinCommunityError }] = useMutation(
+    JOIN_COMMUNITY,
+    {
+      refetchQueries: [QUERY_COMMUNITY_ITEMS, "communities"],
+    }
+  );
+  const [leaveCommunity, { err }] = useMutation(LEAVE_COMMUNITY, {
+    refetchQueries: [QUERY_COMMUNITY_ITEMS, "items"],
+  });
   const { loading, data, error } = useQuery(QUERY_COMMUNITY_ITEMS, {
     variables: { communityId: communityId },
   });
@@ -100,6 +117,12 @@ export default function MyCommunityItems() {
   if (error) return <p>Error</p>;
 
   const communityItems = data?.itemByCommunity.items || [];
+
+  // checks to see if the user is a member of the community they are viewing
+  const joinedCommunity = data?.itemByCommunity.users.some(
+    (user) => user._id === Auth.getProfile().authenticatedPerson._id
+  );
+  console.log(joinedCommunity);
 
   const openMessageModal = (data) => {
     setMessageModalState(true);
@@ -118,17 +141,62 @@ export default function MyCommunityItems() {
     setShowCreateModal(false);
   };
 
+  const joinCommunityAction = async (communityId) => {
+    try {
+      const { data } = await joinCommunity({
+        variables: { communityId },
+      });
+    } catch (joinCommunityError) {
+      console.log(joinCommunityError);
+    }
+
+    // data returns as array of communities but function still works
+
+    if (communityId) {
+      alert("Successfully Joined!");
+    } else if (!communityId) {
+      alert("Didn't successfully join");
+    }
+  };
+
+  const leaveCommunityAction = async (communityId) => {
+    try {
+      const { data } = await leaveCommunity({ variables: { communityId } });
+    } catch (error) {
+      console.error(error);
+    }
+
+    if (communityId) {
+      alert(`You are no longer following`);
+    } else if (!communityId) {
+      alert("Didn't successfully leave");
+    }
+  };
+
   return (
     <>
       <div className="flex w-full items-center h-fit">
         <Button icon={`fa-solid fa-arrow-left`} />
         <PageHeader
           label={`${data.itemByCommunity.name}`}
-          hasButton={true}
+          hasButton={joinedCommunity}
           btnLabel={`Add Item`}
           btnAction={openCreateItemModal}
-          icon={""}
         />
+        <div className="ml-4">
+          {joinedCommunity ? (
+            <Button
+              label={`Leave`}
+              style={"warning"}
+              action={() => leaveCommunityAction(communityId)}
+            />
+          ) : (
+            <Button
+              label={"Join"}
+              action={() => joinCommunityAction(communityId)}
+            />
+          )}
+        </div>
       </div>
 
       <div className="p-8 overflow-auto relative w-full">
