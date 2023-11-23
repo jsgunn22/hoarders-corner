@@ -122,7 +122,6 @@ export default function MyCommunityItems() {
   if (error) return <p>Error</p>;
 
   const communityItems = data?.itemByCommunity.items || [];
-  // console.log(communityItems);
   // checks to see if the user is a member of the community they are viewing
   const joinedCommunity = data?.itemByCommunity.users.some(
     (user) => user._id === Auth.getProfile().authenticatedPerson._id
