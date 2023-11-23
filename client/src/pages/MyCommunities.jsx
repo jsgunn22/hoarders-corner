@@ -84,7 +84,7 @@ export default function MyCommunities() {
                   _id={c._id}
                   name={c.name}
                   members={c.users.length}
-                  items={c.items.length}
+                  items={c.items.filter((i) => i.isPublic).length}
                   isMyCommunity={true}
                   hasButton={true}
                 />
