@@ -3,7 +3,11 @@ import Auth from "../utils/auth";
 import { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 
-import { QUERY_COMMUNITIES, QUERY_MY_COMMUNITIES, QUERY_COMMUNITY } from "../utils/queries";
+import {
+  QUERY_COMMUNITIES,
+  QUERY_MY_COMMUNITIES,
+  QUERY_COMMUNITY,
+} from "../utils/queries";
 import { ADD_COMMUNITY, LEAVE_COMMUNITY } from "../utils/mutations";
 import { JOIN_COMMUNITY } from "../utils/mutations";
 
@@ -27,8 +31,12 @@ export default function AllCommunities() {
   const [findCommunityValue, setFindCommunity] = useState("");
 
   const { loading, data, error } = useQuery(QUERY_COMMUNITIES);
-  const {loading: communityLoading, data: communityData, error: communityError } = useQuery(QUERY_COMMUNITY, {
-    variables: { name: findCommunityValue},
+  const {
+    loading: communityLoading,
+    data: communityData,
+    error: communityError,
+  } = useQuery(QUERY_COMMUNITY, {
+    variables: { name: findCommunityValue },
   });
 
   const [addCommunity, { error: addCommunityError }] = useMutation(
@@ -49,9 +57,8 @@ export default function AllCommunities() {
   if (error) return <p>Error</p>;
 
   const communities = data?.communities || [];
-  
+
   const oneCommunity = communityData?.communityName || [];
-  
 
   // displays Modal since set to true
   const handleCreateCommunity = () => {
@@ -69,7 +76,7 @@ export default function AllCommunities() {
     event.preventDefault();
     setFindCommunity(event.target.value);
     console.log(findCommunityValue);
-  }
+  };
 
   // function for creating a community
   const submitCommunityForm = async (event) => {
@@ -77,10 +84,9 @@ export default function AllCommunities() {
       const { data } = await addCommunity({
         variables: { name },
       });
-
     } catch (addCommunityError) {
       console.log(addCommunityError);
-      if (addCommunityError.message.includes('E11000')) {
+      if (addCommunityError.message.includes("E11000")) {
         alert(`${name} Community already exists`);
       }
     }
@@ -94,22 +100,19 @@ export default function AllCommunities() {
   };
 
   const searchForCommunity = async (event) => {
-
     try {
       console.log(oneCommunity);
       console.log(oneCommunity._id);
       if (!oneCommunity._id) {
-        alert("Community not found")
-        setFindCommunity("")
+        alert("Community not found");
+        setFindCommunity("");
       } else {
         window.location.href = `/communities/${oneCommunity._id}`;
       }
-      
     } catch (error) {
       console.log(error);
     }
-  }
-
+  };
 
   const joinCommunityAction = async (communityId) => {
     try {
@@ -128,7 +131,6 @@ export default function AllCommunities() {
       alert("Didn't successfully join");
     }
   };
-
 
   const myUserId = isLogged && Auth.getProfile().authenticatedPerson._id;
 
@@ -178,7 +180,6 @@ export default function AllCommunities() {
                   placeholder="Title it here"
                   value={name}
                   onChange={handleInputChange}
-                  
                 />
               }
               btnLabel={"Create"}

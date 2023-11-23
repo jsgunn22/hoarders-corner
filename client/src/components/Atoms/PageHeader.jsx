@@ -9,7 +9,7 @@ export default function PageHeader({
 }) {
   return (
     <div className="flex w-full">
-      <div className="flex items-center mb-6 mr-auto">
+      <div className="flex items-center mr-auto">
         <i className={`${icon} text-pri-5 text-h3 mr-2`}></i>
         <h3 className="text-h3 font-bold">{label}</h3>
       </div>
