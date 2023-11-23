@@ -199,10 +199,14 @@ export default function Messages() {
       {loading ? (
         <p>Loading...</p>
       ) : currentPage === "/messages/received" ? (
+        messagesReceived.length === 0 ? 
+        <div> You have no received messages</div> :
         <div className="">
           <MessagesTable data={messagesReceived} />
         </div>
-      ) : (
+         
+      ) : (messagesSent.length === 0 ? 
+        <div> You have no sent messages</div> :
         <div>
           <MessagesTable data={messagesSent} messagesSent={true} />
         </div>
