@@ -1,7 +1,7 @@
 import { useQuery, useMutation } from "@apollo/client";
 import {
   QUERY_COMMUNITY_ITEMS,
-  QUERY_MY_MESSAGES,
+  QUERY_MY_MESSAGES, QUERY_ITEM_NAME,
   QUERY_COMMUNITIES,
 } from "../utils/queries";
 import { useParams } from "react-router-dom";
@@ -18,6 +18,8 @@ import TextArea from "../components/Atoms/TextArea";
 import PageHeader from "../components/Atoms/PageHeader";
 import CreateItemForm from "../components/CreateItemForm/CreateItemForm";
 import { Link } from "react-router-dom";
+import SearchBar from "../components/SearchBar";
+
 
 function IndividualItem({ name, description, owner, _id, openMessageModal }) {
   return (
@@ -200,6 +202,21 @@ export default function MyCommunityItems() {
       </div>
 
       <div className="p-8 overflow-auto relative w-full">
+        <div>
+        <SearchBar
+          bType={"submit"}
+          // btnAction={searchForCommunity}
+          body={
+            <input
+              type="text"
+              placeholder="Find an Item"
+              // value={findCommunityValue}
+              // onChange={handleSearchChange}
+              className="w-100 h-7 pl-10 text-left"
+            />
+          }
+        />
+        </div>
         <div className="w-full border-x border-y rounded w-full shadow-lg bg-white border-collapse">
           <div>
             <div className="flex">

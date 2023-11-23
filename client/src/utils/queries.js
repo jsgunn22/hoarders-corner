@@ -150,3 +150,18 @@ export const QUERY_MY_COMMUNITIES = gql`
     }
   }
 `;
+
+export const QUERY_ITEM_NAME = gql`
+  query itemName($name: String) {
+    itemName(name: $name) {
+      _id
+      community
+      description
+      isPublic
+      name
+      owner
+      ownerId
+    }
+  }
+
+`
