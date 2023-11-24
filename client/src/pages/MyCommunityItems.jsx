@@ -207,6 +207,7 @@ export default function MyCommunityItems() {
     }
   };
 
+  
 
   return (
     <>
@@ -301,7 +302,7 @@ export default function MyCommunityItems() {
         <CreateItemForm
           communityName={data.itemByCommunity.name}
           closeModal={closeModal}
-          communityId={data.itemByCommunity._id}
+          communityId={communityId}
         />
       )}
     </>

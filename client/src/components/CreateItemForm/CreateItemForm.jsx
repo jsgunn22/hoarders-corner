@@ -27,12 +27,11 @@ export default function CreateItemForm({
           communityId: communityId,
         },
       },
-      {
-        query: QUERY_MY_COMMUNITIES
-      }
+      // {
+        // query: QUERY_MY_COMMUNITIES
+      // }
     ],
   });
-
   const [isPublic, setIsPublic] = useState(false);
   const [formState, setFormState] = useState({
     name: "",
