@@ -24,11 +24,11 @@ import SearchBar from "../components/SearchBar";
 
 function IndividualItem({ name, description, owner, _id, openMessageModal }) {
   return (
-    <div className="border font-bold py-2 px-4 flex w-full">
-      <div className="flex w-full">{name}</div>
-      <div className="flex w-full">{description}</div>
-      <div className="flex w-full">{owner}</div>
-      <div className="flex w-full">
+    <div className="border-b-[1px] border-opac-neu  py-2 px-4 flex w-full">
+      <div className="flex w-full px-3 py-3">{name}</div>
+      <div className="flex w-full px-3 py-3">{description}</div>
+      <div className="flex w-full py-3">{owner}</div>
+      <div className="flex w-full py-3">
         <Button label="Message Owner" action={() => openMessageModal(owner)} />
       </div>
     </div>
@@ -261,15 +261,15 @@ export default function MyCommunityItems() {
           }
         />
         </div>
-        <div className="w-full border-x border-y rounded w-full shadow-lg bg-white border-collapse">
-          <div>
+        <div className="w-full border-x border-y rounded-lg w-full shadow-lg border-b-[1px] border-opac-neu bg-white border-collapse bg-neu-0">
+          <div className= "text-neu-7 h-10  border-b-[1px] border-opac-neu ">
             <div className="flex">
-              <div className="w-full text-h3 font-bold text-neu-7">Name</div>
-              <div className="w-full text-h3 font-bold text-neu-7">
+              <div className="w-full text-h3 font-bold text-neu-7 px-3 py-3">Name</div>
+              <div className="w-full text-h3 font-bold text-neu-7 px-3 py-3">
                 Description
               </div>
-              <div className="w-full text-h3 font-bold text-neu-7">Owner</div>
-              <button></button>
+              <div className="w-full text-h3 font-bold text-neu-7 px-3 py-3">Owner</div>
+              <div className="w-full text-h3 font-bold text-neu-7 px-3 py-3">Message Owner</div>
             </div>
           </div>
           {renderOneItem  ? (
