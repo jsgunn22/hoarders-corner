@@ -1,8 +1,13 @@
+import { useQuery, useMutation } from "@apollo/client";
 import Button from "../Atoms/Button";
-import { useMutation } from "@apollo/client";
 import { LEAVE_COMMUNITY } from "../../utils/mutations";
-import { QUERY_MY_COMMUNITIES } from "../../utils/queries";
+import { 
+  QUERY_MY_COMMUNITIES,
+  QUERY_COMMUNITY_ITEMS
+ } from "../../utils/queries";
+
 import { Link } from "react-router-dom";
+import Auth from "../../utils/auth";
 
 export default function CommunityRow({
   _id,
@@ -13,10 +18,22 @@ export default function CommunityRow({
   join,
   hasButton,
 }) {
+
   const [leaveCommunity, { err }] = useMutation(LEAVE_COMMUNITY, {
     refetchQueries: [QUERY_MY_COMMUNITIES, "communities"],
-  });
+  }); 
+  const  communityId =  _id;
+  const { loading, data, error } = useQuery(QUERY_COMMUNITY_ITEMS, {
+    variables: { communityId: communityId },
+  }); 
+  
+  const myCommunityItems= data?.itemByCommunity.items.filter( (item) => item.owner === Auth.getProfile().authenticatedPerson.username);
+
   const leaveCommunityAction = async (communityId, communityName) => {
+    if (myCommunityItems.length > 0) {
+      alert("You have items in this community. Please remove them first");
+      return;
+    } else {
     try {
       const { data } = await leaveCommunity({ variables: { communityId } });
     } catch (error) {
@@ -28,6 +45,7 @@ export default function CommunityRow({
     } else if (!communityId) {
       alert("Didn't successfully leave");
     }
+  }
   };
 
   return (

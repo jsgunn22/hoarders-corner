@@ -45,6 +45,7 @@ function DeletePrompt({ data, closeModal }) {
   const [deleteItem, { error }] = useMutation(DELETE_ITEM, {
     refetchQueries: [QUERY_MY_HOARD, "items"],
   });
+  
 
   const deleteThisItem = () => {
     try {
