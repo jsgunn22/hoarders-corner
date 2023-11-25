@@ -3,6 +3,7 @@ import {
   QUERY_COMMUNITY_ITEMS,
   QUERY_MY_MESSAGES, 
   QUERY_COMMUNITIES,
+  QUERY_USERS
 } from "../utils/queries";
 import { useParams } from "react-router-dom";
 import Button from "../components/Atoms/Button";
@@ -116,6 +117,7 @@ export default function MyCommunityItems() {
   const { loading, data, error } = useQuery(QUERY_COMMUNITY_ITEMS, {
     variables: { communityId: communityId },
   });
+  
 
 
   if (loading) return <p>Loading..</p>;
@@ -126,8 +128,10 @@ export default function MyCommunityItems() {
   const joinedCommunity = data?.itemByCommunity.users.some(
     (user) => user._id === Auth.getProfile().authenticatedPerson._id
   );
+ 
+  const myCommunityItems= data?.itemByCommunity.items.filter( (item) => item.owner === Auth.getProfile().authenticatedPerson.username);
 
-  
+ 
 
   const openMessageModal = (data) => {
     setMessageModalState(true);
@@ -165,6 +169,11 @@ export default function MyCommunityItems() {
   };
 
   const leaveCommunityAction = async (communityId) => {
+    //only leave community if I have no items in it
+    if (myCommunityItems.length > 0) {
+      alert("You have items in this community. Please remove them first");
+      return;
+    } else {
     try {
       const { data } = await leaveCommunity({ variables: { communityId } });
     } catch (error) {
@@ -176,6 +185,7 @@ export default function MyCommunityItems() {
     } else if (!communityId) {
       alert("Didn't successfully leave");
     }
+  }
   };
 
   const handleSearchChange = (event) => {

@@ -6,6 +6,9 @@ export const QUERY_USERS = gql`
       _id
       username
       email
+      items {
+        community
+      }
       avatar
     }
   }
@@ -47,12 +50,9 @@ export const QUERY_COMMUNITY = gql`
     communityName(name: $name) {
       name
       _id
-      
     }
   }
-
-`
-
+`;
 
 export const QUERY_MY_MESSAGES = gql`
   query myMessages {
@@ -162,5 +162,4 @@ export const QUERY_ITEM_NAME = gql`
       owner
     }
   }
-
-`
+`;
