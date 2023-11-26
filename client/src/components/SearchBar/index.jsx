@@ -6,15 +6,24 @@ import Input from "../Atoms/Input";
 // to able to use a useState on our search
 // can reference the call of modal in AllCommunities page
 
-export default function SearchBar({ btnAction, bType, body }) {
+export default function SearchBar({
+  btnAction,
+  bType,
+  searchFieldLabel,
+  change,
+  value,
+}) {
   return (
-    <div className="flex justify-center mb-4 ">
-      <div className="mr-1 ">
-        {body} <Input label="Find a Community" />
+    <div className="flex  mb-4 ">
+      <div className="mr-2">
+        <Input
+          label={searchFieldLabel}
+          change={change}
+          type={"text"}
+          value={value}
+        />
       </div>
-      <div>
-        <Button label="Search" action={btnAction} type={bType} />
-      </div>
+      <Button label="Search" action={btnAction} type={bType} />
     </div>
   );
 }
