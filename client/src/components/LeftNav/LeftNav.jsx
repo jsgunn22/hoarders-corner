@@ -102,9 +102,10 @@ export default function LeftNav() {
     Auth.logout();
   };
 
+  
   return (
     <>
-      <div className={`bg-neu-0 h-full min-w-[290px] max-w-[290px]`}>
+      <div className={`bg-neu-0 h-full min-w-[290px] max-w-[290px]`} >
         <div className="h-14 bg-opac-pri flex px-4 py-4 items-center">
           <i className="fa-solid fa-box text-h3 text-pri-5 mr-2"></i>
           <h2 className="text-h2 font-bold text-neu-9">Hoarder's Corner</h2>
@@ -112,6 +113,7 @@ export default function LeftNav() {
         {Auth.loggedIn() ? (
           <div
             className="h-full flex flex-col"
+          
             style={{ height: "calc(100vh - 56px)" }}
           >
             <div className="flex-grow overflow-auto">
@@ -126,7 +128,7 @@ export default function LeftNav() {
             </div>
           </div>
         ) : (
-          <div>
+          <div id="left-nav-login">
             <LoginForm />
             <SignupForm />
           </div>
