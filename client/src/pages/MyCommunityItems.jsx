@@ -222,7 +222,7 @@ export default function MyCommunityItems() {
   return (
     <>
       <div className="flex w-full items-center h-fit">
-        <Button icon={`fa-solid fa-arrow-left`} />
+        {/* <Button icon={`fa-solid fa-arrow-left`} /> */}
         <PageHeader
           label={`${data.itemByCommunity.name}`}
           hasButton={joinedCommunity}
