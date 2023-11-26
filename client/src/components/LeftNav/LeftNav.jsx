@@ -105,8 +105,8 @@ export default function LeftNav() {
   
   return (
     <>
-      <div className={`bg-neu-0 h-full min-w-[290px] max-w-[290px]`} >
-        <div className="h-14 bg-opac-pri flex px-4 py-4 items-center">
+      <div className="bg-neu-0 h-full min-w-[290px] max-w-[290px] scroll-smooth sticky top-0 navbar" >
+        <div className="h-14 bg-opac-pri flex px-4 py-4 items-center ">
           <i className="fa-solid fa-box text-h3 text-pri-5 mr-2"></i>
           <h2 className="text-h2 font-bold text-neu-9">Hoarder's Corner</h2>
         </div>
