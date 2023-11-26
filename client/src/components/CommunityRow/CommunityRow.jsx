@@ -26,63 +26,18 @@ export default function CommunityRow({
     variables: { communityId: communityId },
   });
 
-  if (Auth.loggedIn()) {
-    const myCommunityItems =
+  const myCommunityItems =
+    (Auth.loggedIn() &&
       data?.itemByCommunity.items.filter(
         (item) => item.owner === Auth.getProfile().authenticatedPerson.username
-      ) || [];
+      )) ||
+    [];
 
-    const leaveCommunityAction = async (communityId, communityName) => {
-      if (myCommunityItems.length > 0) {
-        alert("You have items in this community. Please remove them first");
-        return;
-      } else {
-        try {
-          const { data } = await leaveCommunity({ variables: { communityId } });
-        } catch (error) {
-          console.error(error);
-        }
-
-        if (communityId) {
-          alert(`You are no longer following ${communityName}`);
-        } else if (!communityId) {
-          alert("Didn't successfully leave");
-        }
-      }
-    };
-
-    return (
-      <div className="w-full bg-neu-0 h-16 flex rounded-lg shadow-md hover:shadow-lg cursor-pointer ">
-        <div className="px-6 flex items-center w-full">
-          <Link className="flex items-center" to={`/communities/${_id}`}>
-            <h3 className="text-h3 font-bold text-pri-5 mr-1">{name}</h3>
-            <i className="fa-solid fa-arrow-right"></i>
-          </Link>
-        </div>
-        <div className="flex items-center min-w-[128px]">
-          <i className="fa-solid fa-users mr-1 text-pri-5 "></i>
-          <h4 className="text-h4 font-bold">{members} Members</h4>
-        </div>
-        <div className="flex items-center min-w-[96px]">
-          <i className="fa-solid fa-tag mr-1 text-pri-5"></i>
-          <h4 className="text-h4 font-bold">{items} Items</h4>
-        </div>
-        <div className="flex px-6 items-center h-full">
-          {hasButton &&
-            (isMyCommunity ? (
-              <Button
-                label="Leave"
-                action={() => leaveCommunityAction(_id, name)}
-                style="warning"
-              />
-            ) : (
-              <Button label="Join" action={() => join(_id)} />
-            ))}
-        </div>
-      </div>
-    );
-  } else if (!Auth.loggedIn()) {
-    const leaveCommunityAction = async (communityId, communityName) => {
+  const leaveCommunityAction = async (communityId, communityName) => {
+    if (myCommunityItems.length > 0) {
+      alert("You have items in this community. Please remove them first");
+      return;
+    } else {
       try {
         const { data } = await leaveCommunity({ variables: { communityId } });
       } catch (error) {
@@ -94,37 +49,37 @@ export default function CommunityRow({
       } else if (!communityId) {
         alert("Didn't successfully leave");
       }
-    };
+    }
+  };
 
-    return (
-      <div className="w-full bg-neu-0 h-16 flex rounded-lg shadow-md hover:shadow-lg cursor-pointer ">
-        <div className="px-6 flex items-center w-full">
-          <Link className="flex items-center" to={`/communities/${_id}`}>
-            <h3 className="text-h3 font-bold text-pri-5 mr-1">{name}</h3>
-            <i className="fa-solid fa-arrow-right"></i>
-          </Link>
-        </div>
-        <div className="flex items-center min-w-[128px]">
-          <i className="fa-solid fa-users mr-1 text-pri-5 "></i>
-          <h4 className="text-h4 font-bold">{members} Members</h4>
-        </div>
-        <div className="flex items-center min-w-[96px]">
-          <i className="fa-solid fa-tag mr-1 text-pri-5"></i>
-          <h4 className="text-h4 font-bold">{items} Items</h4>
-        </div>
-        <div className="flex px-6 items-center h-full">
-          {hasButton &&
-            (isMyCommunity ? (
-              <Button
-                label="Leave"
-                action={() => leaveCommunityAction(_id, name)}
-                style="warning"
-              />
-            ) : (
-              <Button label="Join" action={() => join(_id)} />
-            ))}
-        </div>
+  return (
+    <div className="w-full bg-neu-0 h-16 flex rounded-lg shadow-md hover:shadow-lg cursor-pointer ">
+      <div className="px-6 flex items-center w-full">
+        <Link className="flex items-center" to={`/communities/${_id}`}>
+          <h3 className="text-h3 font-bold text-pri-5 mr-1">{name}</h3>
+          <i className="fa-solid fa-arrow-right"></i>
+        </Link>
       </div>
-    );
-  }
+      <div className="flex items-center min-w-[128px]">
+        <i className="fa-solid fa-users mr-1 text-pri-5 "></i>
+        <h4 className="text-h4 font-bold">{members} Members</h4>
+      </div>
+      <div className="flex items-center min-w-[96px]">
+        <i className="fa-solid fa-tag mr-1 text-pri-5"></i>
+        <h4 className="text-h4 font-bold">{items} Items</h4>
+      </div>
+      <div className="flex px-6 items-center h-full">
+        {hasButton &&
+          (isMyCommunity ? (
+            <Button
+              label="Leave"
+              action={() => leaveCommunityAction(_id, name)}
+              style="warning"
+            />
+          ) : (
+            <Button label="Join" action={() => join(_id)} />
+          ))}
+      </div>
+    </div>
+  );
 }
