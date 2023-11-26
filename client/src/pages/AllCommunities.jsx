@@ -148,13 +148,15 @@ export default function AllCommunities() {
           bType={"submit"}
           btnAction={searchForCommunity}
           body={
-            <input
-              type="text"
-              placeholder="Find a Community"
-              value={findCommunityValue}
-              onChange={handleSearchChange}
-              className="w-100 h-7 pl-10 text-left"
-            />
+            <>
+              <input
+                type="text"
+                placeholder="Find a Community"
+                value={findCommunityValue}
+                onChange={handleSearchChange}
+                className="w-100 h-7 pl-10 text-left"
+              />
+            </>
           }
         />
         <div className="flex flex-col gap-4">
