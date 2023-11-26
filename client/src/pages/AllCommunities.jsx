@@ -135,7 +135,7 @@ export default function AllCommunities() {
   const myUserId = isLogged && Auth.getProfile().authenticatedPerson._id;
 
   return (
-    <div className="container">
+    <div className="w-full">
       <PageHeader
         icon={"fa-solid fa-users"}
         label="All Communities"

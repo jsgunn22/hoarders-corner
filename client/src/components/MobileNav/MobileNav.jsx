@@ -31,7 +31,7 @@ export default function MobileNav() {
   return (
     <>
       <OutsideClickHandler onOutsideClick={handleNav} showNav={showNav}>
-        <div className="bg-neu-0 ">
+        <div className="bg-neu-0">
           <div className="h-14 bg-opac-pri flex px-4 py-4 items-center ">
             <i
               className="fa-solid fa-bars text-h3 text-pri-5 mr-4"
