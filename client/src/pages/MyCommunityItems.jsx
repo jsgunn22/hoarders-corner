@@ -23,11 +23,11 @@ import SearchBar from "../components/SearchBar";
 
 function IndividualItem({ name, description, owner, _id, openMessageModal }) {
   return (
-    <div className="border-b-[1px] border-opac-neu  py-2 px-4 flex w-full">
-      <div className="flex w-full px-3 py-3">{name}</div>
-      <div className="flex w-full px-3 py-3">{description}</div>
-      <div className="flex w-full py-3">{owner}</div>
-      <div className="flex w-full py-3">
+    <div className="border-b-[1px] border-opac-neu  py-2  flex w-full">
+      <div className="flex min-w-[204px] px-6 py-3">{name}</div>
+      <div className="flex w-full px-6 py-3">{description}</div>
+      <div className="flex min-w-[204px] text-left px-6 py-3">{owner}</div>
+      <div className="flex min-w-[184px] justify-end py-3 px-6">
         <Button label="Message Owner" action={() => openMessageModal(owner)} />
       </div>
     </div>
@@ -239,7 +239,7 @@ export default function MyCommunityItems() {
         </div>
       </div>
 
-      <div className="p-8 overflow-auto relative w-full">
+      <div className=" relative w-full">
         <div>
           <SearchBar
             bType={"submit"}
@@ -249,19 +249,13 @@ export default function MyCommunityItems() {
             value={findItemValue}
           />
         </div>
-        <div className="w-full border-x border-y rounded-lg w-full shadow-lg border-b-[1px] border-opac-neu bg-white border-collapse bg-neu-0">
+        <div className="w-full  rounded-lg w-full shadow-lg border-b-[1px] border-opac-neu bg-white border-collapse bg-neu-0">
           <div className="text-neu-7 h-10  border-b-[1px] border-opac-neu ">
-            <div className="flex">
-              <div className="w-full text-h3 font-bold text-neu-7 px-3 py-3">
-                Name
-              </div>
-              <div className="w-full text-h3 font-bold text-neu-7 px-3 py-3">
-                Description
-              </div>
-              <div className="w-full text-h3 font-bold text-neu-7 px-3 py-3">
-                Owner
-              </div>
-              <div className="w-full text-h3 font-bold text-neu-7 px-3 py-3">
+            <div className="flex font-bold">
+              <div className="min-w-[204px] text-left px-6 py-1.5">Name</div>
+              <div className="w-full text-left px-6 py-1.5">Description</div>
+              <div className="min-w-[204px] text-left px-6 py-1.5">Owner</div>
+              <div className="min-w-[184px] text-right text-neu-7 px-6 py-3 py-1.5">
                 Message Owner
               </div>
             </div>
