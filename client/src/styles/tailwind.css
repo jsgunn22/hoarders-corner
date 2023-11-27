@@ -608,6 +608,7 @@ video {
   top: 56px;
 }
 
+
 .z-10 {
   z-index: 10;
 }
@@ -1234,6 +1235,7 @@ video {
   background-color: rgb(144 110 70 / var(--tw-bg-opacity));
 }
 
+
 @media (min-width: 640px) {
   .sm\:bg-dan-5 {
     --tw-bg-opacity: 1;
@@ -1261,6 +1263,7 @@ video {
     margin-top: 2.5rem;
   }
 
+
   .lg\:block {
     display: block;
   }
@@ -1277,6 +1280,7 @@ video {
     width: 100%;
   }
 
+
   .lg\:pt-14 {
     padding-top: 3.5rem;
   }
@@ -1284,4 +1288,5 @@ video {
   .lg\:pt-0 {
     padding-top: 0px;
   }
+
 }

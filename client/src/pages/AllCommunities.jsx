@@ -135,8 +135,10 @@ export default function AllCommunities() {
   const myUserId = isLogged && Auth.getProfile().authenticatedPerson._id;
 
   return (
-    <div className="w-full">
-      <PageHeader
+    <div className="container">
+      <div className="scroll-smooth sticky top-0 bg-neu-2  ">
+        <PageHeader
+
         icon={"fa-solid fa-users"}
         label="All Communities"
         hasButton={isLogged && true}
@@ -151,6 +153,8 @@ export default function AllCommunities() {
           change={handleSearchChange}
           value={findCommunityValue}
         />
+      </div>
+    </div>
         <div className="flex flex-col gap-4">
           {communities.map((c, i) => (
             <CommunityRow
@@ -181,7 +185,7 @@ export default function AllCommunities() {
             />
           )}
         </div>
-      </div>
+      
     </div>
   );
 }
