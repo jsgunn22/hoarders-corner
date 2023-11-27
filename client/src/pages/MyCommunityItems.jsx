@@ -215,7 +215,7 @@ export default function MyCommunityItems() {
 
   return (
     <>
-     <div className="container">
+    
       <div className="scroll-smooth sticky top-0 bg-neu-2 ">
         <div className="flex w-full items-center h-fit ">
           {/* <Button icon={`fa-solid fa-arrow-left`} /> */}
@@ -252,7 +252,7 @@ export default function MyCommunityItems() {
           />
         </div>
     </div>
-      </div>
+      
       {myCommunityItems.length === 0 ? (
         <p>There are no items in this community</p>
       ) : (
@@ -321,6 +321,7 @@ export default function MyCommunityItems() {
           communityId={communityId}
         />
       )}
+      
     </>
   );
 }
