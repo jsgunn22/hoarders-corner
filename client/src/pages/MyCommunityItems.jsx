@@ -215,84 +215,94 @@ export default function MyCommunityItems() {
 
   return (
     <>
-      <div className="scroll-smooth sticky top-0 bg-neu-2">
-        <div className="flex w-full items-center h-fit">
-          {/* <Button icon={`fa-solid fa-arrow-left`} /> */}
-          <PageHeader
-            label={`${data.itemByCommunity.name}`}
-            hasButton={joinedCommunity}
-            btnLabel={`Add Item`}
-            btnAction={openCreateItemModal}
-         />
-          <div className="ml-4">
-            {joinedCommunity ? (
-              <Button
-                label={`Leave`}
-                style={"warning"}
-                action={() => leaveCommunityAction(communityId)}
-              />
-          ) : (
-              <Button
-                label={"Join"}
-                action={() => joinCommunityAction(communityId)}
-              />
-            )}
-          </div>
-        </div>
-
-      <div className=" relative w-full">
-        <div>
-          <SearchBar
-            bType={"submit"}
-            btnAction={searchForItem}
-            searchFieldLabel={"Find an Item"}
-            change={handleSearchChange}
-            value={findItemValue}
-          />
-        </div>
-        <div className="w-full  rounded-lg w-full shadow-lg border-b-[1px] border-opac-neu bg-white border-collapse bg-neu-0">
-          <div className="text-neu-7 h-10  border-b-[1px] border-opac-neu ">
-            <div className="flex font-bold">
-              <div className="min-w-[204px] text-left px-6 py-1.5">Name</div>
-              <div className="w-full text-left px-6 py-1.5">Description</div>
-              <div className="min-w-[204px] text-left px-6 py-1.5">Owner</div>
-              <div className="min-w-[184px] text-right text-neu-7 px-6 py-3 py-1.5">
-                Message Owner
-              </div>
-            </div>
-          </div>
-          {renderOneItem ? (
-            <IndividualItem
-              openMessageModal={openMessageModal}
-              _id={renderOneItem._id}
-              name={renderOneItem.name}
-              description={renderOneItem.description}
-              owner={renderOneItem.owner}
+      <div className="flex w-full items-center h-fit">
+        {/* <Button icon={`fa-solid fa-arrow-left`} /> */}
+        <PageHeader
+          label={`${data.itemByCommunity.name}`}
+          icon={"fa-solid fa-users"}
+          hasButton={joinedCommunity}
+          btnLabel={`Add Item`}
+          btnAction={openCreateItemModal}
+        />
+        <div className="ml-4">
+          {joinedCommunity ? (
+            <Button
+              label={`Leave`}
+              style={"warning"}
+              action={() => leaveCommunityAction(communityId)}
             />
-          ) : communityItems.length === 0 ? (
-            <p className="border font-bold py-2 px-4 flex w-full text-center">
-              No items in this community
-            </p>
           ) : (
+            <Button
+              label={"Join"}
+              action={() => joinCommunityAction(communityId)}
+            />
+          )}
+        </div>
+      </div>
+      {myCommunityItems.length === 0 ? (
+        <p>There are no items in this community</p>
+      ) : (
+        <>
+          <div className=" relative w-full">
             <div>
-              {communityItems.map(
-                (item, index) =>
-                  item.isPublic && (
-                    <IndividualItem
-                      openMessageModal={openMessageModal}
-                      _id={item._id}
-                      name={item.name}
-                      description={item.description}
-                      owner={item.owner}
-                      key={index}
-                    />
-                  )
+              <SearchBar
+                bType={"submit"}
+                btnAction={searchForItem}
+                searchFieldLabel={"Find an Item"}
+                change={handleSearchChange}
+                value={findItemValue}
+              />
+            </div>
+            <div className="w-full  rounded-lg w-full shadow-lg border-b-[1px] border-opac-neu bg-white border-collapse bg-neu-0">
+              <div className="text-neu-7 h-10  border-b-[1px] border-opac-neu ">
+                <div className="flex font-bold">
+                  <div className="min-w-[204px] text-left px-6 py-1.5">
+                    Name
+                  </div>
+                  <div className="w-full text-left px-6 py-1.5">
+                    Description
+                  </div>
+                  <div className="min-w-[204px] text-left px-6 py-1.5">
+                    Owner
+                  </div>
+                  <div className="min-w-[184px] text-right text-neu-7 px-6 py-3 py-1.5">
+                    Message Owner
+                  </div>
+                </div>
+              </div>
+              {renderOneItem ? (
+                <IndividualItem
+                  openMessageModal={openMessageModal}
+                  _id={renderOneItem._id}
+                  name={renderOneItem.name}
+                  description={renderOneItem.description}
+                  owner={renderOneItem.owner}
+                />
+              ) : communityItems.length === 0 ? (
+                <p className="border font-bold py-2 px-4 flex w-full text-center">
+                  No items in this community
+                </p>
+              ) : (
+                <div>
+                  {communityItems.map(
+                    (item, index) =>
+                      item.isPublic && (
+                        <IndividualItem
+                          openMessageModal={openMessageModal}
+                          _id={item._id}
+                          name={item.name}
+                          description={item.description}
+                          owner={item.owner}
+                          key={index}
+                        />
+                      )
+                  )}
+                </div>
               )}
             </div>
-          )}
-       </div>
-      </div>
-      </div>
+          </div>
+        </>
+      )}
 
       {messageModalState && (
         <MessageModal name={messageModalData} closeModal={closeMessageModal} />
