@@ -136,7 +136,8 @@ export default function AllCommunities() {
 
   return (
     <div className="container">
-      <PageHeader
+      <div className="scroll-smooth sticky top-0 bg-neu-2  ">
+        <PageHeader
         icon={"fa-solid fa-users"}
         label="All Communities"
         hasButton={isLogged && true}
@@ -157,6 +158,8 @@ export default function AllCommunities() {
             />
           }
         />
+      </div>
+    </div>
         <div className="flex flex-col gap-4">
           {communities.map((c, i) => (
             <CommunityRow
@@ -187,7 +190,7 @@ export default function AllCommunities() {
             />
           )}
         </div>
-      </div>
+      
     </div>
   );
 }
