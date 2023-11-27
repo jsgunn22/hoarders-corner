@@ -221,45 +221,48 @@ export default function MyCommunityItems() {
 
   return (
     <>
-      <div className="flex w-full items-center h-fit">
-        {/* <Button icon={`fa-solid fa-arrow-left`} /> */}
-        <PageHeader
-          label={`${data.itemByCommunity.name}`}
-          hasButton={joinedCommunity}
-          btnLabel={`Add Item`}
-          btnAction={openCreateItemModal}
-        />
-        <div className="ml-4">
-          {joinedCommunity ? (
-            <Button
-              label={`Leave`}
-              style={"warning"}
-              action={() => leaveCommunityAction(communityId)}
-            />
+      <div className="scroll-smooth sticky top-0 bg-neu-2">
+        <div className="flex w-full items-center h-fit">
+          {/* <Button icon={`fa-solid fa-arrow-left`} /> */}
+          <PageHeader
+            label={`${data.itemByCommunity.name}`}
+            hasButton={joinedCommunity}
+            btnLabel={`Add Item`}
+            btnAction={openCreateItemModal}
+         />
+          <div className="ml-4">
+            {joinedCommunity ? (
+              <Button
+                label={`Leave`}
+                style={"warning"}
+                action={() => leaveCommunityAction(communityId)}
+              />
           ) : (
-            <Button
-              label={"Join"}
-              action={() => joinCommunityAction(communityId)}
-            />
-          )}
+              <Button
+                label={"Join"}
+                action={() => joinCommunityAction(communityId)}
+              />
+            )}
+          </div>
         </div>
-      </div>
 
-      <div className="p-8 overflow-auto relative w-full">
-        <div>
-        <SearchBar
-          bType={"submit"}
-          btnAction={searchForItem}
-          body={
-            <input
-              type="text"
-              placeholder="Find an Item"
-              value={findItemValue}
-              onChange={handleSearchChange}
-              className="w-100 h-7 pl-10 text-left"
-            />
-          }
-        />
+          <div className="p-8 overflow-auto relative w-full">
+            <div>
+              <SearchBar
+                bType={"submit"}
+                btnAction={searchForItem}
+                body={
+                    <input
+                       type="text"
+                        placeholder="Find an Item"
+                        value={findItemValue}
+                        onChange={handleSearchChange}
+                        className="w-100 h-7 pl-10 text-left"
+                    />
+                }
+              />
+          </div>
+          </div>
         </div>
         <div className="w-full border-x border-y rounded-lg w-full shadow-lg border-b-[1px] border-opac-neu bg-white border-collapse bg-neu-0">
           <div className= "text-neu-7 h-10  border-b-[1px] border-opac-neu ">
@@ -301,7 +304,7 @@ export default function MyCommunityItems() {
           </div>
           )
           )}
-        </div>
+       
       </div>
 
       {messageModalState && (

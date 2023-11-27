@@ -65,14 +65,16 @@ export default function MyCommunities() {
 
   return (
     <>
-      <PageHeader
-        className="scroll-smooth sticky top-0 bg-neu-2
+      <div className="scroll-smooth sticky top-0 bg-neu-2">
+        <PageHeader
+        className="scroll-smooth sticky top-0 bg-neu-2"
         label="My Communities"
         icon="fa-solid fa-user"
         hasButton={true}
         btnLabel="Create Community"
         btnAction={handleCreateCommunity}
-      />
+        />
+      </div>
       {myCommunities.length === 0 ? (
         <p>You are not a member of any communities</p>
       ) : (
