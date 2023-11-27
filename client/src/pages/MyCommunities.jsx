@@ -66,6 +66,7 @@ export default function MyCommunities() {
   return (
     <>
       <PageHeader
+        className="scroll-smooth sticky top-0 bg-neu-2
         label="My Communities"
         icon="fa-solid fa-user"
         hasButton={true}
