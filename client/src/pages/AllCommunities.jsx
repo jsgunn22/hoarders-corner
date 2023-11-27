@@ -15,6 +15,7 @@ import CommunityRow from "../components/CommunityRow/CommunityRow";
 import PageHeader from "../components/Atoms/PageHeader";
 import Modal from "../components/Modals/Modal";
 import SearchBar from "../components/SearchBar";
+import ResCommunityCard from "../components/ResCommunityCard/ResCommunityCard";
 
 const isLogged = Auth.loggedIn();
 
@@ -138,54 +139,68 @@ export default function AllCommunities() {
     <div className="container">
       <div className="scroll-smooth sticky top-0 bg-neu-2  ">
         <PageHeader
-
-        icon={"fa-solid fa-users"}
-        label="All Communities"
-        hasButton={isLogged && true}
-        btnLabel={"Create Community"}
-        btnAction={handleCreateCommunity}
-      />
-      <div className="w-full mt-2">
-        <SearchBar
-          bType={"submit"}
-          btnAction={searchForCommunity}
-          searchFieldLabel={"Find a Community"}
-          change={handleSearchChange}
-          value={findCommunityValue}
+          icon={"fa-solid fa-users"}
+          label="All Communities"
+          hasButton={isLogged && true}
+          btnLabel={"Create Community"}
+          btnAction={handleCreateCommunity}
         />
-      </div>
-    </div>
-        <div className="flex flex-col gap-4">
-          {communities.map((c, i) => (
-            <CommunityRow
-              key={i}
-              _id={c._id}
-              name={c.name}
-              members={c.users.length}
-              items={c.items.filter((i) => i.isPublic).length}
-              join={joinCommunityAction}
-              hasButton={isLogged === true}
-              isMyCommunity={c.users.some((user) => user._id === myUserId)}
-            />
-          ))}
-          {showModal && (
-            <Modal
-              heading={"Create A Community"}
-              body={
-                <input
-                  type="text"
-                  placeholder="Title it here"
-                  value={name}
-                  onChange={handleInputChange}
-                />
-              }
-              btnLabel={"Create"}
-              btnAction={() => submitCommunityForm()}
-              closeModal={() => setShowModal(false)}
-            />
-          )}
+        <div className="w-full mt-2">
+          <SearchBar
+            bType={"submit"}
+            btnAction={searchForCommunity}
+            searchFieldLabel={"Find a Community"}
+            change={handleSearchChange}
+            value={findCommunityValue}
+          />
         </div>
-      
+      </div>
+      <div className="lg:flex lg:flex-col gap-4 grid sm:grid-cols-2 grid-cols-1">
+        {communities.map((c, i) => (
+          <>
+            <div className="hidden lg:flex lg:flex-col">
+              <CommunityRow
+                key={i}
+                _id={c._id}
+                name={c.name}
+                members={c.users.length}
+                items={c.items.filter((i) => i.isPublic).length}
+                join={joinCommunityAction}
+                hasButton={isLogged === true}
+                isMyCommunity={c.users.some((user) => user._id === myUserId)}
+              />
+            </div>
+            <div className="lg:hidden">
+              <ResCommunityCard
+                key={i}
+                _id={c._id}
+                name={c.name}
+                members={c.users.length}
+                items={c.items.filter((i) => i.isPublic).length}
+                join={joinCommunityAction}
+                hasButton={isLogged === true}
+                isMyCommunity={c.users.some((user) => user._id === myUserId)}
+              />
+            </div>
+          </>
+        ))}
+        {showModal && (
+          <Modal
+            heading={"Create A Community"}
+            body={
+              <input
+                type="text"
+                placeholder="Title it here"
+                value={name}
+                onChange={handleInputChange}
+              />
+            }
+            btnLabel={"Create"}
+            btnAction={() => submitCommunityForm()}
+            closeModal={() => setShowModal(false)}
+          />
+        )}
+      </div>
     </div>
   );
 }

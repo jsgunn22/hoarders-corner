@@ -43,7 +43,7 @@ export default function MobileNav() {
           </div>
         </div>
         <div
-          className={`absolute  z-10 shadow-2xl transition-transform  ${
+          className={`absolute  z-20 shadow-2xl transition-transform  ${
             !showNav && "-left-[290px]"
           }`}
         >
