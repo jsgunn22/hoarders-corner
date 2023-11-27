@@ -1152,10 +1152,6 @@ video {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
-.focus\:scroll-auto:focus {
-  scroll-behavior: auto;
-}
-
 .focus\:border-pri-5:focus {
   --tw-border-opacity: 1;
   border-color: rgb(135 46 184 / var(--tw-border-opacity));
