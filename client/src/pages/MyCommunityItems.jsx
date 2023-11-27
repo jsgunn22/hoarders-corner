@@ -232,13 +232,14 @@ export default function MyCommunityItems() {
               action={() => leaveCommunityAction(communityId)}
             />
           ) : (
-            <Button
-              label={"Join"}
-              action={() => joinCommunityAction(communityId)}
-            />
-          )}
+              <Button
+                label={"Join"}
+                action={() => joinCommunityAction(communityId)}
+              />
+            )}
+          </div>
         </div>
-      </div>
+      
       {myCommunityItems.length === 0 ? (
         <p>There are no items in this community</p>
       ) : (
