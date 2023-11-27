@@ -5,7 +5,7 @@ import SignupForm from "./SignupForm";
 import { Link, useLocation } from "react-router-dom";
 import Button from "../Atoms/Button";
 
-import { QUERY_MY_HOARDS, QUERY_MY_MESSAGES, QUERY_COMMUNITIES } from "../../utils/queries";
+import { QUERY_MY_HOARDS, QUERY_MY_MESSAGES, QUERY_COMMUNITIES, QUERY_COMMUNITY } from "../../utils/queries";
 import { useQuery } from "@apollo/client";
 
 import { useUserContext } from "../../utils/userContext";
@@ -80,6 +80,7 @@ function SectionLabel({ label }) {
 function NavLink({ to, label, refetch }) {
   const currentPage = useLocation().pathname;
   const { loading, data, error } = useQuery(QUERY_COMMUNITIES);
+  
 
   const handleClick = () => {
     if (refetch) {
