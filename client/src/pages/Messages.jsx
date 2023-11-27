@@ -191,10 +191,12 @@ export default function Messages() {
 
   return (
     <div>
-      <PageHeader icon={"fa-solid fa-envelope"} label={"Messages"} />
-      <div className="flex gap-4 mb-4">
-        <Tab label="Received" to="/messages/received" />
-        <Tab label="Sent" to="/messages/sent" />
+      <div className="scroll-smooth sticky top-0 bg-neu-2">
+        <PageHeader icon={"fa-solid fa-envelope"} label={"Messages"} />
+        <div className="flex gap-4 mb-4">
+          <Tab label="Received" to="/messages/received" />
+          <Tab label="Sent" to="/messages/sent" />
+        </div>
       </div>
       {loading ? (
         <p>Loading...</p>

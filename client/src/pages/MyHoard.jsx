@@ -111,17 +111,19 @@ export default function MyHoard() {
 
   return (
     <>
-      <PageHeader
-        icon={`fa-solid fa-box`}
-        label={
-          <>
-            My Hoard <span className="text-pri-5">{pageTitle}</span>
-          </>
-        }
-        hasButton={true}
-        btnLabel={`Add Item`}
-        btnAction={openCreateModal}
-      />
+      <div className="scroll-smooth sticky top-0 bg-neu-2">
+        <PageHeader
+          icon={`fa-solid fa-box`}
+          label={
+            <>
+              My Hoard <span className="text-pri-5">{pageTitle}</span>
+            </>
+          }
+          hasButton={true}
+          btnLabel={`Add Item`}
+          btnAction={openCreateModal}
+        />
+      </div>
       <table className="w-full h-6 bg-neu-0 rounded-lg shadow-md mt-4">
         <thead className="text-neu-7 h-10 border-b-[1px] border-opac-neu">
           <tr>
