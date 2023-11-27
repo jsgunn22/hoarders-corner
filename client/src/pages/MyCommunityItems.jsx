@@ -215,43 +215,44 @@ export default function MyCommunityItems() {
 
   return (
     <>
-      <div className= "scroll-smooth sticky top-0 bg-neu-2  ">
-      <div className="flex w-full items-center h-fit ">
-        {/* <Button icon={`fa-solid fa-arrow-left`} /> */}
-        <PageHeader
-          label={`${data.itemByCommunity.name}`}
-          icon={"fa-solid fa-users"}
-          hasButton={joinedCommunity}
-          btnLabel={`Add Item`}
-          btnAction={openCreateItemModal}
-        />
-        <div className="ml-4">
-          {joinedCommunity ? (
-            <Button
-              label={`Leave`}
-              style={"warning"}
-              action={() => leaveCommunityAction(communityId)}
-            />
-          ) : (
+     <div className="container">
+      <div className="scroll-smooth sticky top-0 bg-neu-2 ">
+        <div className="flex w-full items-center h-fit ">
+          {/* <Button icon={`fa-solid fa-arrow-left`} /> */}
+          <PageHeader
+            label={`${data.itemByCommunity.name}`}
+            icon={"fa-solid fa-users"}
+            hasButton={joinedCommunity}
+            btnLabel={`Add Item`}
+            btnAction={openCreateItemModal}
+          />
+          <div className="ml-4">
+            {joinedCommunity ? (
               <Button
-                label={"Join"}
-                action={() => joinCommunityAction(communityId)}
+                label={`Leave`}
+                style={"warning"}
+                action={() => leaveCommunityAction(communityId)}
               />
-            )}
-          </div>
+            ) : (
+                <Button
+                  label={"Join"}
+                  action={() => joinCommunityAction(communityId)}
+                />
+              )}
+            </div>
             
         </div>
-<div >
-              <SearchBar
-                bType={"submit"}
-                btnAction={searchForItem}
-                searchFieldLabel={"Find an Item"}
-                change={handleSearchChange}
-                value={findItemValue}
-              />
-            </div>
+        <div >
+          <SearchBar
+            bType={"submit"}
+            btnAction={searchForItem}
+            searchFieldLabel={"Find an Item"}
+            change={handleSearchChange}
+            value={findItemValue}
+          />
         </div>
-      
+    </div>
+      </div>
       {myCommunityItems.length === 0 ? (
         <p>There are no items in this community</p>
       ) : (
