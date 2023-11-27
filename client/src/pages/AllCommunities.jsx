@@ -138,6 +138,7 @@ export default function AllCommunities() {
     <div className="container">
       <div className="scroll-smooth sticky top-0 bg-neu-2  ">
         <PageHeader
+
         icon={"fa-solid fa-users"}
         label="All Communities"
         hasButton={isLogged && true}
