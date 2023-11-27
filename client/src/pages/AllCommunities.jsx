@@ -148,17 +148,9 @@ export default function AllCommunities() {
         <SearchBar
           bType={"submit"}
           btnAction={searchForCommunity}
-          body={
-            <>
-              <input
-                type="text"
-                placeholder="Find a Community"
-                value={findCommunityValue}
-                onChange={handleSearchChange}
-                className="w-100 h-7 pl-10 text-left"
-              />
-            </>
-          }
+          searchFieldLabel={"Find a Community"}
+          change={handleSearchChange}
+          value={findCommunityValue}
         />
       </div>
     </div>

@@ -20,7 +20,7 @@ export default function TextArea({ name, label, value, onChange }) {
   return (
     <div className={`flex flex-col`}>
       <label
-        className={`transition duration-300  text-med mb-1 p-1 w-fit absolute ml-3 ${
+        className={`pointer-events-none transition duration-300  text-med mb-1 p-1 w-fit absolute ml-3 ${
           isFocused || hasValue
             ? "-translate-y-[10px] bg-neu-0 text-pri-5"
             : `translate-y-[14px] text-neu-6`
