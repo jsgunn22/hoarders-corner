@@ -135,7 +135,7 @@ export default function AllCommunities() {
   const myUserId = isLogged && Auth.getProfile().authenticatedPerson._id;
 
   return (
-    <div className="container">
+    <div className="w-full">
       <PageHeader
         icon={"fa-solid fa-users"}
         label="All Communities"
@@ -147,15 +147,9 @@ export default function AllCommunities() {
         <SearchBar
           bType={"submit"}
           btnAction={searchForCommunity}
-          body={
-            <input
-              type="text"
-              placeholder="Find a Community"
-              value={findCommunityValue}
-              onChange={handleSearchChange}
-              className="w-100 h-7 pl-10 text-left"
-            />
-          }
+          searchFieldLabel={"Find a Community"}
+          change={handleSearchChange}
+          value={findCommunityValue}
         />
         <div className="flex flex-col gap-4">
           {communities.map((c, i) => (

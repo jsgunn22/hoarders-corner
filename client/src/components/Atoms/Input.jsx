@@ -27,10 +27,10 @@ export default function Input({ label, type, name, value, change, warning }) {
   return (
     <div>
       <label
-        className={`transition duration-300  text-med mb-1 p-1 w-fit absolute ml-3 ${
+        className={` pointer-events-none transition duration-300  text-med mb-1 p-1 w-fit absolute ml-3 ${
           isFocused || hasValue
             ? "-translate-y-[10px] bg-neu-0 text-pri-5"
-            : `translate-y-[14px] text-neu-6`
+            : `translate-y-[8px] text-neu-6`
         }`}
       >
         {label}
@@ -39,7 +39,7 @@ export default function Input({ label, type, name, value, change, warning }) {
         type={type}
         name={name}
         value={value}
-        className={`border-2 rounded-md bg-neu-0 ${
+        className={`text-med border-2 rounded-md bg-neu-0 max-h-10 ${
           emptyError && warning ? "border-dan-5" : "border-neu-5"
         }  focus:border-pri-5 focus:outline-none p-3 w-full`}
         onFocus={handleFocus}

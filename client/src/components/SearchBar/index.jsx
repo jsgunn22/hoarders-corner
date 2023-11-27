@@ -1,24 +1,29 @@
-import { useState } from 'react';
+import { useState } from "react";
 import Button from "../Atoms/Button";
+import Input from "../Atoms/Input";
 
-// When implementing the prop "body" it needs to be an input element to 
+// When implementing the prop "body" it needs to be an input element to
 // to able to use a useState on our search
 // can reference the call of modal in AllCommunities page
 
 export default function SearchBar({
-    btnAction,
-    bType,
-    body
-
+  btnAction,
+  bType,
+  searchFieldLabel,
+  change,
+  value,
 }) {
-    return (
-        <div className='flex justify-center mb-4 '>
-            <div className="mr-1 " >
-                {body}
-            </div>
-            <div>
-                <Button  label="Search" action={btnAction} type={bType} />
-            </div>
-        </div>
-    )
+  return (
+    <div className="flex  mb-4 ">
+      <div className="mr-2">
+        <Input
+          label={searchFieldLabel}
+          change={change}
+          type={"text"}
+          value={value}
+        />
+      </div>
+      <Button label="Search" action={btnAction} type={bType} />
+    </div>
+  );
 }

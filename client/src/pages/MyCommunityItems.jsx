@@ -1,9 +1,9 @@
 import { useQuery, useMutation } from "@apollo/client";
 import {
   QUERY_COMMUNITY_ITEMS,
-  QUERY_MY_MESSAGES, 
+  QUERY_MY_MESSAGES,
   QUERY_COMMUNITIES,
-  QUERY_USERS
+  QUERY_USERS,
 } from "../utils/queries";
 import { useParams } from "react-router-dom";
 import Button from "../components/Atoms/Button";
@@ -21,14 +21,13 @@ import CreateItemForm from "../components/CreateItemForm/CreateItemForm";
 import { Link } from "react-router-dom";
 import SearchBar from "../components/SearchBar";
 
-
 function IndividualItem({ name, description, owner, _id, openMessageModal }) {
   return (
-    <div className="border-b-[1px] border-opac-neu  py-2 px-4 flex w-full">
-      <div className="flex w-full px-3 py-3">{name}</div>
-      <div className="flex w-full px-3 py-3">{description}</div>
-      <div className="flex w-full py-3">{owner}</div>
-      <div className="flex w-full py-3">
+    <div className="border-b-[1px] border-opac-neu  py-2  flex w-full">
+      <div className="flex min-w-[204px] px-6 py-3">{name}</div>
+      <div className="flex w-full px-6 py-3">{description}</div>
+      <div className="flex min-w-[204px] text-left px-6 py-3">{owner}</div>
+      <div className="flex min-w-[184px] justify-end py-3 px-6">
         <Button label="Message Owner" action={() => openMessageModal(owner)} />
       </div>
     </div>
@@ -117,8 +116,6 @@ export default function MyCommunityItems() {
   const { loading, data, error } = useQuery(QUERY_COMMUNITY_ITEMS, {
     variables: { communityId: communityId },
   });
-  
-
 
   if (loading) return <p>Loading..</p>;
   if (error) return <p>Error</p>;
@@ -128,10 +125,10 @@ export default function MyCommunityItems() {
   const joinedCommunity = data?.itemByCommunity.users.some(
     (user) => user._id === Auth.getProfile().authenticatedPerson._id
   );
- 
-  const myCommunityItems= data?.itemByCommunity.items.filter( (item) => item.owner === Auth.getProfile().authenticatedPerson.username);
 
- 
+  const myCommunityItems = data?.itemByCommunity.items.filter(
+    (item) => item.owner === Auth.getProfile().authenticatedPerson.username
+  );
 
   const openMessageModal = (data) => {
     setMessageModalState(true);
@@ -174,18 +171,18 @@ export default function MyCommunityItems() {
       alert("You have items in this community. Please remove them first");
       return;
     } else {
-    try {
-      const { data } = await leaveCommunity({ variables: { communityId } });
-    } catch (error) {
-      console.error(error);
-    }
+      try {
+        const { data } = await leaveCommunity({ variables: { communityId } });
+      } catch (error) {
+        console.error(error);
+      }
 
-    if (communityId) {
-      alert(`You are no longer following`);
-    } else if (!communityId) {
-      alert("Didn't successfully leave");
+      if (communityId) {
+        alert(`You are no longer following`);
+      } else if (!communityId) {
+        alert("Didn't successfully leave");
+      }
     }
-  }
   };
 
   const handleSearchChange = (event) => {
@@ -198,26 +195,23 @@ export default function MyCommunityItems() {
       // checks for a matching value in the query's Communities.items.name values
       const itemInCommunity = data?.itemByCommunity.items.some(
         (name) => name.name === findItemValue
-      )
+      );
       const publicItem = data?.itemByCommunity.items.find(
         (item) => item.name === findItemValue
-      )
+      );
 
-      if (itemInCommunity === true && publicItem.isPublic === true ) {
+      if (itemInCommunity === true && publicItem.isPublic === true) {
         const item = data?.itemByCommunity.items.find(
           (name) => name.name === `${findItemValue}`
-        )
-        setRenderOneItem(item)
-      } else if (itemInCommunity === false || publicItem.isPublic === false ) {
-        alert("Item not found or isn't public")
+        );
+        setRenderOneItem(item);
+      } else if (itemInCommunity === false || publicItem.isPublic === false) {
+        alert("Item not found or isn't public");
       }
-      
     } catch (error) {
       console.log(error);
     }
   };
-
-  
 
   return (
     <>
@@ -225,6 +219,7 @@ export default function MyCommunityItems() {
         {/* <Button icon={`fa-solid fa-arrow-left`} /> */}
         <PageHeader
           label={`${data.itemByCommunity.name}`}
+          icon={"fa-solid fa-users"}
           hasButton={joinedCommunity}
           btnLabel={`Add Item`}
           btnAction={openCreateItemModal}
@@ -244,65 +239,70 @@ export default function MyCommunityItems() {
           )}
         </div>
       </div>
-
-      <div className="p-8 overflow-auto relative w-full">
-        <div>
-        <SearchBar
-          bType={"submit"}
-          btnAction={searchForItem}
-          body={
-            <input
-              type="text"
-              placeholder="Find an Item"
-              value={findItemValue}
-              onChange={handleSearchChange}
-              className="w-100 h-7 pl-10 text-left"
-            />
-          }
-        />
-        </div>
-        <div className="w-full border-x border-y rounded-lg w-full shadow-lg border-b-[1px] border-opac-neu bg-white border-collapse bg-neu-0">
-          <div className= "text-neu-7 h-10  border-b-[1px] border-opac-neu ">
-            <div className="flex">
-              <div className="w-full text-h3 font-bold text-neu-7 px-3 py-3">Name</div>
-              <div className="w-full text-h3 font-bold text-neu-7 px-3 py-3">
-                Description
+      {myCommunityItems.length === 0 ? (
+        <p>There are no items in this community</p>
+      ) : (
+        <>
+          <div className=" relative w-full">
+            <div>
+              <SearchBar
+                bType={"submit"}
+                btnAction={searchForItem}
+                searchFieldLabel={"Find an Item"}
+                change={handleSearchChange}
+                value={findItemValue}
+              />
+            </div>
+            <div className="w-full  rounded-lg w-full shadow-lg border-b-[1px] border-opac-neu bg-white border-collapse bg-neu-0">
+              <div className="text-neu-7 h-10  border-b-[1px] border-opac-neu ">
+                <div className="flex font-bold">
+                  <div className="min-w-[204px] text-left px-6 py-1.5">
+                    Name
+                  </div>
+                  <div className="w-full text-left px-6 py-1.5">
+                    Description
+                  </div>
+                  <div className="min-w-[204px] text-left px-6 py-1.5">
+                    Owner
+                  </div>
+                  <div className="min-w-[184px] text-right text-neu-7 px-6 py-3 py-1.5">
+                    Message Owner
+                  </div>
+                </div>
               </div>
-              <div className="w-full text-h3 font-bold text-neu-7 px-3 py-3">Owner</div>
-              <div className="w-full text-h3 font-bold text-neu-7 px-3 py-3">Message Owner</div>
+              {renderOneItem ? (
+                <IndividualItem
+                  openMessageModal={openMessageModal}
+                  _id={renderOneItem._id}
+                  name={renderOneItem.name}
+                  description={renderOneItem.description}
+                  owner={renderOneItem.owner}
+                />
+              ) : communityItems.length === 0 ? (
+                <p className="border font-bold py-2 px-4 flex w-full text-center">
+                  No items in this community
+                </p>
+              ) : (
+                <div>
+                  {communityItems.map(
+                    (item, index) =>
+                      item.isPublic && (
+                        <IndividualItem
+                          openMessageModal={openMessageModal}
+                          _id={item._id}
+                          name={item.name}
+                          description={item.description}
+                          owner={item.owner}
+                          key={index}
+                        />
+                      )
+                  )}
+                </div>
+              )}
             </div>
           </div>
-          {renderOneItem  ? (
-            <IndividualItem
-              openMessageModal={openMessageModal}
-              _id={renderOneItem._id}
-              name={renderOneItem.name}
-              description={renderOneItem.description}
-              owner={renderOneItem.owner}
-            />
-          ) : (
-          communityItems.length === 0 ? ( 
-            <p className="border font-bold py-2 px-4 flex w-full text-center">No items in this community</p>
-          ) : (
-          <div>
-            {communityItems.map(
-              (item, index) =>
-                item.isPublic && (
-                  <IndividualItem
-                    openMessageModal={openMessageModal}
-                    _id={item._id}
-                    name={item.name}
-                    description={item.description}
-                    owner={item.owner}
-                    key={index}
-                  />
-                )
-            )}
-          </div>
-          )
-          )}
-        </div>
-      </div>
+        </>
+      )}
 
       {messageModalState && (
         <MessageModal name={messageModalData} closeModal={closeMessageModal} />

@@ -10,6 +10,7 @@ import { setContext } from "@apollo/client/link/context";
 // import Navbar from "./components/Navbar";
 import LeftNav from "./components/LeftNav/LeftNav";
 import { UserProvider } from "./utils/userContext";
+import MobileNav from "./components/MobileNav/MobileNav";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -35,12 +36,15 @@ function App() {
     <>
       {/* ApolloProvider adds support for graphql management */}
       <ApolloProvider client={client}>
-        <div className="flex bg-neu-2">
+        <div className="lg:flex bg-neu-2 h-screen">
           <UserProvider>
-            <LeftNav />
-
-            <div className="w-full mx-8 my-6">
-              {/* Primary rendering area */}
+            <div className="lg:hidden">
+              <MobileNav />
+            </div>
+            <div className="lg:block hidden">
+              <LeftNav hasHeader={true} />
+            </div>
+            <div className="lg:w-full mx-8 my-6 h-full">
               <Outlet />
             </div>
           </UserProvider>

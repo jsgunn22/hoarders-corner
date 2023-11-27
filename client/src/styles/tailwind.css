@@ -568,6 +568,10 @@ video {
   }
 }
 
+.pointer-events-none {
+  pointer-events: none;
+}
+
 .absolute {
   position: absolute;
 }
@@ -580,6 +584,10 @@ video {
   position: sticky;
 }
 
+.-left-\[290px\] {
+  left: -290px;
+}
+
 .left-0 {
   left: 0px;
 }
@@ -590,6 +598,18 @@ video {
 
 .top-1 {
   top: 0.25rem;
+}
+
+.top-\[\] {
+  top: ;
+}
+
+.top-\[56px\] {
+  top: 56px;
+}
+
+.z-10 {
+  z-index: 10;
 }
 
 .mx-8 {
@@ -631,6 +651,10 @@ video {
   margin-right: 0.5rem;
 }
 
+.mr-4 {
+  margin-right: 1rem;
+}
+
 .mr-auto {
   margin-right: auto;
 }
@@ -653,6 +677,10 @@ video {
 
 .table {
   display: table;
+}
+
+.hidden {
+  display: none;
 }
 
 .h-0 {
@@ -679,10 +707,6 @@ video {
   height: 1.5rem;
 }
 
-.h-7 {
-  height: 1.75rem;
-}
-
 .h-8 {
   height: 2rem;
 }
@@ -698,6 +722,10 @@ video {
 
 .h-screen {
   height: 100vh;
+}
+
+.max-h-10 {
+  max-height: 2.5rem;
 }
 
 .w-24 {
@@ -731,6 +759,14 @@ video {
 
 .min-w-\[128px\] {
   min-width: 128px;
+}
+
+.min-w-\[184px\] {
+  min-width: 184px;
+}
+
+.min-w-\[204px\] {
+  min-width: 204px;
 }
 
 .min-w-\[208px\] {
@@ -775,6 +811,11 @@ video {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
+.translate-y-\[8px\] {
+  --tw-translate-y: 8px;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
 .cursor-pointer {
   cursor: pointer;
 }
@@ -789,10 +830,6 @@ video {
 
 .justify-end {
   justify-content: flex-end;
-}
-
-.justify-center {
-  justify-content: center;
 }
 
 .gap-1 {
@@ -837,16 +874,6 @@ video {
 
 .border-2 {
   border-width: 2px;
-}
-
-.border-x {
-  border-left-width: 1px;
-  border-right-width: 1px;
-}
-
-.border-y {
-  border-top-width: 1px;
-  border-bottom-width: 1px;
 }
 
 .border-b-2 {
@@ -947,6 +974,16 @@ video {
   padding-right: 2rem;
 }
 
+.py-1 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.py-1\.5 {
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
+}
+
 .py-2 {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
@@ -964,10 +1001,6 @@ video {
 
 .pb-4 {
   padding-bottom: 1rem;
-}
-
-.pl-10 {
-  padding-left: 2.5rem;
 }
 
 .pl-3 {
@@ -988,6 +1021,18 @@ video {
 
 .pt-0\.5 {
   padding-top: 0.125rem;
+}
+
+.pt-14 {
+  padding-top: 3.5rem;
+}
+
+.pt-16 {
+  padding-top: 4rem;
+}
+
+.pt-20 {
+  padding-top: 5rem;
 }
 
 .text-left {
@@ -1070,6 +1115,12 @@ video {
   color: rgb(144 110 70 / var(--tw-text-opacity));
 }
 
+.shadow-2xl {
+  --tw-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  --tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
 .shadow-lg {
   --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
@@ -1090,6 +1141,12 @@ video {
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.transition-transform {
+  transition-property: transform;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
@@ -1152,10 +1209,6 @@ video {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
-.focus\:scroll-auto:focus {
-  scroll-behavior: auto;
-}
-
 .focus\:border-pri-5:focus {
   --tw-border-opacity: 1;
   border-color: rgb(135 46 184 / var(--tw-border-opacity));
@@ -1179,4 +1232,56 @@ video {
 .active\:bg-war-9:active {
   --tw-bg-opacity: 1;
   background-color: rgb(144 110 70 / var(--tw-bg-opacity));
+}
+
+@media (min-width: 640px) {
+  .sm\:bg-dan-5 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(253 89 89 / var(--tw-bg-opacity));
+  }
+}
+
+@media (min-width: 768px) {
+  .md\:block {
+    display: block;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:my-6 {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .lg\:mt-14 {
+    margin-top: 3.5rem;
+  }
+
+  .lg\:mt-10 {
+    margin-top: 2.5rem;
+  }
+
+  .lg\:block {
+    display: block;
+  }
+
+  .lg\:flex {
+    display: flex;
+  }
+
+  .lg\:hidden {
+    display: none;
+  }
+
+  .lg\:w-full {
+    width: 100%;
+  }
+
+  .lg\:pt-14 {
+    padding-top: 3.5rem;
+  }
+
+  .lg\:pt-0 {
+    padding-top: 0px;
+  }
 }
