@@ -104,7 +104,8 @@ export default function LeftNav({ hasHeader }) {
 
   return (
     <>
-      <div className="bg-neu-0 h-full min-w-[290px] max-w-[290px] scroll-smooth sticky top-0 navbar">
+    <div className="scroll-smooth sticky top-0 navbar h-full">
+      <div className="bg-neu-0 h-full min-w-[290px] max-w-[290px] ">
         {hasHeader && (
           <div className="h-14 bg-opac-pri flex px-4 py-4 items-center ">
             <i className="fa-solid fa-box text-h3 text-pri-5 mr-2"></i>
@@ -134,6 +135,7 @@ export default function LeftNav({ hasHeader }) {
             <SignupForm />
           </div>
         )}
+      </div>
       </div>
     </>
   );

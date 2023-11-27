@@ -215,7 +215,8 @@ export default function MyCommunityItems() {
 
   return (
     <>
-      <div className="flex w-full items-center h-fit">
+      <div className= "scroll-smooth sticky top-0 bg-neu-2  ">
+      <div className="flex w-full items-center h-fit ">
         {/* <Button icon={`fa-solid fa-arrow-left`} /> */}
         <PageHeader
           label={`${data.itemByCommunity.name}`}
@@ -238,14 +239,9 @@ export default function MyCommunityItems() {
               />
             )}
           </div>
+            
         </div>
-      
-      {myCommunityItems.length === 0 ? (
-        <p>There are no items in this community</p>
-      ) : (
-        <>
-          <div className=" relative w-full">
-            <div>
+<div >
               <SearchBar
                 bType={"submit"}
                 btnAction={searchForItem}
@@ -254,6 +250,14 @@ export default function MyCommunityItems() {
                 value={findItemValue}
               />
             </div>
+        </div>
+      
+      {myCommunityItems.length === 0 ? (
+        <p>There are no items in this community</p>
+      ) : (
+        <>
+          <div className=" relative w-full">
+            
             <div className="w-full  rounded-lg w-full shadow-lg border-b-[1px] border-opac-neu bg-white border-collapse bg-neu-0">
               <div className="text-neu-7 h-10  border-b-[1px] border-opac-neu ">
                 <div className="flex font-bold">
