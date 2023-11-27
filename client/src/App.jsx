@@ -36,7 +36,7 @@ function App() {
     <>
       {/* ApolloProvider adds support for graphql management */}
       <ApolloProvider client={client}>
-        <div className="lg:flex bg-neu-2">
+        <div className="lg:flex bg-neu-2 h-screen">
           <UserProvider>
             <div className="lg:hidden">
               <MobileNav />
@@ -44,7 +44,7 @@ function App() {
             <div className="lg:block hidden">
               <LeftNav hasHeader={true} />
             </div>
-            <div className="w-full mx-8 my-6">
+            <div className="lg:w-full mx-8 my-6 h-full">
               <Outlet />
             </div>
           </UserProvider>

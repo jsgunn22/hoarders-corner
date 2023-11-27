@@ -53,7 +53,7 @@ export default function CommunityRow({
   };
 
   return (
-    <div className="w-full bg-neu-0 h-16 flex rounded-lg shadow-md hover:shadow-lg cursor-pointer ">
+    <div className="w-full bg-neu-0 h-16 flex rounded-lg shadow-md hover:shadow-lg cursor-pointer">
       <div className="px-6 flex items-center w-full">
         <Link className="flex items-center" to={`/communities/${_id}`}>
           <h3 className="text-h3 font-bold text-pri-5 mr-1">{name}</h3>
