@@ -5,7 +5,7 @@ import SignupForm from "./SignupForm";
 import { Link, useLocation } from "react-router-dom";
 import Button from "../Atoms/Button";
 
-import { QUERY_MY_HOARDS, QUERY_MY_MESSAGES } from "../../utils/queries";
+import { QUERY_MY_HOARDS, QUERY_MY_MESSAGES, QUERY_COMMUNITIES } from "../../utils/queries";
 import { useQuery } from "@apollo/client";
 
 import { useUserContext } from "../../utils/userContext";
@@ -77,8 +77,15 @@ function SectionLabel({ label }) {
   );
 }
 
-function NavLink({ to, label }) {
+function NavLink({ to, label, refetch }) {
   const currentPage = useLocation().pathname;
+  const { loading, data, error } = useQuery(QUERY_COMMUNITIES);
+
+  const handleClick = () => {
+    if (refetch) {
+      refetch();
+    }
+  };
 
   return (
     <div className="h-10 ">
@@ -89,6 +96,7 @@ function NavLink({ to, label }) {
             : "text-neu-7 "
         }`}
         to={to}
+        onClick={handleClick}
       >
         {label}
       </Link>
@@ -101,6 +109,8 @@ export default function LeftNav({ hasHeader }) {
     event.preventDefault();
     Auth.logout();
   };
+
+  const { refetch } = useQuery(QUERY_COMMUNITIES);
 
   return (
     < >
@@ -124,7 +134,7 @@ export default function LeftNav({ hasHeader }) {
             <div className="flex-grow overflow-auto">
               <MessagesTab />
               <SectionLabel label="Communities" />
-              <NavLink label="All Communities" to="/" />
+              <NavLink label="All Communities" to="/" refetch={refetch} />
               <NavLink label="My Communities" to="/my-communities" />
               <MyHoards />
             </div>
