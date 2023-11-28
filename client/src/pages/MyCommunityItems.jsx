@@ -171,7 +171,10 @@ export default function MyCommunityItems() {
 
   const leaveCommunityAction = async (communityId) => {
     //only leave community if I have no items in it
-    if (myCommunityItems.length > 0) {
+    const iHaveItems = myCommunityItems.filter(
+      (item) => item.owner === Auth.getProfile().authenticatedPerson.username
+    );
+    if (iHaveItems.length > 0) {
       alert("You have items in this community. Please remove them first");
       return;
     } else {
