@@ -44,16 +44,16 @@ Deploy the live application via [Heroku Application](https://smell-o-scope-fing-
 ## Usage
 
 On the front page of Hoarder's corner a user will see a list of communities and the option to log in or sign up
-![Hoarder's Corner log In](put open closed <> then assets/file name)
+![Hoarder's Corner log In](./assets/login-signup.png)
 
-To view a list of a user's communities, click on "my communities"
-![A list of my communities](put open closed <> then assets/file name)
+To view a list of all public items in a community, click on the community name.
+![A list of my communities](./assets/books.png)
 
 To view a list of items in each of the user's communities click on the community on the left hand side under "My Hoards"
-![A list of items in a user's community](put open closed <> then assets/file name)
+![A list of items in a user's community](./assets/myhoard-pokemon.png)
 
-To view sent and received messages and reply to a sent message, click on the "Messages in the left hand column"
-![Messages](put open closed <> then assets/file name)
+To view sent and received messages and reply to a sent message, click on "Messages" in the left hand column
+![Messages](./assets/messages.png)
 
 ## Contributing
 
