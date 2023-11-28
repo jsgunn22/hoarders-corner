@@ -5,7 +5,7 @@ import {
   QUERY_COMMUNITIES,
   QUERY_USERS,
 } from "../utils/queries";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Button from "../components/Atoms/Button";
 import {
   SEND_MESSAGE,
@@ -97,6 +97,8 @@ export default function MyCommunityItems() {
     );
   }
 
+  const navigate = useNavigate();
+
   const [messageModalState, setMessageModalState] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [messageModalData, setMessageModalData] = useState();
@@ -129,6 +131,10 @@ export default function MyCommunityItems() {
   const myCommunityItems = data?.itemByCommunity.items.filter(
     (item) => item.owner === Auth.getProfile().authenticatedPerson.username
   );
+
+    const handleGoBack = () => {
+    navigate(-1);
+  };
 
   const openMessageModal = (data) => {
     setMessageModalState(true);
@@ -219,6 +225,7 @@ export default function MyCommunityItems() {
     
       <div className="scroll-smooth sticky top-0 bg-neu-2 ">
         <div className="flex w-full items-center h-fit ">
+          <Button action={handleGoBack} icon={`fa-solid fa-arrow-left`} />
           {/* <Button icon={`fa-solid fa-arrow-left`} /> */}
           <PageHeader
             label={`${data.itemByCommunity.name}`}
