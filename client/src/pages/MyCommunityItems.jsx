@@ -128,11 +128,9 @@ export default function MyCommunityItems() {
     (user) => user._id === Auth.getProfile().authenticatedPerson._id
   );
 
-  const myCommunityItems = data?.itemByCommunity.items.filter(
-    (item) => item.owner === Auth.getProfile().authenticatedPerson.username
-  );
+  const myCommunityItems = data?.itemByCommunity.items;
 
-    const handleGoBack = () => {
+  const handleGoBack = () => {
     navigate(-1);
   };
 
@@ -221,8 +219,6 @@ export default function MyCommunityItems() {
 
   return (
     <>
-
-    
       <div className="scroll-smooth sticky top-0 bg-neu-2 ">
         <div className="flex w-full items-center h-fit ">
           <Button action={handleGoBack} icon={`fa-solid fa-arrow-left`} />
@@ -242,15 +238,14 @@ export default function MyCommunityItems() {
                 action={() => leaveCommunityAction(communityId)}
               />
             ) : (
-                <Button
-                  label={"Join"}
-                  action={() => joinCommunityAction(communityId)}
-                />
-              )}
-            </div>
-            
+              <Button
+                label={"Join"}
+                action={() => joinCommunityAction(communityId)}
+              />
+            )}
+          </div>
         </div>
-        <div >
+        <div>
           <SearchBar
             bType={"submit"}
             btnAction={searchForItem}
@@ -259,8 +254,7 @@ export default function MyCommunityItems() {
             value={findItemValue}
           />
         </div>
-    </div>
-      
+      </div>
 
       {myCommunityItems.length === 0 ? (
         <p>There are no items in this community</p>
@@ -329,7 +323,6 @@ export default function MyCommunityItems() {
           communityId={communityId}
         />
       )}
-      
     </>
   );
 }
