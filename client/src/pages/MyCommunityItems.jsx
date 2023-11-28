@@ -219,11 +219,14 @@ export default function MyCommunityItems() {
       console.log(error);
     }
   };
+  const headingStyle = {
+    zIndex: 500
+  }
 
   return (
     <>
-      <div className="scroll-smooth sticky top-0 bg-neu-2 ">
-        <div className="flex w-full items-center h-fit ">
+      <div className="scroll-smooth sticky top-0 bg-neu-2 z-500 " style={headingStyle}>
+          <div className="flex w-full items-center h-fit ">
           <Button action={handleGoBack} icon={`fa-solid fa-arrow-left`} />
           {/* <Button icon={`fa-solid fa-arrow-left`} /> */}
           <PageHeader
