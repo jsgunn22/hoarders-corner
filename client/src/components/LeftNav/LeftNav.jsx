@@ -5,7 +5,12 @@ import SignupForm from "./SignupForm";
 import { Link, useLocation } from "react-router-dom";
 import Button from "../Atoms/Button";
 
-import { QUERY_MY_HOARDS, QUERY_MY_MESSAGES, QUERY_COMMUNITIES, QUERY_MY_COMMUNITIES } from "../../utils/queries";
+import {
+  QUERY_MY_HOARDS,
+  QUERY_MY_MESSAGES,
+  QUERY_COMMUNITIES,
+  QUERY_MY_COMMUNITIES,
+} from "../../utils/queries";
 import { useQuery } from "@apollo/client";
 
 import { useUserContext } from "../../utils/userContext";
@@ -82,7 +87,6 @@ function NavLink({ to, label, refetch }) {
   const { loading, data, error } = useQuery(QUERY_COMMUNITIES);
   // const { loading, data, error } = useQuery(QUERY_MY_COMMUNITIES);
 
-
   const handleClick = () => {
     if (refetch) {
       refetch();
@@ -113,46 +117,50 @@ export default function LeftNav({ hasHeader }) {
   };
 
   const { refetch } = useQuery(QUERY_COMMUNITIES);
-  const { refetch: myCommsRefetch} = useQuery(QUERY_MY_COMMUNITIES);
-  
+  const { refetch: myCommsRefetch } = useQuery(QUERY_MY_COMMUNITIES);
+
   return (
-    < >
-    <div className="container h-full">
-    <div className="scroll-smooth sticky top-0 bg-neu-2 ">
-      
-      <div className="bg-neu-0 h-full min-w-[290px] max-w-[290px] ">
+    <>
+      <div className="container h-full">
+        <div className="scroll-smooth sticky top-0 bg-neu-2 ">
+          <div className="bg-neu-0 h-full min-w-[290px] max-w-[290px] ">
+            {hasHeader && (
+              <div className="h-14 bg-opac-pri flex px-4 py-4 items-center ">
+                <i className="fa-solid fa-box text-h3 text-pri-5 mr-2"></i>
+                <h2 className="text-h2 font-bold text-neu-9">
+                  Hoarder's Corner
+                </h2>
+              </div>
+            )}
 
-        {hasHeader && (
-          <div className="h-14 bg-opac-pri flex px-4 py-4 items-center ">
-            <i className="fa-solid fa-box text-h3 text-pri-5 mr-2"></i>
-            <h2 className="text-h2 font-bold text-neu-9">Hoarder's Corner</h2>
+            {Auth.loggedIn() ? (
+              <div
+                className="h-full flex flex-col"
+                style={{ height: "calc(100vh - 56px)" }}
+              >
+                <div className="flex-grow overflow-auto">
+                  <MessagesTab />
+                  <SectionLabel label="Communities" />
+                  <NavLink label="All Communities" to="/" refetch={refetch} />
+                  <NavLink
+                    label="My Communities"
+                    to="/my-communities"
+                    refetch={myCommsRefetch}
+                  />
+                  <MyHoards />
+                </div>
+                <div className="w-full bg-neu-0 px-4 py-2 border-t-2 border-opac-neu flex-shrink">
+                  <Button label="Log Out" style="w-full" action={logout} />
+                </div>
+              </div>
+            ) : (
+              <div id="left-nav-login" className="h-screen">
+                <LoginForm />
+                <SignupForm />
+              </div>
+            )}
           </div>
-        )}
-
-        {Auth.loggedIn() ? (
-          <div
-            className="h-full flex flex-col"
-            style={{ height: "calc(100vh - 56px)" }}
-          >
-            <div className="flex-grow overflow-auto">
-              <MessagesTab />
-              <SectionLabel label="Communities" />
-              <NavLink label="All Communities" to="/" refetch={refetch} />
-              <NavLink label="My Communities" to="/my-communities" refetch={myCommsRefetch} />
-              <MyHoards />
-            </div>
-            <div className="w-full bg-neu-0 px-4 py-2 border-t-2 border-opac-neu flex-shrink">
-              <Button label="Log Out" style="w-full" action={logout} />
-            </div>
-          </div>
-        ) : (
-          <div id="left-nav-login">
-            <LoginForm />
-            <SignupForm />
-          </div>
-        )}
-      </div>
-      </div>
+        </div>
       </div>
     </>
   );
