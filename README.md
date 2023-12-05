@@ -69,4 +69,4 @@ If you have any questions or problems with Hoarder's Corner, please create an is
 
 ## Assets
 
-#### [Github Repository](https://github.com/jsgunn22/smell-o-scope) | [Heroku Deployed Application](https://smell-o-scope-fing-longer-8a61e2b82a17.herokuapp.com/) | [Render Deployed Application](https://hoarders-corner.onrender.com/)
+#### [Github Repository](https://github.com/jsgunn22/smell-o-scope) | [Render Deployed Application](https://hoarders-corner.onrender.com/)
